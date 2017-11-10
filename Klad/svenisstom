@@ -1,0 +1,28 @@
+Vertices of graph:
+['a', 'b', 'c', 'd', 'e', 'f']
+
+Edges of graph:
+[{'d', 'a'}, {'c', 'b'}, {'c'}, {'c', 'd'}, {'c', 'e'}]
+
+Add vertex:
+Vertices of graph:
+['a', 'b', 'c', 'd', 'e', 'f', 'z']
+
+Add an edge:
+Vertices of graph:
+['a', 'b', 'c', 'd', 'e', 'f', 'z']
+
+Edges of graph:
+[{'d', 'a'}, {'c', 'b'}, {'c'}, {'c', 'd'}, {'c', 'e'}, {'z', 'a'}]
+
+Adding an edge {"x","y"} with new vertices:
+Vertices of graph:
+['a', 'b', 'c', 'd', 'e', 'f', 'z', 'y']
+
+Edges of graph:
+[{'d', 'a'}, {'c', 'b'}, {'c'}, {'c', 'd'}, {'c', 'e'}, {'z', 'a'}, {'y', 'x'}]
+
+add_node
+add_connection
+draw
+time
