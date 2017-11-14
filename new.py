@@ -1,6 +1,5 @@
 import csv
 
-
 def CalculateScore(trajecten, criticalConnections):
     """Function to compute the score"""
 
@@ -20,9 +19,9 @@ def CalculateScore(trajecten, criticalConnections):
                     critical_connection += 1
 
     percentage = critical_connection/len(criticalConnections) * 100
-    print(percentage)
-    print(minutes)
-    print(len(trajecten))
+    # print(percentage)
+    # print(minutes)
+    # print(len(trajecten))
     score = percentage*10000 - (trains*20 + minutes/100000)
     return score
 
@@ -54,6 +53,26 @@ def make_all_routes(graph, start, end, route=[], time=0):
                 for new_route in new_routes:
                     routes.append(new_route)
     return routes
+
+
+best_trajectories = []
+best150paths = []
+best150scores = []
+score = 0
+def determine_trajectories(critical_connections, score, traject = [], depth=0):
+    if depth >= 3:
+        new_score = CalculateScore(traject, critical_connections)
+        if new_score > score:
+            score = new_score
+            print("hoi", score)
+            best_trajectories = traject
+            return score
+
+    else:
+        for path in best150paths:
+            traject.append(path)
+            determine_trajectories(critical_connections, score, traject, depth+1)
+    return
 
 
 def main():
@@ -93,7 +112,21 @@ def main():
         for j in range(i + 1, len(stationnames)):
             paths.extend(make_all_routes(graph, stationnames[i], stationnames[j]))
 
-    print("Score: ", CalculateScore(paths, critical_connections))
+
+    for path in paths:
+        score = CalculateScore([path], critical_connections)
+        if best150scores == [] or min(best150scores) < score:
+            if len(best150paths) < 150:
+                best150paths.append(path)
+                best150scores.append(score)
+            else:
+                index = best150scores.index(min(best150scores))
+                best150paths[index] = path
+                best150scores[index] = score
+
+    best_score = determine_trajectories(critical_connections, 0)
+    print("Best score: ", best_score)
+
 
 
 if __name__ == "__main__":
