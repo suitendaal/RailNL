@@ -93,3 +93,32 @@ def load_data():
 
     return critical_stations, critical_connections, graph, stationnames
 
+
+
+
+def add_paths(graph, stationnames):
+    paths = []
+    for i in range(len(stationnames)):
+        for j in range(i + 1, len(stationnames)):
+            paths.extend(make_all_routes(graph, stationnames[i], stationnames[j]))
+    return paths
+
+
+
+
+
+def ScorePaths(paths, critical_connections):
+    best150paths = []
+    best150scores = []
+    for path in paths:
+        score = CalculateScore([path], critical_connections)
+        if best150scores == [] or min(best150scores) < score:
+            if len(best150paths) < 9:
+                best150paths.append(path)
+                best150scores.append(score)
+            else:
+                index = best150scores.index(min(best150scores))
+                best150paths[index] = path
+                best150scores[index] = score
+
+    return best150paths, best150scores
