@@ -1,4 +1,5 @@
 import csv
+import copy
 
 def CalculateScore(trajecten, criticalConnections):
     """Function to compute the score"""
@@ -59,7 +60,7 @@ def make_all_routes(graph, start, end, route=[], time=0):
 
 
 
-def load_data():
+def load_data(stationsCsvFile, connectiesCsvFile):
 
     # List to store stations.
     graph = {}
@@ -69,7 +70,7 @@ def load_data():
 
     # List to store the names of the stations.
     stationnames = []
-    stationsfile = open('StationsHolland.csv', 'rt')
+    stationsfile = open(stationsCsvFile, 'rt')
     stations = csv.reader(stationsfile)
     for station in stations:
         stationnames.append(station[0])
@@ -82,7 +83,7 @@ def load_data():
     critical_connections = []
 
     # Add connections to the stations.
-    connecties = open('ConnectiesHolland.csv', 'rt')
+    connecties = open(connectiesCsvFile, 'rt')
     directions = csv.reader(connecties)
     for direction in directions:
         graph[direction[0]].append([direction[1], direction[2]])
@@ -105,15 +106,13 @@ def add_paths(graph, stationnames):
 
 
 
-
-
-def ScorePaths(paths, critical_connections):
+def ScorePaths(paths, critical_connections, n):
     best150paths = []
     best150scores = []
     for path in paths:
         score = CalculateScore([path], critical_connections)
         if best150scores == [] or min(best150scores) < score:
-            if len(best150paths) < 9:
+            if len(best150paths) < n:
                 best150paths.append(path)
                 best150scores.append(score)
             else:
@@ -122,3 +121,27 @@ def ScorePaths(paths, critical_connections):
                 best150scores[index] = score
 
     return best150paths, best150scores
+
+
+def getBestScore(paths, criticalConnections, maxDepth, newTraject=[], path=[], depth=0, bestScore=0, bestTraject=[], j=-1):
+
+    newTrajectCopy = copy.copy(newTraject)
+
+    if path != []:
+        newTrajectCopy.append(path)
+
+    if depth == maxDepth:
+        newBestScore = CalculateScore(newTrajectCopy, criticalConnections)
+        if newBestScore > bestScore:
+            bestScore = newBestScore
+            bestTraject = newTrajectCopy
+
+        return bestScore, bestTraject
+
+    for i in range(j + 1, len(paths)):
+        newBestScore, newBestTraject = getBestScore(paths, criticalConnections, maxDepth, newTrajectCopy, paths[i], depth+1, bestScore, bestTraject, i)
+        if newBestScore > bestScore:
+            bestScore = newBestScore
+            bestTraject = newBestTraject
+
+    return bestScore, bestTraject

@@ -1,23 +1,23 @@
-# best_trajectories = []
-# best150paths = []
-# best150scores = []
-# score = 0
-# def determine_trajectories(critical_connections, score, traject = [], depth=0):
-#     if depth >= 3:
-#         new_score = helpers.CalculateScore(traject, critical_connections)
-#         if new_score > score:
-#             score = new_score
-#             print("hoi", score)
-#             best_trajectories = traject
-#             return score
+best_trajectories = []
+best150paths = []
+best150scores = []
+score = 0
+def determine_trajectories(critical_connections, score, traject = [], depth=0):
+    if depth >= 3:
+        new_score = helpers.CalculateScore(traject, critical_connections)
+        if new_score > score:
+            score = new_score
+            print("hoi", score)
+            best_trajectories = traject
+            return score
 
-#     else:
-#         for path in best150paths:
-#             traject.append(path)
-#             print(traject)
-#             determine_trajectories(critical_connections, score, traject, depth+1)
+    else:
+        for path in best150paths:
+            traject.append(path)
+            print(traject)
+            determine_trajectories(critical_connections, score, traject, depth+1)
 
-#         return determine_trajectories(critical_connections, score, traject, depth+1)
+        return determine_trajectories(critical_connections, score, traject, depth+1)
 
 def bestTrajectoryScore(paths, critical_connections, depth, j=0, score=0, bestTrajectories = [], trajectories = [], trajectory = []):
 
