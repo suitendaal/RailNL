@@ -1,7 +1,6 @@
 import algoritm
 import csv
 import helpers
-import score
 
 def main():
 
