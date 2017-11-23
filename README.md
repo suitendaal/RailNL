@@ -24,7 +24,7 @@ treinen, dus geen kritieke sporen en geen gereden minuten. De upper bound van de
 999979.99714, deze is gebaseerd op de veronderstelling dat elk kritiek spoor aan elkaar verbonden is en dat je met 1 trein
 alle kritieke sporen kan bereiken in een (minimum) tijd van 287 minuten.
 
-De statespace hebben wij berekend op ongeveer 5 \* 10\^9. Dit getal komt voort uit 2223 (het totaal aantal mogelijke trajecten) 
+De statespace hebben wij berekend op ongeveer 5 \* 10\^19. Dit getal komt voort uit 2223 (het totaal aantal mogelijke trajecten) 
 kies 7. Dat is iets teveel om alles brute-force te controleren, omdat het dan erg lang zou duren. Daarom experimenteren wij nu met 
 pruning en algoritmes om daarmee de beste maximaal 7 trajecten te kiezen, die voor de hoogste score zorgen.
 
