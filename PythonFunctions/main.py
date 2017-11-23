@@ -5,8 +5,8 @@ import helpers
 def main():
 
     # Files with stations and connections.
-    stationsCsvFile = 'csvFiles/StationsHolland.csv'
-    connectiesCsvFile = 'csvFiles/ConnectiesHolland.csv'
+    stationsCsvFile = '~/workspace/csvFiles/StationsHolland.csv'
+    connectiesCsvFile = '~/workspace/csvFiles/ConnectiesHolland.csv'
 
     # Load the stations and connections in a graph.
     critical_stations, critical_connections, graph, stationnames = helpers.load_data(stationsCsvFile, connectiesCsvFile)
