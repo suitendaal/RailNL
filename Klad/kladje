@@ -1,0 +1,39 @@
+# ################### Vanaf hier klopt het nog niet helemaal
+#     bestTrajecten = score.makeAllTrajects(best150paths, 2)
+#     # bestScores = []
+#     counter = 0
+#     for i in range(1, len(bestTrajecten)):
+#         if bestTrajecten[i] == bestTrajecten[i-1]:
+#             counter += 1
+
+#     print("Scores: ", counter)
+#     print("len: ", len(bestTrajecten))
+# #####################
+
+# ######################### Dit ook niet helaasch
+#     bestScore, bestTrajecten = score.scoreSven(best150paths, 7, critical_connections)
+#     print("lengte: ", len(bestTrajecten))
+#     print("score: ", bestScore)
+# #########################
+
+
+    # ##branch and bound
+    # best_trajectories = []
+    # score = 0
+    # def determine_trajectories(critical_connections, score, traject = [], depth=0):
+    #     if depth < 7:
+    #         new_score = helpers.CalculateScore(traject, critical_connections)
+    #         if new_score > score:
+    #             print("old", score)
+    #             score = new_score
+    #             print("hoi", score)
+    #             best_trajectories = traject
+    #         for path in best150paths:
+    #             traject.append(path)
+    #             newScore2 = determine_trajectories(critical_connections, score, traject, depth+1)
+    #             if newScore2 > score:
+    #                 score = newScore2
+    #         return score
+    #     else:
+    #         return score
+    # print(determine_trajectories(critical_connections, score))

@@ -1,5 +1,6 @@
 import csv
 
+
 def CalculateScore(trajecten, criticalConnections):
     """Function to compute the score"""
 
@@ -11,21 +12,17 @@ def CalculateScore(trajecten, criticalConnections):
     for traject in trajecten:
         minutes += int(traject[1])
         for i in range(len(traject[0]) - 1):
-            this_station = traject[0][i]
-            next_station = traject[0][i + 1]
-            if [this_station, next_station] in criticalConnections or [next_station, this_station] in criticalConnections:
-                if [this_station, next_station] not in critical_connections_past and [next_station, this_station] not in critical_connections_past:
-                    critical_connections_past.append([this_station, next_station])
+            if [traject[0][i], traject[0][i + 1]] in criticalConnections or [traject[0][i + 1], traject[0][i]] in criticalConnections:
+                if [traject[0][i], traject[0][i + 1]] not in critical_connections_past and [traject[0][i + 1], traject[0][i]] not in critical_connections_past:
+                    critical_connections_past.append([traject[0][i], traject[0][i + 1]])
                     critical_connection += 1
 
     percentage = critical_connection/len(criticalConnections) * 100
-    # print(percentage)
-    # print(minutes)
-    # print(len(trajecten))
+    print(percentage)
+    print(minutes)
+    print(len(trajecten))
     score = percentage*10000 - (trains*20 + minutes/100000)
     return score
-
-
 
 def make_all_routes(graph, start, end, route=[], time=0):
     """Function to get all routes between to stations, within 2 hours"""
@@ -57,10 +54,7 @@ def make_all_routes(graph, start, end, route=[], time=0):
     return routes
 
 
-
-
-def load_data():
-
+def main():
     # List to store stations.
     graph = {}
 
@@ -80,7 +74,6 @@ def load_data():
 
 
     critical_connections = []
-
     # Add connections to the stations.
     connecties = open('ConnectiesHolland.csv', 'rt')
     directions = csv.reader(connecties)
@@ -91,5 +84,15 @@ def load_data():
             critical_connections.append([direction[0], direction[1]])
     connecties.close()
 
-    return critical_stations, critical_connections, graph, stationnames
 
+    # Add all of the routes to the list paths, don't use a station twice.
+    paths = []
+    for i in range(len(stationnames)):
+        for j in range(i + 1, len(stationnames)):
+            paths.extend(make_all_routes(graph, stationnames[i], stationnames[j]))
+
+    print("Score: ", CalculateScore(paths, critical_connections))
+
+
+if __name__ == "__main__":
+    main()
