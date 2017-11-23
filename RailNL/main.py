@@ -6,8 +6,8 @@ import score
 def main():
 
     # Files with stations and connections.
-    stationsCsvFile = 'StationsHolland.csv'
-    connectiesCsvFile = 'ConnectiesHolland.csv'
+    stationsCsvFile = 'csvFiles/StationsHolland.csv'
+    connectiesCsvFile = 'csvFiles/ConnectiesHolland.csv'
 
     # Load the stations and connections in a graph.
     critical_stations, critical_connections, graph, stationnames = helpers.load_data(stationsCsvFile, connectiesCsvFile)
