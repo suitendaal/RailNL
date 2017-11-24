@@ -3,7 +3,7 @@ import random
 
 def HillClimber(paths, paths_selected, critical_connections, best_score = 0, m = 0):
 
-    if m == 1000:
+    if m == 100:
         return paths_selected, best_score
     # score = helpers.CalculateScore(paths_selected, critical_connections)
     #
@@ -24,9 +24,9 @@ def HillClimber(paths, paths_selected, critical_connections, best_score = 0, m =
         while (score < best_score and n < 100):
             new_paths[new_paths.index(path)] = rondom.choice(paths)
             score = helper.CalculateScore(new_paths, critical_connections)
-            n++
+            n+=1
         if score > best_score:
             paths_selected = new_paths
             best_score = score
 
-    HillClimber(paths, paths_selected, critical_connections, best_score, m + 1)
+    return HillClimber(paths, paths_selected, critical_connections, best_score, m + 1)
