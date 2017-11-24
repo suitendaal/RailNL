@@ -1,22 +1,29 @@
 import algoritm
 import csv
 import helpers
+import hillclimber
+import graph
 
 def main():
 
     # Files with stations and connections.
-    stationsCsvFile = '~/workspace/csvFiles/StationsHolland.csv'
-    connectiesCsvFile = '~/workspace/csvFiles/ConnectiesHolland.csv'
+    stationsCsvFile = 'C:/Users/svenu/RailNL/csvFiles/StationsHolland.csv'
+    connectiesCsvFile = 'C:/Users/svenu/RailNL/csvFiles/ConnectiesHolland.csv'
 
     # Load the stations and connections in a graph.
-    critical_stations, critical_connections, graph, stationnames = helpers.load_data(stationsCsvFile, connectiesCsvFile)
-    paths = helpers.add_paths(graph, stationnames)
-    # best150paths, best150scores = helpers.ScorePaths(paths,critical_connections, 20)
-    # algoritm.algoritm1(paths, critical_connections)
+    graph = graphClass.Graph()
+    graph.load_data(stationsCsvFile, connectiesCsvFile)
+    graph.makeAllRoutes()
 
-    # print(best150paths)
+    pathsSelected = graph.allRoutes[0:7]
+    paths, bestScore = hillclimber.HillClimber(graph.allRoutes, pathsSelected, graph.criticalConnections)
 
-    algoritm.algoritm3(paths, critical_connections, stationnames)
+    print("paths: ", paths)
+    print("bestScore: ", bestScore)
+
+    # print(len(new_graph.criticalConnections))
+
+    # algoritm.algoritm3(paths, critical_connections, stationnames)
 
     # routes = []
     # for stationname in stationnames:
