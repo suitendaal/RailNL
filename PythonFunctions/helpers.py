@@ -54,58 +54,12 @@ def make_all_routes(graph, start, end, route=[], time=0):
                     routes.append(new_route)
     return routes
 
-
-
-
-def load_data(stationsCsvFile, connectiesCsvFile):
-
-    # List to store stations.
-    graph = {}
-
-    # List to store critical stations.
-    critical_stations = []
-
-    # List to store the names of the stations.
-    stationnames = []
-    stationsfile = open(stationsCsvFile, 'rt')
-    stations = csv.reader(stationsfile)
-    for station in stations:
-        stationnames.append(station[0])
-        graph[station[0]] = []
-        if station[3] == 'Kritiek':
-            critical_stations.append(station[0])
-    stationsfile.close()
-
-
-    critical_connections = []
-
-    # Add connections to the stations.
-    connecties = open(connectiesCsvFile, 'rt')
-    directions = csv.reader(connecties)
-    for direction in directions:
-        graph[direction[0]].append([direction[1], direction[2]])
-        graph[direction[1]].append([direction[0], direction[2]])
-        if direction[0] in critical_stations or direction[1] in critical_stations:
-            critical_connections.append([direction[0], direction[1]])
-    connecties.close()
-
-    return critical_stations, critical_connections, graph, stationnames
-
-
-
-
-def add_paths(graph, stationnames):
-    paths = []
-    for i in range(len(stationnames)):
-        for j in range(i + 1, len(stationnames)):
-            paths.extend(make_all_routes(graph, stationnames[i], stationnames[j]))
-    return paths
-
-
-
 def ScorePaths(paths, critical_connections, n):
+    "Function to determine the best n trajectories based on the score"
     bestpaths = []
     bestscores = []
+
+    # Add path, calculate score and keep track of the best score and trajectories
     for path in paths:
         score = CalculateScore([path], critical_connections)
         if bestscores == [] or min(bestscores) < score:
@@ -121,12 +75,14 @@ def ScorePaths(paths, critical_connections, n):
 
 
 def getBestScore(paths, criticalConnections, maxDepth, newTraject=[], path=[], depth=0, bestScore=0, bestTraject=[], j=-1):
-
+    "Depth first algoritm to determine best combination of n trajectories"
     newTrajectCopy = copy.copy(newTraject)
 
+    # Add new traject to trajectories
     if path != []:
         newTrajectCopy.append(path)
 
+    # Calculate the score if maximum nuber of trajects was reached
     if depth == maxDepth:
         newBestScore = CalculateScore(newTrajectCopy, criticalConnections)
         if newBestScore > bestScore:
@@ -135,6 +91,7 @@ def getBestScore(paths, criticalConnections, maxDepth, newTraject=[], path=[], d
 
         return bestScore, bestTraject
 
+    # Use recursion to determine next best score and traject
     for i in range(j + 1, len(paths)):
         newBestScore, newBestTraject = getBestScore(paths, criticalConnections, maxDepth, newTrajectCopy, paths[i], depth+1, bestScore, bestTraject, i)
         if newBestScore > bestScore:
