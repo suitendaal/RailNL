@@ -36,12 +36,14 @@ Het eerste algoritme dat wij hebben gebruikt gaat als volgt; elk traject is apar
 de hoogste score zijn door middel van depth-first gecombineerd en weer in de scorefunctie gestopt. Hieruit komt een lijnvoering met
 de voor dit algoritme beste score.
 
-Wij hebben ook het Dijkstra algoritme uitgewerkt. Deze werkt als volgt: Kies een beginstation, kijk of deze kritieke verbindingen heeft, zo ja, kies de kortste van de
-kritieke verbindingen, anders kies de kortste niet-kritieke verbinding. Dit algoritme werkt dus (nog) niet met score, maar met de tijd.
+Wij hebben ook het Dijkstra algoritme uitgewerkt. Deze werkt als volgt: Kies een beginstation, kijk of deze kritieke verbindingen
+heeft, zo ja, kies de kortste van de kritieke verbindingen, anders kies de kortste niet-kritieke verbinding. Dit algoritme werkt
+dus (nog) niet met score, maar met de tijd.
 
-Wij hebben ook een hillclimber functie gemaakt die van een combinatie van trajecten elk traject 1000 keer vervangen met een random ander traject, de score berekend
-en de score en de combinatie opslaat als deze beter is dan de vorige. Hier kun je een random combinatie van trajecten invullen of al de beste uit bijvoorbeeld het
-Dijkstra algoritme.
+Wij hebben ook een hillclimber functie gemaakt die van een combinatie van trajecten elk traject 1000 keer vervangen met een random
+ander traject, de score berekend en de score en de combinatie opslaat als deze beter is dan de vorige. Hier kun je een random
+combinatie van trajecten invullen of al de beste uit bijvoorbeeld het Dijkstra algoritme.
+
 ### Break down into end to end tests
 
 ### And coding style sheets
