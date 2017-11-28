@@ -17,8 +17,9 @@ def main():
     graph.makeAllRoutes()
 
     pathsSelected = graph.allRoutes[0:7]
+    bestScore = CalculateScore(pathsSelected, graph.criticalConnections)
     for i in range(100):
-        pathsSelected, bestScore = HillClimber(graph.allRoutes, pathsSelected, graph.criticalConnections)
+        pathsSelected, bestScore = HillClimber(graph.allRoutes, pathsSelected, graph.criticalConnections, bestScore)
 
     print("paths: ", pathsSelected)
     print("bestScore: ", bestScore)

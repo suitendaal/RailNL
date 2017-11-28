@@ -1,32 +1,37 @@
 from PythonFunctions.helpers import CalculateScore
 import random
+import copy
 
-def HillClimber(paths, pathsSelected, criticalConnections, index = 0, bestScore = 0, bestPaths=[]):
+def HillClimber(paths, pathsSelected, criticalConnections, bestScore, index = 0, bestPaths=[]):
+    """Function that changes a traject piece by piece and calculates the new score.
+        Saves the new score if it is the best score"""
 
+    print(len(pathsSelected))
+    print(index)
+    # Stop at the final index.
     if index == len(pathsSelected):
         return pathsSelected, bestScore
 
-    newScore = CalculateScore(pathsSelected, criticalConnections)
-    if newScore > bestScore:
-        bestScore = newScore
-        bestPaths = pathsSelected
+    # Archive
+    pathsToChoose = copy.copy(paths)
+    pathsToChoose.remove(pathsSelected[index])
 
-    pathsToChoose = paths
-    pathsToChoose.
-
-    newPathsSelected = pathsSelected
+    # Change a traject 1000 times and check if it is the best score.
     for i in range(1000):
-        newPath = random.choice(paths)
-        while newPath in pathsChosen:
-            newPath = random.choice(paths)
-        pathsChosen.append(newPath)
-        newPathsSelected[index] = random.choice(paths)
-        newScore = CalculateScore(newPathsSelected, criticalConnections)
+
+        # Replace a traject with the new random traject.
+        newTraject = random.choice(pathsToChoose)
+        pathsToChoose.remove(newTraject)
+        pathsSelected[index] = newTraject
+
+        # Calculate the new score and check if it is the best score.
+        newScore = CalculateScore(pathsSelected, criticalConnections)
         if newScore > bestScore:
             bestScore = newScore
-            bestPaths = newPathsSelected
+            bestPaths = pathsSelected
 
-    return HillClimber(paths, bestPaths, criticalConnections, index+1, bestScore, bestPaths)
+    # Do it again for the next traject.
+    return HillClimber(paths, bestPaths, criticalConnections, bestScore, index+1, bestPaths)
     # score = helpers.CalculateScore(paths_selected, critical_connections)
     #
 
