@@ -2,7 +2,7 @@ from PythonFunctions.helpers import CalculateScore
 import random
 import copy
 
-def HillClimber(graph, pathsSelected, bestScore=0, index=0):
+def HillClimber(graph, pathsSelected, paths=[], bestScore=0, index=0):
     """Function that changes a traject piece by piece and calculates the new score.
         Saves the new score if it is the best score"""
 
@@ -10,10 +10,13 @@ def HillClimber(graph, pathsSelected, bestScore=0, index=0):
     if index == len(pathsSelected):
         return pathsSelected, bestScore
 
+    if paths == []:
+        paths = graph.allRoutes
+
     newPathsSelected = pathsSelected
 
     # Archive
-    pathsToChoose = copy.copy(graph.allRoutes)
+    pathsToChoose = copy.copy(paths)
     pathsToChoose.remove(newPathsSelected[index])
 
     # Change a traject 1000 times and check if it is the best score.
@@ -31,4 +34,4 @@ def HillClimber(graph, pathsSelected, bestScore=0, index=0):
         newPathsSelected[index] = newTraject
 
     # Do it again for the next traject.
-    return HillClimber(graph, pathsSelected, bestScore, index+1)
+    return HillClimber(graph, pathsSelected, paths, bestScore, index+1)
