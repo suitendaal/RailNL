@@ -25,6 +25,7 @@ class Graph(object):
             newStation = Station(station[0], station[1], station[2], station[3])
             self.allStations.append(newStation)
             self.graph[station[0]] = []
+            self.coordinates[station[0]] = [station[1], station[2]]
 
             # Add critical railwaystations to criticalStations
             if station[3] == 'Kritiek':

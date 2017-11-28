@@ -5,13 +5,13 @@ def algoritm1(paths, critical_connections):
 
     # Use the scorefunction to get the best n trajects.
     n = 20
-    bestNpaths, bestNscores = helpers.ScorePaths(paths, critical_connections, n)
+    bestNpaths, bestNscores = ScorePaths(paths, critical_connections, n)
 
     # With the bestNpaths, calculate via depth-first search the best traject with the best score.
     bestScore = 0
     bestTraject = []
     for i in range(1, 8):
-        newBestScore, newBestTraject = helpers.getBestScore(bestNpaths, critical_connections, i)
+        newBestScore, newBestTraject = getBestScore(bestNpaths, critical_connections, i)
         if newBestScore > bestScore:
             bestScore = newBestScore
             bestTraject = newBestTraject
@@ -20,16 +20,16 @@ def algoritm1(paths, critical_connections):
 
 
 
-def algoritm3Function(paths, critical_connections, start, end):
+def algoritm3Function(graph, start, end):
     """Algoritm to """
     bestPath = []
     score = 0
-    for path in paths:
+    for path in graph.allRoutes:
 
         if path[0][0] == start and path[0][-1] == end:
             criticalPathCounter = 0
             for i in range(len(path[0]) - 1):
-                if [path[0][i], path[0][i+1]] in critical_connections:
+                if [path[0][i], path[0][i+1]] in graph.criticalConnections:
                     criticalPathCounter += 1
 
             criticalPercentage = 100 * criticalPathCounter / path[1]
@@ -41,18 +41,18 @@ def algoritm3Function(paths, critical_connections, start, end):
 
 
 
-def algoritm3(paths, critical_connections, stationnames):
-    best_paths = []
-    for i in range(len(stationnames)):
-        for j in range(i + 1, len(stationnames)):
-            best_paths.append(algoritm3Function(paths, critical_connections, stationnames[i], stationnames[j]))
+def algoritm3(graph):
+    bestPaths = []
+    for i in range(len(graph.allStations)):
+        for j in range(i + 1, len(graph.allStations)):
+            best_paths.append(algoritm3Function(graph, graph.allStations[i], graph.allStations[j]))
 
-    print("lendte: ", len(best_paths))
+    print("lendte: ", len(bestPaths))
 
     bestScore = 0
     bestTraject = []
     for i in range(1, 4):
-        newBestScore, newBestTraject = helpers.getBestScore(best_paths, critical_connections, i)
+        newBestScore, newBestTraject = getBestScore(bestPaths, graph.criticalConnections, i)
         if newBestScore > bestScore:
             bestScore = newBestScore
             bestTraject = newBestTraject
@@ -61,39 +61,43 @@ def algoritm3(paths, critical_connections, stationnames):
 
 
 
-
-def Dijkstra(graph, station, critical_connections, route = [], time = 0):
+def Dijkstra(graph, station, route = [], time = 0):
     critical = []
-    non_critical = []
+    nonCritical = []
 
     route.append(station)
 
-    if time >= 120:
+    if time == 120:
         return route, time
 
-    else:
-        destinations = graph[station]
-        for destination in destinations:
-            if destination[0] not in route:
-                if [destination[0], station] in critical_connections or [station, destination[0]] in critical_connections:
-                    critical.append(destination)
-                else:
-                    non_critical.append(destination)
+    destinations = graph.graph[station]
+    for destination in destinations:
+        if destination[0] not in route:
+            if [destination[0], station] in graph.criticalConnections or [station, destination[0]] in graph.criticalConnections:
+                critical.append(destination)
+            else:
+                nonCritical.append(destination)
 
-        shortest_time = 120
-        shortest_connection = ''
-        if len(critical) != 0:
-            for i in range(len(critical)):
-                if int(critical[i][1]) < shortest_time:
-                    shortest_time = int(critical[i][1])
-                    shortest_connection = critical[i][0]
-                    print(critical[i][0])
+    shortestTime = 120
+    shortestConnection = ''
+    if len(critical) != 0:
+        for traject in critical:
+            if int(traject[1]) < shortestTime:
+                shortestTime = int(critical[i][1])
+                if time + shortestTime <= 120
+                    shortestConnection = critical[i][0]
+                    print(traject[0])
+        if shortestConnection =! '':
+            return Dijkstra(graph, shortestConnection, route, time + shortestTime)
 
-        else:
-            for i in range(len(non_critical)):
-                if int(non_critical[i][1]) < shortest_time:
-                    shortest_time = int(non_critical[i][1])
-                    shortest_connection += non_critical[i][0]
+    if len(nonCritical) != 0:
+        for traject in nonCritical:
+            if int(traject[1]) < shortestTime:
+                shortestTime = int(critical[i][1])
+                if time + shortestTime <= 120
+                    shortestConnection = critical[i][0]
+                    print(traject[0])
+        if shortestConnection =! '':
+            return Dijkstra(graph, shortestConnection, route, time + shortestTime)
 
-        time += shortest_time
-        return Dijkstra(graph, shortest_connection, critical_connections, route, time)
+    return route, time

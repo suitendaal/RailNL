@@ -82,7 +82,7 @@ def getBestScore(paths, criticalConnections, maxDepth, newTraject=[], path=[], d
     if path != []:
         newTrajectCopy.append(path)
 
-    # Calculate the score if maximum nuber of trajects was reached
+    # Calculate the score if maximum number of trajects was reached
     if depth == maxDepth:
         newBestScore = CalculateScore(newTrajectCopy, criticalConnections)
         if newBestScore > bestScore:
@@ -97,5 +97,6 @@ def getBestScore(paths, criticalConnections, maxDepth, newTraject=[], path=[], d
         if newBestScore > bestScore:
             bestScore = newBestScore
             bestTraject = newBestTraject
+            print(bestScore)
 
     return bestScore, bestTraject
