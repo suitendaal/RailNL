@@ -44,6 +44,9 @@ Wij hebben ook een hillclimber functie gemaakt die van een combinatie van trajec
 ander traject, de score berekend en de score en de combinatie opslaat als deze beter is dan de vorige. Hier kun je een random
 combinatie van trajecten invullen of al de beste uit bijvoorbeeld het Dijkstra algoritme.
 
+Ten slotte hebben wij een zelfbedacht algoritme bedacht. Deze staat bekend als Sven's algoritme. Het kiest tussen 2 stations de beste route, gebaseerd op een zo kort mogelijke route met zoveel mogelijk kritieke verbindingen. Op deze manier wordt het aantal trajecten dus flink gereduceerd, hoewel er nog wel flink wat overblijven.
+Vervolgens heb je een lijst met het beste traject tussen 2 stations. Hiermee kan brute-force worden toegepast of hillclimbing.
+
 ### Break down into end to end tests
 
 ### And coding style sheets
