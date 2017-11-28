@@ -54,14 +54,14 @@ def make_all_routes(graph, start, end, route=[], time=0):
                     routes.append(new_route)
     return routes
 
-def ScorePaths(paths, critical_connections, n):
+def ScorePaths(graph, n):
     "Function to determine the best n trajectories based on the score"
     bestpaths = []
     bestscores = []
 
     # Add path, calculate score and keep track of the best score and trajectories
-    for path in paths:
-        score = CalculateScore([path], critical_connections)
+    for path in graph.allRoutes:
+        score = CalculateScore([path], graph.criticalConnections)
         if bestscores == [] or min(bestscores) < score:
             if len(bestpaths) < n:
                 bestpaths.append(path)

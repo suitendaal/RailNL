@@ -1,17 +1,17 @@
 from PythonFunctions.helpers import CalculateScore, ScorePaths, getBestScore
 
-def algoritm1(paths, critical_connections):
+def algoritm1(graph):
     """Algoritm to get best n paths, then use depth first search to calculate best trajectories"""
 
     # Use the scorefunction to get the best n trajects.
     n = 20
-    bestNpaths, bestNscores = ScorePaths(paths, critical_connections, n)
+    bestNpaths, bestNscores = ScorePaths(graph, n)
 
     # With the bestNpaths, calculate via depth-first search the best traject with the best score.
     bestScore = 0
     bestTraject = []
     for i in range(1, 8):
-        newBestScore, newBestTraject = getBestScore(bestNpaths, critical_connections, i)
+        newBestScore, newBestTraject = getBestScore(bestNpaths, graph.criticalConnections, i)
         if newBestScore > bestScore:
             bestScore = newBestScore
             bestTraject = newBestTraject
