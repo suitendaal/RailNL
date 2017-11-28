@@ -1,7 +1,7 @@
 from PythonFunctions.helpers import CalculateScore, ScorePaths, getBestScore
 
 def algoritm1(paths, critical_connections):
-    """Algoritm to get best n paths, then use depth first search to calculate best trajects"""
+    """Algoritm to get best n paths, then use depth first search to calculate best trajectories"""
 
     # Use the scorefunction to get the best n trajects.
     n = 20
@@ -21,6 +21,7 @@ def algoritm1(paths, critical_connections):
 
 
 def algoritm3Function(paths, critical_connections, start, end):
+    """Algoritm to """
     bestPath = []
     score = 0
     for path in paths:
