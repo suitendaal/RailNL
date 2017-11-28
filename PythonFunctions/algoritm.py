@@ -42,22 +42,24 @@ def algoritm3Function(graph, start, end):
 
 
 def algoritm3(graph):
+    """Also known as Sven's algoritm"""
     bestPaths = []
     for i in range(len(graph.allStations)):
         for j in range(i + 1, len(graph.allStations)):
-            best_paths.append(algoritm3Function(graph, graph.allStations[i], graph.allStations[j]))
+            bestPaths.append(algoritm3Function(graph, graph.allStations[i], graph.allStations[j]))
 
-    print("lendte: ", len(bestPaths))
-
-    bestScore = 0
-    bestTraject = []
-    for i in range(1, 4):
-        newBestScore, newBestTraject = getBestScore(bestPaths, graph.criticalConnections, i)
-        if newBestScore > bestScore:
-            bestScore = newBestScore
-            bestTraject = newBestTraject
-    print("bestScore: ", bestScore)
-    print("lengte: ", bestTraject)
+    return bestPaths
+    # print("lendte: ", len(bestPaths))
+    #
+    # bestScore = 0
+    # bestTraject = []
+    # for i in range(1, 4):
+    #     newBestScore, newBestTraject = getBestScore(bestPaths, graph.criticalConnections, i)
+    #     if newBestScore > bestScore:
+    #         bestScore = newBestScore
+    #         bestTraject = newBestTraject
+    # print("bestScore: ", bestScore)
+    # print("lengte: ", bestTraject)
 
 
 
@@ -82,22 +84,22 @@ def Dijkstra(graph, station, route = [], time = 0):
     shortestConnection = ''
     if len(critical) != 0:
         for traject in critical:
-            if int(traject[1]) < shortestTime:
-                shortestTime = int(critical[i][1])
-                if time + shortestTime <= 120
-                    shortestConnection = critical[i][0]
-                    print(traject[0])
-        if shortestConnection =! '':
+            if traject not in route:
+                if int(traject[1]) < shortestTime:
+                    shortestTime = int(traject[1])
+                    if time + shortestTime <= 120:
+                        shortestConnection = traject[0]
+        if shortestConnection != '':
             return Dijkstra(graph, shortestConnection, route, time + shortestTime)
 
     if len(nonCritical) != 0:
         for traject in nonCritical:
-            if int(traject[1]) < shortestTime:
-                shortestTime = int(critical[i][1])
-                if time + shortestTime <= 120
-                    shortestConnection = critical[i][0]
-                    print(traject[0])
-        if shortestConnection =! '':
+            if traject not in route:
+                if int(traject[1]) < shortestTime:
+                    shortestTime = int(traject[1])
+                    if time + shortestTime <= 120:
+                        shortestConnection = traject[0]
+        if shortestConnection != '':
             return Dijkstra(graph, shortestConnection, route, time + shortestTime)
 
     return route, time
