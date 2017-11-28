@@ -1,4 +1,4 @@
-import helpers
+from PythonFunctions.helpers import CalculateScore, ScorePaths, getBestScore
 
 def algoritm1(paths, critical_connections):
     """Algoritm to get best n paths, then use depth first search to calculate best trajects"""

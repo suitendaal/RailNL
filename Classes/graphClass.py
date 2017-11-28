@@ -1,5 +1,5 @@
 import csv
-import stationClass
+from Classes.stationClass import Station
 
 class Graph(object):
     """Graph with station with locations, destinations and some functions"""
@@ -22,7 +22,7 @@ class Graph(object):
         for station in stations:
 
             # Add railwaystation to allStations
-            newStation = stationClass.Station(station[0], station[1], station[2], station[3])
+            newStation = Station(station[0], station[1], station[2], station[3])
             self.allStations.append(newStation)
             self.graph[station[0]] = []
 

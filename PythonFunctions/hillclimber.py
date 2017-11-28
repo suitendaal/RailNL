@@ -1,13 +1,9 @@
-import helpers
+import PythonFunctions.helpers
 import random
 
 def HillClimber(paths, paths_selected, critical_connections, best_score = 0, m = 0):
 
-<<<<<<< HEAD
-    if m >= 1000:
-=======
-    if m == 100:
->>>>>>> 9b362f6f22f93ea91baf8b4c99e6266bbeb8849c
+    if m >= 100:
         return paths_selected, best_score
     # score = helpers.CalculateScore(paths_selected, critical_connections)
     #

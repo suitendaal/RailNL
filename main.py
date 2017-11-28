@@ -1,8 +1,9 @@
-import algoritm
+from Classes.graphClass import Graph
+from PythonFunctions.algoritm import algoritm1, algoritm3, Dijkstra
 import csv
-import helpers
-import hillclimber
-import graph
+from PythonFunctions.helpers import CalculateScore, ScorePaths, getBestScore
+from PythonFunctions.hillclimber import HillClimber
+
 
 def main():
 
@@ -11,12 +12,12 @@ def main():
     connectiesCsvFile = 'C:/Users/svenu/RailNL/csvFiles/ConnectiesHolland.csv'
 
     # Load the stations and connections in a graph.
-    graph = graphClass.Graph()
+    graph = Graph()
     graph.load_data(stationsCsvFile, connectiesCsvFile)
     graph.makeAllRoutes()
 
     pathsSelected = graph.allRoutes[0:7]
-    paths, bestScore = hillclimber.HillClimber(graph.allRoutes, pathsSelected, graph.criticalConnections)
+    paths, bestScore = HillClimber(graph.allRoutes, pathsSelected, graph.criticalConnections)
 
     print("paths: ", paths)
     print("bestScore: ", bestScore)
