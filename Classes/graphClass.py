@@ -1,5 +1,9 @@
 import csv
 from Classes.stationClass import Station
+import networkx as nx
+import matplotlib.pyplot as plt
+import re
+import os
 
 class Graph(object):
     """Graph with station with locations, destinations and some functions"""
