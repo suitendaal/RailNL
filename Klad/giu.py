@@ -8,6 +8,10 @@ algorithm = input("Select: ")
 
 
 if (int(algorithm) == 1):
+	bestPaths, bestScores = ScorePaths(graph.allRoutes, graph.criticalConnections, 20)
+	for i in range(7):
+        sc, tr = getBestScore(bestPaths, graph.criticalConnections, i)
+        print("beste: ", sc)
 
 elif (int(algorithm) == 2):
 
