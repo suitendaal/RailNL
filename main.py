@@ -18,6 +18,7 @@ def main():
 
     trajecten = []
     for station in graph.allStations:
+        print(station.name)
         newRoute, newTime = Dijkstra(graph, station.name, [])
         trajecten.append([newRoute, newTime])
     for traject in trajecten:
