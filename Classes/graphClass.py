@@ -97,7 +97,7 @@ class Graph(object):
                 node_color.append("r")
             else:
                 node_color.append("b")
-            G.add_node("" + station.name, pos = station.coordinates)
+            G.add_node("" + station.name, pos = (station.aLatitude, station.aLongitude)
             name = re.split('\s|-|/', station.name)
             afk = ""
             for word in name:
