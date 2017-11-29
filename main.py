@@ -23,7 +23,7 @@ def main():
     algorithm = input("Select: ")
 
 
-
+    ##Depth first
     if (int(algorithm) == 1):
 
         print("For Svens algoritm, type: 1")
@@ -31,22 +31,29 @@ def main():
 
         algoritmBestPaths = input("Select: ")
 
+        #Sven
         if (int(algoritmBestPaths) == 1):
             bestPaths = algoritm3(graph)
+            print(bestPaths[1])
         
+        #BestScore
         elif (int(algoritmBestPaths) == 2):
             bestPaths, bestScores = ScorePaths(graph, 20)
 
+        #Errormelding
         else:
             while (int(algoritmBestPaths) != 1 or int(algoritmBestPaths) != 2):
                 algorithm = input("Please select valid algorithm: ")
         
+        #Run algorithm
         for i in range(7):
             sc, tr = getBestScore(bestPaths, graph.criticalConnections, i)
             print("beste: ", sc)
 
+    #Dijkstra
     elif (int(algorithm) == 2):
 
+        #Run algorithm
         trajecten = []
         for station in graph.allStations:
             print(station.name)
@@ -56,30 +63,36 @@ def main():
             print("begin", traject[0][0])
             print(traject)
         
-
+    #Hillclimber
     elif (int(algorithm) == 3):
         print("For Svens algoritm, type: 1")
         print("For bestScore algoritm, type: 2")
 
         algoritmBestPaths = input("Select: ")
 
+        #Sven
         if (int(algoritmBestPaths) == 1):
             bestPaths = algoritm3(graph)
             pathsSelected = bestPaths[0:7]
-        
+
+        #Bestscore
         elif (int(algoritmBestPaths) == 2):
             bestPaths, bestScores = ScorePaths(graph, 20)
             pathsSelected = bestPaths[0:7]
 
+        #Errormelding
         else:
             while (int(algoritmBestPaths) != 1 or int(algoritmBestPaths) != 2):
                 algorithm = input("Please select valid algorithm: ")
 
+        #Run algorithm
         bestScore = CalculateScore(pathsSelected, graph.criticalConnections)
         for i in range(100):
             pathsSelected, bestScore = HillClimber(graph, pathsSelected, bestPaths, bestScore)
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
+
+    #Errormelding
     else:
         while (int(algorithm) != 1 or int(algorithm) != 2 or int(algorithm) != 3):
              algorithm = input("Please select valid algorithm: ")

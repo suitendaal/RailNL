@@ -46,7 +46,7 @@ def algoritm3(graph):
     bestPaths = []
     for i in range(len(graph.allStations)):
         for j in range(i + 1, len(graph.allStations)):
-            bestPaths.append(algoritm3Function(graph, graph.allStations[i], graph.allStations[j]))
+            bestPaths.append(algoritm3Function(graph, graph.allStations[i].name, graph.allStations[j].name))
 
     return bestPaths
     # print("lendte: ", len(bestPaths))
