@@ -3,13 +3,14 @@ from PythonFunctions.algoritm import algoritm1, algoritm3, Dijkstra
 import csv
 from PythonFunctions.helpers import CalculateScore, ScorePaths, getBestScore
 from PythonFunctions.hillclimber import HillClimber
+import os
 
 
 def main():
 
     # Files with stations and connections.
-    stationsCsvFile = 'C:/Users/britt/RailNL/csvFiles/StationsHolland.csv'
-    connectiesCsvFile = 'C:/Users/britt/RailNL/csvFiles/ConnectiesHolland.csv'
+    stationsCsvFile = os.path.join('csvFiles', "StationsHolland.csv")
+    connectiesCsvFile = os.path.join('csvFiles', "ConnectiesHolland.csv")
 
     # Load the stations and connections in a graph.
     graph = Graph()
@@ -35,7 +36,7 @@ def main():
         if (int(algoritmBestPaths) == 1):
             bestPaths = algoritm3(graph)
             print(bestPaths[1])
-        
+
         #BestScore
         elif (int(algoritmBestPaths) == 2):
             bestPaths, bestScores = ScorePaths(graph, 20)
@@ -44,7 +45,7 @@ def main():
         else:
             while (int(algoritmBestPaths) != 1 or int(algoritmBestPaths) != 2):
                 algorithm = input("Please select valid algorithm: ")
-        
+
         #Run algorithm
         for i in range(7):
             sc, tr = getBestScore(bestPaths, graph.criticalConnections, i)
@@ -62,7 +63,7 @@ def main():
         for traject in trajecten:
             print("begin", traject[0][0])
             print(traject)
-        
+
     #Hillclimber
     elif (int(algorithm) == 3):
         print("For Svens algoritm, type: 1")
