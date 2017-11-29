@@ -32,8 +32,8 @@ def algoritm3Function(graph, start, end):
                 if [path[0][i], path[0][i+1]] in graph.criticalConnections:
                     criticalPathCounter += 1
 
-            criticalPercentage = 100 * criticalPathCounter / path[1]
-            newScore = criticalPercentage / path[1]
+            criticalPercentage = 100 * criticalPathCounter / len(path[0])
+            newScore = criticalPercentage
             if newScore > score:
                 score = newScore
                 bestPath = path
