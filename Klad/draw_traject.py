@@ -16,34 +16,34 @@ def drawTraject(graph, trajecten):
     # Load the nodes
     for traject in trajecten:
         for station in traject[0]:
-            obj_station = graph.allStations[station]
-            lon = obj_station.longitude
-            lat = obj_station.latitude
 
-            if obj_station.isCritical:
-                critical.append(station)
-                node_color.append("r")
-            else:
-                node_color.append("k")
+            if station not in G.nodes():
+                obj_station = graph.allStations[station]
+                lon = obj_station.longitude
+                lat = obj_station.latitude
 
-            G.add_node("" + station, pos = (float(lat), float(lon)))
+                if obj_station.isCritical:
+                    node_color.append("r")
+                else:
+                    node_color.append("k")
 
-            # Node labels with abbreviation of the station names
-            name = re.split('\s|-|/', station)
-            afk = ""
-            for i in name:
-                afk = afk + i[0]
-            node_labels[station] = afk
+                G.add_node("" + station, pos = (float(lat), float(lon)))
+
+                # Node labels with abbreviation of the station names
+                name = re.split('\s|-|/', station)
+                afk = ""
+                for i in name:
+                    afk = afk + i[0]
+                node_labels[station] = afk
 
     # colors = ["r", "b", "g", "y", "m", "k", "w"]
     for i in range(len(trajecten)):
         # colour = colors[i]
-        for j in range(len(traject[0])-1):
-            if (""+traject[0][j], "" + traject[0][j+1]) or (""+traject[0][j+1], "" + traject[0][j]) not in G.edges():
-                G.add_edge(""+traject[0][j], "" + traject[0][j+1])
+        for j in range(len(trajecten[i][0])-1):
+            if (""+trajecten[i][0][j], "" + trajecten[i][0][j+1]) or (""+trajecten[i][0][j+1], "" + trajecten[i][0][j]) not in G.edges():
+                G.add_edge(""+trajecten[i][0][j], "" + trajecten[i][0][j+1])
 
     pos=nx.get_node_attributes(G,'pos')
-
     pos_higher = {}
     y_off = 0.03  # offset on the y axis
     x_off = 0.01
