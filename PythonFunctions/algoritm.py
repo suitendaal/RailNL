@@ -1,4 +1,5 @@
 from PythonFunctions.helpers import CalculateScore, ScorePaths, getBestScore
+import copy
 
 def algoritm1(graph):
     """Algoritm to get best n paths, then use depth first search to calculate best trajectories"""
@@ -51,18 +52,28 @@ def algoritm3(graph):
                 bestPaths.append(newPath)
 
     return bestPaths
-    # print("lendte: ", len(bestPaths))
-    #
-    # bestScore = 0
-    # bestTraject = []
-    # for i in range(1, 4):
-    #     newBestScore, newBestTraject = getBestScore(bestPaths, graph.criticalConnections, i)
-    #     if newBestScore > bestScore:
-    #         bestScore = newBestScore
-    #         bestTraject = newBestTraject
-    # print("bestScore: ", bestScore)
-    # print("lengte: ", bestTraject)
 
+
+def BestBeginStationsDijkstra(graph, numberOfTrajectories):
+    criticalConnectionsNotBeenYet = copy.copy(graph.criticalConnections)
+    numberOfCriticalDestinations = 0
+
+    for station in graph.allStations:
+        new_numberOfCriticalDestinations = 0
+        for connection in criticalConnectionsNotBeenYet:
+            if station.name == connection[0] or station.name == connection[1]:
+                new_number += 1
+
+        if (new_number < number or number == 0) and new_number != 0:
+            number = new_number
+            beginstation = station
+
+        if number of criticalConnections not been yet = 1:
+            Take as begin
+            stop for loop
+        elif number of criticalConnections not been yet > 1:
+            Take the shortest as begin
+            stop for loopp
 
 
 def Dijkstra(graph, station, route = [], time = 0):
