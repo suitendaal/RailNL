@@ -19,8 +19,11 @@ scored trajects or a combination from Sven's algorithm. Each algorithm produces 
 ### Installing
 
 ## Experimeting
-We already looked in to Dijkstra's algorithm, Simulated Annealing, Hillclimber and depth first. We also made functions to draw
-the trajects we choose and the complete graph. We want to begin to work with the stations of the entire Netherlands a.s.a.p.
+We already looked in to Dijkstra's algorithm, Simulated Annealing, Hillclimber and depth first. The Simualated Annealing algoritm
+can be iterated over a certain number of times. We tried a few different number of iterations. When we use 1 iteration, the score is
+ relatively low (as example 899859.99574). While, when we use 500 or more iterations, we get a score almost always around 999859,9.
+ We also made functions to draw the trajects we choose and the complete graph. We want to begin to work with the stations of the
+ entire Netherlands a.s.a.p.
 
 ## Versioning
 * **Atom 1.22.1**
