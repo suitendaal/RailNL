@@ -23,17 +23,22 @@ def HillClimber(graph, pathsSelected, paths=[], bestScore=0, index=0):
     pathsToChoose = copy.copy(paths)
     pathsToChoose.remove(newPathsSelected[index])
 
+    n = 1000
+    if n > len(paths):
+        n = len(paths)
+
+
     # Change a traject 1000 times and check if it is the best score.
-    for i in range(1000):
+    for i in range(n-1):
 
         # Calculate the new score and check if it is the best score.
         newScore = CalculateScore(newPathsSelected, graph.criticalConnections)
-        HillClimberScoresNew.write(str(newScore))
+        HillClimberScoresNew.write(repr(newScore))
         if newScore > bestScore:
             bestScore = newScore
             pathsSelected = newPathsSelected
 
-        HillClimberScores.write(str(bestScore))
+        HillClimberScores.write(repr(bestScore))
 
         # Replace a traject with the new random traject.
         newTraject = random.choice(pathsToChoose)
