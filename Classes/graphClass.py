@@ -10,7 +10,7 @@ class Graph(object):
     def __init__(self):
         self.graph = {}
         self.allRoutes = []
-        self.allStations = []
+        self.allStations = {}
         self.allConnections = []
         self.criticalConnections = []
 
@@ -25,7 +25,7 @@ class Graph(object):
 
             # Add railwaystation to allStations
             newStation = Station(station[0], station[1], station[2], station[3])
-            self.allStations.append(newStation)
+            self.allStations[station[0]] = newStation
             self.graph[station[0]] = []
 
         stationsfile.close()
