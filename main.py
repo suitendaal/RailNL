@@ -59,7 +59,8 @@ def main():
         trajecten = []
         for station in graph.allStations:
             print(station.name)
-            newRoute, newTime = Dijkstra(graph, station.name)
+            newRoute, newTime = Dijkstra(graph, station.name, [])
+            #als we geen lege lijst meegeven, doet ie t niet. 
             trajecten.append([newRoute, newTime])
         for traject in trajecten:
             print("begin", traject[0][0])
