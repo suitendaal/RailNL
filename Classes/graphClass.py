@@ -13,6 +13,7 @@ class Graph(object):
         self.allStations = {}
         self.allConnections = []
         self.criticalConnections = []
+        self.stationNames = []
 
 
     def load_data(self, stationsCsvFile, connectiesCsvFile):
@@ -24,6 +25,7 @@ class Graph(object):
         for station in stations:
 
             # Add railwaystation to allStations
+            self.stationNames.append(station[0])
             newStation = Station(station[0], station[1], station[2], station[3])
             self.allStations[station[0]] = newStation
             self.graph[station[0]] = []
@@ -52,8 +54,8 @@ class Graph(object):
         """Function to make all posible routes in a timescheme"""
         allNewRoutes = []
         for i in range(len(self.allStations)):
-            for j in range(i + 1, len(self.allStations)):
-                allNewRoutes.extend(self.addPaths(self.allStations[i].name, self.allStations[j].name, minutes))
+            for j in range(i + 1, len(self.stationNames)):
+                allNewRoutes.extend(self.addPaths(self.stationNames[i], self.stationNames[j], minutes))
         self.allRoutes = allNewRoutes
 
     def addPaths(self, start, end, minutes, route=[], time=0):
