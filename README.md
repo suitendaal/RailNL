@@ -9,33 +9,31 @@ Alkmaar, Amsterdam Centraal, Den Haag Centraal, Gouda,Haarlem, Rotterdam Centraa
 bijbehorende coordinaten. Ook staat hierin of een station kritiek (extra belangrijk) is.
 
 ## Getting Started
+The program can be run by using the command "python main.py".  The program will first ask you which part of the Netherlands to use (not yet).
+The program will then ask you which algorithm you want to use. There are four options: Simulated Annealing, Hillclimber, Depth
+First and Dijkstra's Algorithm. The algorithms Simulated Annealing and Hillclimber can be run with either a combination of the best
+scored trajects or a combination from Sven's algorithm. Each algorithm produces a picture of the choosen paths.
 
 ### Prerequisites
-Atom 1.22.1
-GitHub
 
 ### Installing
 
-## Running the tests
-
-### Break down into end to end tests
-
-### And coding style sheets
-
-## Deployment
-
-## Built With
-
-## Contributing
+## Experimeting
+We already looked in to Dijkstra's algorithm, Simulated Annealing, Hillclimber and depth first. The Simualated Annealing algoritm
+can be iterated over a certain number of times. We tried a few different number of iterations. When we use 1 iteration, the score is
+ relatively low (as example 899859.99574). While, when we use 500 or more iterations, we get a score almost always around 999859,9.
+ We also made functions to draw the trajects we choose and the complete graph. We want to begin to work with the stations of the
+ entire Netherlands a.s.a.p.
 
 ## Versioning
+* **Atom 1.22.1**
+* **GitHub**
+* **python 3**
 
 ## Authors
 * **Sven Uitendaal**
 * **Britt van Leeuwen**
 * **Susanne Binkhorst**
-
-## License
 
 # Acknowledgment
 
