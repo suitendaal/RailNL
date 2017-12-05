@@ -3,10 +3,10 @@ import random
 import copy
 import csv
 
-HillClimberScores = open("HillClimberScore.csv", "w")
-HillClimberScoresNew = open("HillClimberScoreNew.csv", "w")
+AnnealingScores = open("AnnealingScore.csv", "w")
+AnnealingScoresNew = open("AnnealingScoreNew.csv", "w")
 
-def HillClimber(graph, pathsSelected, paths=[], bestScore=0, index=0):
+def SimulatedAnnealing(graph, pathsSelected, paths=[], bestScore=0, index=0):
     """Function that changes a traject piece by piece and calculates the new score.
         Saves the new score if it is the best score"""
 
@@ -19,32 +19,47 @@ def HillClimber(graph, pathsSelected, paths=[], bestScore=0, index=0):
 
     newPathsSelected = pathsSelected
 
-    # # Archive
-    # pathsToChoose = copy.copy(paths)
+    # Archive
+    pathsToChoose = copy.copy(paths)
     # pathsToChoose.remove(newPathsSelected[index])
 
     n = 1000
     if n > len(paths):
         n = len(paths)
 
-
+    iteratie = 0
+    i = 0
     # Change a traject 1000 times and check if it is the best score.
-    for i in range(n-1):
+    while True:
+        i += 1
+        iteratie += 1
 
+        if iteratie > 100:
+            break
         # Calculate the new score and check if it is the best score.
         newScore = CalculateScore(newPathsSelected, graph.criticalConnections)
-        HillClimberScoresNew.write(repr(newScore)+"\n")
+        AnnealingScoresNew.write(str(newScore))
         if newScore > bestScore:
             bestScore = newScore
             pathsSelected = newPathsSelected
+            iteratie = 0
 
-        HillClimberScores.write(repr(bestScore)+ "\n")
+        elif ScoreAnnealing(iteratie, i, newScore, bestScore) > 0.95:
+            # 0.8 kan ook vervangen worden door random tussen 0 en 1
+            bestScore = newScore
+            pathsSelected = newPathsSelected
+            iteratie = 0
+
+        AnnealingScores.write(str(bestScore))
 
         # Replace a traject with the new random traject.
-        newTraject = random.choice(paths)
-
+        newTraject = random.choice(pathsToChoose)
         # pathsToChoose.remove(newTraject)
         newPathsSelected[index] = newTraject
 
     # Do it again for the next traject.
-    return HillClimber(graph, pathsSelected, paths, bestScore, index+1)
+    return SimulatedAnnealing(graph, pathsSelected, paths, bestScore, index+1)
+
+def ScoreAnnealing(iteratie, i, newScore, bestScore):
+    # Scorefunctie kan worden aangepast, bijv (newScore / bestScore)^3 * iteratie / i
+    return newScore / bestScore * iteratie / i

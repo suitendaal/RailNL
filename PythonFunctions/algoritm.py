@@ -45,8 +45,10 @@ def algoritm3(graph):
     """Also known as Sven's algoritm"""
     bestPaths = []
     for i in range(len(graph.allStations)):
-        for j in range(i + 1, len(graph.allStations)):
-            bestPaths.append(algoritm3Function(graph, graph.allStations[i].name, graph.allStations[j].name))
+        for j in range(i + 1, len(graph.stationNames)):
+            newPath = algoritm3Function(graph, graph.stationNames[i], graph.stationNames[j])
+            if newPath != []:
+                bestPaths.append(newPath)
 
     return bestPaths
     # print("lendte: ", len(bestPaths))

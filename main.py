@@ -4,6 +4,7 @@ import csv
 from PythonFunctions.helpers import CalculateScore, ScorePaths, getBestScore
 from PythonFunctions.hillclimber import HillClimber
 import os
+from PythonFunctions.simulatedAnnealing import SimulatedAnnealing
 
 
 def main():
@@ -15,7 +16,7 @@ def main():
     # Load the stations and connections in a graph.
     graph = Graph()
     graph.load_data(stationsCsvFile, connectiesCsvFile)
-    graph.makeAllRoutes()
+    graph.makeAllRoutes(120)
 
     print("For depth first algorithm, type: 1")
     print("For Dijkstra's algorithm, type: 2")
@@ -60,7 +61,7 @@ def main():
         for station in graph.allStations:
             print(station.name)
             newRoute, newTime = Dijkstra(graph, station.name, [])
-            #als we geen lege lijst meegeven, doet ie t niet. 
+            #als we geen lege lijst meegeven, doet ie t niet.
             trajecten.append([newRoute, newTime])
         for traject in trajecten:
             print("begin", traject[0][0])
@@ -121,7 +122,7 @@ def main():
         #Run algorithm
         bestScore = CalculateScore(pathsSelected, graph.criticalConnections)
         for i in range(200):
-            pathsSelected, bestScore = HillClimber(graph, pathsSelected, bestPaths, bestScore)
+            pathsSelected, bestScore = SimulatedAnnealing(graph, pathsSelected, bestPaths, bestScore)
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
 
