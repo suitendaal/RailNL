@@ -43,7 +43,7 @@ class Graph(object):
             # Add direction to the graph
             self.graph[direction[0]].append([direction[1], direction[2]])
             self.graph[direction[1]].append([direction[0], direction[2]])
-            if allStations[direction[0]].isCritical or allStations[direction[1]].isCritical:
+            if self.allStations[direction[0]].isCritical or self.allStations[direction[1]].isCritical:
                 self.criticalConnections.append([direction[0], direction[1]])
 
         connecties.close()
