@@ -5,6 +5,7 @@ from PythonFunctions.helpers import CalculateScore, ScorePaths, getBestScore
 from PythonFunctions.hillclimber import HillClimber
 import os
 from PythonFunctions.simulatedAnnealing import SimulatedAnnealing
+from Klad.draw_traject import drawTraject
 
 
 def main():
@@ -95,6 +96,7 @@ def main():
             pathsSelected, bestScore = HillClimber(graph, pathsSelected, bestPaths, bestScore)
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
+        drawTraject(graph, pathsSelected)
 
     #Sim Ann
     elif (int(algorithm) == 4):
