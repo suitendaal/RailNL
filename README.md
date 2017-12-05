@@ -19,11 +19,14 @@ scored trajects or a combination from Sven's algorithm. Each algorithm produces 
 ### Installing
 
 ## Experimeting
-We already looked in to Dijkstra's algorithm, Simulated Annealing, Hillclimber and depth first. The Simualated Annealing algoritm
-can be iterated over a certain number of times. We tried a few different number of iterations. When we use 1 iteration, the score is
- relatively low (as example 899859.99574). While, when we use 500 or more iterations, we get a score almost always around 999859,9.
- We also made functions to draw the trajects we choose and the complete graph. We want to begin to work with the stations of the
- entire Netherlands a.s.a.p.
+We already looked in to Dijkstra's algorithm, Simulated Annealing, Hillclimber and depth first.
+The Simualated Annealing algoritm can be iterated over a certain number of times. We tried a few different number of iterations.
+When we use 1 iteration, the score is relatively low (as example 899859.99574). While, when we use 500 or more iterations, we get a
+score almost always around 999859,9.
+
+The Hillclimber is being iterated over 200 times. Our best score so far is 999859,99593. 
+We also made functions to draw the trajects we choose and the complete graph. We want to begin to work with the stations of the
+entire Netherlands a.s.a.p.
 
 ## Versioning
 * **Atom 1.22.1**
@@ -46,8 +49,10 @@ S = p\*10000 - (t\*20 + min/100000)
 waarin S de score is, p het percentage van de bereden kritieke verbindingen, t het aantal treinen en m het totaal door alle treinen
 samen gereden aantal minuten in de lijnvoering.
 
-Deze scorefunctie heeft een upper en een lower bound. De lower bound van deze scorefuntie is -140.00094, deze is gebaseerd op 7 (het maximum aantal)
-treinen, geen kritieke verbindingen (dus alleen de niet kritieke verbindingen) en een totaal van 94 gereden minuten. De upper bound van deze scorefunctie hebben wij
+Deze scorefunctie heeft een upper en een lower bound. De lower bound van deze scorefuntie is -140.00094, deze is gebaseerd op 7 (het
+ maximum aantal)
+treinen, geen kritieke verbindingen (dus alleen de niet kritieke verbindingen) en een totaal van 94 gereden minuten. De upper bound
+van deze scorefunctie hebben wij
 gezet op 999939.99713, deze is gebaseerd op de veronderstelling dat elk kritiek spoor aan elkaar verbonden is en dat je met 3 treinen
 alle kritieke sporen kan bereiken in een (minimum) tijd van 287 minuten.
 

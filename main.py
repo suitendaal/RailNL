@@ -93,7 +93,7 @@ def main():
 
         #Run algorithm
         bestScore = CalculateScore(pathsSelected, graph.criticalConnections)
-        for i in range(200):
+        for i in range(400):
             pathsSelected, bestScore = HillClimber(graph, pathsSelected, bestPaths, bestScore)
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
