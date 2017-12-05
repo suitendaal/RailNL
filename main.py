@@ -20,6 +20,7 @@ def main():
     print("For depth first algorithm, type: 1")
     print("For Dijkstra's algorithm, type: 2")
     print("For the Hillclimber, type: 3")
+    print("For draw function, type: 4")
 
     algorithm = input("Select: ")
 
@@ -58,7 +59,7 @@ def main():
         trajecten = []
         for station in graph.allStations:
             print(station.name)
-            newRoute, newTime = Dijkstra(graph, station.name, [])
+            newRoute, newTime = Dijkstra(graph, station.name)
             trajecten.append([newRoute, newTime])
         for traject in trajecten:
             print("begin", traject[0][0])
@@ -93,9 +94,12 @@ def main():
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
 
+    # elif (int(algorith m) == 4):
+    #     graph.draw()
+
     #Errormelding
     else:
-        while (int(algorithm) != 1 or int(algorithm) != 2 or int(algorithm) != 3):
+        while (int(algorithm) != 1 or int(algorithm) != 2 or int(algorithm) != 3): #or int(algorithm) != 4):
              algorithm = input("Please select valid algorithm: ")
 
 
