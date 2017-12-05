@@ -80,7 +80,7 @@ def main():
 
         #Bestscore
         elif (int(algoritmBestPaths) == 2):
-            bestPaths, bestScores = ScorePaths(graph, 20)
+            bestPaths, bestScores = ScorePaths(graph, 25)
             pathsSelected = bestPaths[0:7]
 
         #Errormelding
@@ -90,7 +90,7 @@ def main():
 
         #Run algorithm
         bestScore = CalculateScore(pathsSelected, graph.criticalConnections)
-        for i in range(100):
+        for i in range(200):
             pathsSelected, bestScore = HillClimber(graph, pathsSelected, bestPaths, bestScore)
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
