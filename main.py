@@ -53,6 +53,7 @@ def main():
         for i in range(7):
             sc, tr = getBestScore(bestPaths, graph.criticalConnections, i)
             print("beste: ", sc)
+        drawTraject(graph, tr)
 
     #Dijkstra
     elif (int(algorithm) == 2):
@@ -67,7 +68,7 @@ def main():
         for traject in trajecten:
             print("begin", traject[0][0])
             print(traject)
-
+        drawTraject(graph, trajecten)
     #Hillclimber
     elif (int(algorithm) == 3):
         print("For Svens algoritm, type: 1")
