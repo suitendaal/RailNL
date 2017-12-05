@@ -60,11 +60,12 @@ def BestBeginStationsDijkstra(graph, numberOfTrajectories):
 
     for station in graph.allStations:
         new_numberOfCriticalDestinations = 0
+
         for connection in criticalConnectionsNotBeenYet:
             if station.name == connection[0] or station.name == connection[1]:
-                new_number += 1
+                new_numberOfCriticalDestinations += 1
 
-        if (new_number < number or number == 0) and new_number != 0:
+        if (new_numberOfCriticalDestinations < numberOfCriticalDestinations or numberOfCriticalDestinations == 0) and new_numberOfCriticalDestinations != 0:
             number = new_number
             beginstation = station
 
