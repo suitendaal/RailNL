@@ -100,21 +100,3 @@ def getBestScore(paths, criticalConnections, maxDepth, newTraject=[], path=[], d
             print(bestScore)
 
     return bestScore, bestTraject
-
-counter = 0
-def BestBeginStationsDijkstra():
-    counter = counter + 1
-    number = 5
-     for station in graph.allStations:
-        new_number = number of criticalConnections not been yet
-        if new_number < number and new_number != 0:
-            number = new_number
-            beginstation = station
-
-        if number of criticalConnections not been yet = 1:
-            Take as begin
-            stop for loop
-        elif number of criticalConnections not been yet > 1:
-            Take the shortest as begin
-            stop for loopp
-        
