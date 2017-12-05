@@ -20,7 +20,7 @@ def main():
     print("For depth first algorithm, type: 1")
     print("For Dijkstra's algorithm, type: 2")
     print("For the Hillclimber, type: 3")
-    print("For draw function, type: 4")
+    print("For Simmulated Annealing, type: 4")
 
     algorithm = input("Select: ")
 
@@ -95,12 +95,42 @@ def main():
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
 
+    #Sim Ann
+    elif (int(algorithm) == 4):
+
+        print("For Svens algoritm, type: 1")
+        print("For bestScore algoritm, type: 2")
+
+        algoritmBestPaths = input("Select: ")
+
+        #Sven
+        if (int(algoritmBestPaths) == 1):
+            bestPaths = algoritm3(graph)
+            pathsSelected = bestPaths[0:7]
+
+        #Bestscore
+        elif (int(algoritmBestPaths) == 2):
+            bestPaths, bestScores = ScorePaths(graph, 25)
+            pathsSelected = bestPaths[0:7]
+
+        #Errormelding
+        else:
+            while (int(algoritmBestPaths) != 1 or int(algoritmBestPaths) != 2):
+                algorithm = input("Please select valid algorithm: ")
+
+        #Run algorithm
+        bestScore = CalculateScore(pathsSelected, graph.criticalConnections)
+        for i in range(200):
+            pathsSelected, bestScore = HillClimber(graph, pathsSelected, bestPaths, bestScore)
+        print("paths: ", pathsSelected)
+        print("bestScore: ", bestScore)
+
     # elif (int(algorith m) == 4):
     #     graph.draw()
 
     #Errormelding
     else:
-        while (int(algorithm) != 1 or int(algorithm) != 2 or int(algorithm) != 3): #or int(algorithm) != 4):
+        while (int(algorithm) != 1 or int(algorithm) != 2 or int(algorithm) != 3 or int(algorithm) != 4):
              algorithm = input("Please select valid algorithm: ")
 
 
