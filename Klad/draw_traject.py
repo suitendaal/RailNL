@@ -41,15 +41,12 @@ for traject in trajecten:
             afk = afk + i[0]
         node_labels[station[0]] = afk
 
-colors = ["r", "b", "g", "y", "m", "k", "w"]
+# colors = ["r", "b", "g", "y", "m", "k", "w"]
 for i in range(len(trajecten)):
-    colour = colors[i]
+    # colour = colors[i]
     for j in range(len(traject[0]) - 1):
-        G.add_edge(""+traject[0][j], "" + traject[0][j], color = colour)
-
-edges = G.edges()
-print(edges)
-edge_color = [G[u][v]['color'] for u,v in edges]
+        if (""+traject[0][j], "" + traject[0][j+1]) or (""+traject[0][j+1], "" + traject[0][j]) not in G.edges():
+            G.add_edge(""+traject[0][j], "" + traject[0][j+1])
 
 pos=nx.get_node_attributes(G,'pos')
 pos_higher = {}
@@ -60,7 +57,7 @@ for k, v in pos.items():
     pos_higher[k] = (v[0]+x_off, v[1]+y_off)
 
 plt.figure(1, figsize = (10,10))
-nx.draw(G, pos, node_color=node_color, edge_color = edge_color, node_size=70)
+nx.draw(G, pos, node_color=node_color, node_size=70)
 nx.draw_networkx_edge_labels(G, pos, labels)
 nx.draw_networkx_labels(G, pos_higher, node_labels)
 plt.savefig("plot_traject.png")
