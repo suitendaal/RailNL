@@ -10,11 +10,9 @@ class Graph(object):
     def __init__(self):
         self.graph = {}
         self.allRoutes = []
-        self.allStations = []
-        self.criticalStations = []
+        self.allStations = {}
         self.allConnections = []
         self.criticalConnections = []
-        self.coordinates = {}
 
 
     def load_data(self, stationsCsvFile, connectiesCsvFile):
@@ -27,33 +25,38 @@ class Graph(object):
 
             # Add railwaystation to allStations
             newStation = Station(station[0], station[1], station[2], station[3])
-            self.allStations.append(newStation)
+            self.allStations[station[0]] = newStation
             self.graph[station[0]] = []
-            self.coordinates[station[0]] = [station[2], station[1]]
 
-            # Add critical railwaystations to criticalStations
-            if station[3] == 'Kritiek':
-                self.criticalStations.append(station[0])
         stationsfile.close()
 
+        # File with connections between stations
         connecties = open(connectiesCsvFile, 'rt')
         directions = csv.reader(connecties)
+
+        # Add connections to the object
         for direction in directions:
+
+            # Add connection to allConnections
             self.allConnections.append([direction[0], direction[1]])
+
+            # Add direction to the graph
             self.graph[direction[0]].append([direction[1], direction[2]])
             self.graph[direction[1]].append([direction[0], direction[2]])
-            if direction[0] in self.criticalStations or direction[1] in self.criticalStations:
+            if self.allStations[direction[0]].isCritical or self.allStations[direction[1]].isCritical:
                 self.criticalConnections.append([direction[0], direction[1]])
+
         connecties.close()
 
-    def makeAllRoutes(self):
+    def makeAllRoutes(self, minutes):
+        """Function to make all posible routes in a timescheme"""
         allNewRoutes = []
         for i in range(len(self.allStations)):
             for j in range(i + 1, len(self.allStations)):
-                allNewRoutes.extend(self.addPaths(self.allStations[i].name, self.allStations[j].name))
+                allNewRoutes.extend(self.addPaths(self.allStations[i].name, self.allStations[j].name, minutes))
         self.allRoutes = allNewRoutes
 
-    def addPaths(self, start, end, route=[], time=0):
+    def addPaths(self, start, end, minutes, route=[], time=0):
         """Function to get all routes between to stations, within 2 hours"""
 
         # Add start to route.
@@ -73,11 +76,13 @@ class Graph(object):
 
             # Do not pass the same station twice.
             if destination[0] not in route:
-                # Ensure the route doesn't take longer than 2 hours.
+
+                # Ensure the route doesn't take longer than the given timeframe.
                 duration = time + int(destination[1])
-                if duration < 120:
+                if duration < minutes:
+
                     # Make the new routes for the further stations.
-                    new_routes = self.addPaths(destination[0], end, route, duration)
+                    new_routes = self.addPaths(destination[0], end, minutes, route, duration)
                     for new_route in new_routes:
                         routes.append(new_route)
         return routes
