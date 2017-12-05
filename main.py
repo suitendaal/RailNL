@@ -113,7 +113,7 @@ def main():
 
         #Bestscore
         elif (int(algoritmBestPaths) == 2):
-            bestPaths, bestScores = ScorePaths(graph, 25)
+            bestPaths, bestScores = ScorePaths(graph, 7)
             pathsSelected = bestPaths[0:7]
 
         #Errormelding
@@ -123,8 +123,9 @@ def main():
 
         #Run algorithm
         bestScore = CalculateScore(pathsSelected, graph.criticalConnections)
-        for i in range(2000):
-            pathsSelected, bestScore = SimulatedAnnealing(graph, pathsSelected, bestPaths, bestScore)
+        for i in range(500):
+            pathsSelected, bestScore = SimulatedAnnealing(graph, pathsSelected, [], bestScore)
+        drawTraject(graph, pathsSelected)
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
 
