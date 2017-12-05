@@ -34,7 +34,7 @@ def SimulatedAnnealing(graph, pathsSelected, paths=[], bestScore=0, index=0):
         i += 1
         iteratie += 1
 
-        if iteratie > 10:
+        if iteratie > 50:
             break
         # Calculate the new score and check if it is the best score.
         newScore = CalculateScore(newPathsSelected, graph.criticalConnections)
