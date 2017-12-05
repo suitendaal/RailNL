@@ -19,9 +19,9 @@ def HillClimber(graph, pathsSelected, paths=[], bestScore=0, index=0):
 
     newPathsSelected = pathsSelected
 
-    # Archive
-    pathsToChoose = copy.copy(paths)
-    pathsToChoose.remove(newPathsSelected[index])
+    # # Archive
+    # pathsToChoose = copy.copy(paths)
+    # pathsToChoose.remove(newPathsSelected[index])
 
     n = 1000
     if n > len(paths):
@@ -41,8 +41,8 @@ def HillClimber(graph, pathsSelected, paths=[], bestScore=0, index=0):
         HillClimberScores.write(repr(bestScore)+ "\n")
 
         # Replace a traject with the new random traject.
-        newTraject = random.choice(pathsToChoose)
-        pathsToChoose.remove(newTraject)
+        newTraject = random.choice(paths)
+        # pathsToChoose.remove(newTraject)
         newPathsSelected[index] = newTraject
 
     # Do it again for the next traject.
