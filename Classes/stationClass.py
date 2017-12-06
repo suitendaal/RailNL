@@ -4,7 +4,11 @@ class Station(object):
         self.name = aName
         self.longitude = aLongitude
         self.latitude = aLatitude
+        self.destinations = []
         if critically == "Kritiek":
             self.isCritical = True
         else:
             self.isCritical = False
+
+    def addDestination(self, destination):
+        self.destinations.append(destination)
