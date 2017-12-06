@@ -54,27 +54,27 @@ def algoritm3(graph):
     return bestPaths
 
 
-def BestBeginStationsDijkstra(graph, numberOfTrajectories):
-    criticalConnectionsNotBeenYet = copy.copy(graph.criticalConnections)
-    numberOfCriticalDestinations = 0
-
-    for station in graph.allStations:
-        new_numberOfCriticalDestinations = 0
-
-        for connection in criticalConnectionsNotBeenYet:
-            if station.name == connection[0] or station.name == connection[1]:
-                new_numberOfCriticalDestinations += 1
-
-        if (new_numberOfCriticalDestinations < numberOfCriticalDestinations or numberOfCriticalDestinations == 0) and new_numberOfCriticalDestinations != 0:
-            number = new_number
-            beginstation = station
-
-        if number of criticalConnections not been yet = 1:
-            Take as begin
-            stop for loop
-        elif number of criticalConnections not been yet > 1:
-            Take the shortest as begin
-            stop for loopp
+# def BestBeginStationsDijkstra(graph, numberOfTrajectories):
+#     criticalConnectionsNotBeenYet = copy.copy(graph.criticalConnections)
+#     numberOfCriticalDestinations = 0
+#
+#     for station in graph.allStations:
+#         new_numberOfCriticalDestinations = 0
+#
+#         for connection in criticalConnectionsNotBeenYet:
+#             if station.name == connection[0] or station.name == connection[1]:
+#                 new_numberOfCriticalDestinations += 1
+#
+#         if (new_numberOfCriticalDestinations < numberOfCriticalDestinations or numberOfCriticalDestinations == 0) and new_numberOfCriticalDestinations != 0:
+#             number = new_number
+#             beginstation = station
+#
+#         if number of criticalConnections not been yet = 1:
+#             Take as begin
+#             stop for loop
+#         elif number of criticalConnections not been yet > 1:
+#             Take the shortest as begin
+#             stop for loopp
 
 
 def Dijkstra(graph, station, route = [], time = 0):
