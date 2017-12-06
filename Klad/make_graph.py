@@ -8,6 +8,8 @@ def makeGraph(file_name, fig_name):
     for item in data:
         plot.append(float(item[0]))
 
-    plt.plot(plot)
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111)
+    plt.sub_plot(plot)
     plt.ylabel("Score")
     plt.savefig(fig_name)
