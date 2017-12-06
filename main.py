@@ -6,6 +6,7 @@ from PythonFunctions.hillclimber import HillClimber
 import os
 from PythonFunctions.simulatedAnnealing import SimulatedAnnealing
 from Klad.draw_traject import drawTraject
+from Klad.make_graph import makeGraph
 
 
 def main():
@@ -22,10 +23,9 @@ def main():
     print("For depth first algorithm, type: 1")
     print("For Dijkstra's algorithm, type: 2")
     print("For the Hillclimber, type: 3")
-    print("For Simmulated Annealing, type: 4")
+    print("For Simulated Annealing, type: 4")
 
     algorithm = input("Select: ")
-
 
     ##Depth first
     if (int(algorithm) == 1):
@@ -98,6 +98,7 @@ def main():
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
         drawTraject(graph, pathsSelected)
+        makeGraph("HillClimberScore.csv", "hillclimber_plot.png")
 
     #Sim Ann
     elif (int(algorithm) == 4):
@@ -125,10 +126,11 @@ def main():
         #Run algorithm
         bestScore = CalculateScore(pathsSelected, graph.criticalConnections)
         for i in range(500):
-            pathsSelected, bestScore = SimulatedAnealing(graph, pathsSelected, [], bestScore)
+            pathsSelected, bestScore = SimulatedAnnealing(graph, pathsSelected, [], bestScore)
         drawTraject(graph, pathsSelected)
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
+        makeGraph("AnnealingScore.csv", "annealing_plot.png")
 
     # elif (int(algorith m) == 4):
     #     graph.draw()
