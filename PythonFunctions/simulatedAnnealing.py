@@ -38,7 +38,7 @@ def SimulatedAnnealing(graph, pathsSelected, paths=[], bestScore=0, index=0):
             break
         # Calculate the new score and check if it is the best score.
         newScore = CalculateScore(newPathsSelected, graph.criticalConnections)
-        AnnealingScoresNew.write(str(newScore))
+        AnnealingScoresNew.write(repr(newScore) + "\n")
         if newScore > bestScore:
             bestScore = newScore
             pathsSelected = newPathsSelected
@@ -50,7 +50,7 @@ def SimulatedAnnealing(graph, pathsSelected, paths=[], bestScore=0, index=0):
             pathsSelected = newPathsSelected
             iteratie = 0
 
-        AnnealingScores.write(str(bestScore))
+        AnnealingScores.write(repr(bestScore)+"\n")
 
         # Replace a traject with the new random traject.
         newTraject = random.choice(pathsToChoose)
