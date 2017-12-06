@@ -29,7 +29,7 @@ def HillClimber(graph, pathsSelected, paths=[], bestScore=0, index=0):
 
 
     # Change a traject 1000 times and check if it is the best score.
-    for i in range(100):
+    for i in range(1000):
 
         # Calculate the new score and check if it is the best score.
         newScore = CalculateScore(newPathsSelected, graph.criticalConnections)
