@@ -66,6 +66,32 @@ def ScorePaths(graph, n):
             if len(bestpaths) < n:
                 bestpaths.append(path)
                 bestscores.append(score)
+            
+            else:
+                index = bestscores.index(min(bestscores))
+                bestpaths[index] = path
+                bestscores[index] = score
+
+    return bestpaths, bestscores
+
+
+def ScorePathsPruning(graph, n):
+    "Function to determine the best n trajectories based on the score"
+    bestpaths = []
+    bestscores = []
+    connections_made = []
+
+    # Add path, calculate score and keep track of the best score and trajectories
+    for path in graph.allRoutes:
+        score = CalculateScore([path], graph.criticalConnections)
+        if bestscores == [] or min(bestscores) < score:
+            if (len(bestpaths) < n) and (([path[0], path[1]]) not in connections_made) and (([path[-2], path[-1]]) not in connections_made):
+                    bestpaths.append(path)
+                    bestscores.append(score)
+                    for i in len(path)-1:
+                        if [path[i], path[i+1]] not in connections_made:
+                            connections_made.append([[path[i], path[i+1]]])
+            
             else:
                 index = bestscores.index(min(bestscores))
                 bestpaths[index] = path
