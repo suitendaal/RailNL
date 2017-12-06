@@ -1,3 +1,2 @@
 # exclude everything with pyc
-*.pyc
-*.csv
+*pyc
