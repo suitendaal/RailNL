@@ -27,8 +27,11 @@ def main():
 
     algorithm = input("Select: ")
 
+    if (int(algorithm) == 5):
+        drawTraject(graph, [[['Alkmaar', 'Hoorn', 'Zaandam', 'Beverwijk', 'Haarlem', 'Amsterdam Sloterdijk', 'Amsterdam Centraal', 'Amsterdam Amstel'], 116], [['Den Haag Centraal', 'Gouda', 'Rotterdam Alexander', 'Rotterdam Centraal', 'Dordrecht'], 53], [['Den Helder', 'Alkmaar', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk', 'Haarlem', 'Heemstede-Aerdenhout', 'Leiden Centraal'], 93], [['Gouda', 'Alphen a/d Rijn', 'Leiden Centraal', 'Den Haag Centraal', 'Delft', 'Schiedam Centrum', 'Rotterdam Centraal'], 70]])
+
     ##Depth first
-    if (int(algorithm) == 1):
+    elif (int(algorithm) == 1):
 
         print("For Svens algoritm, type: 1")
         print("For bestScore algoritm, type: 2")
@@ -52,7 +55,8 @@ def main():
         #Run algorithm
         for i in range(7):
             sc, tr = getBestScore(bestPaths, graph.criticalConnections, i)
-            print("beste: ", sc)
+            print("beste score: ", sc)
+            print("beste trajecten: ", tr)
         drawTraject(graph, tr)
 
     #Dijkstra
