@@ -1,13 +1,16 @@
 import csv
 import matplotlib.pyplot as plt
+import numpy as np
 
 def makeGraph(file_name, fig_name):
     plot = []
-    plot_file = open(file_name, 'rt')
-    data = csv.reader(plot_file)
-    for item in data:
-        plot.append(float(item[0]))
+    with open(file_name) as csvfile:
+        spamreader = csv.reader(csvfile)
+        for row in spamreader:
+            plot.append(float(row[0]))
+    print(len(plot))
 
-    plt.plot(plot)
+    x = np.arange(0, len(plot))
+    plt.plot(x, plot)
     plt.ylabel("Score")
     plt.savefig(fig_name)
