@@ -11,26 +11,36 @@ from PlotFunctions.make_graph import makeGraph
 
 
 def main():
-    print("For Holland, type: H")
-    print("For the Netherlands, type: N")
+    print("For North - and South - Holland, type: H")
+    print("For the entire Netherlands, type: N")
 
     stations = input("Select:")
 
     if stations == "H" or stations == "h":
         stationsCsvFile = os.path.join('csvFiles', "StationsHolland.csv")
         connectiesCsvFile = os.path.join('csvFiles', "ConnectiesHolland.csv")
+        maxDepth = 7
+        maxDuration = 120
     elif stations == "N" or stations == "n":
         stationsCsvFile = os.path.join('csvFiles', "StationsNationaal.csv")
         connectiesCsvFile = os.path.join('csvFiles', "ConnectiesNationaal.csv")
+        maxDepth = 22
+        maxDuration = 180
     else:
         sys.exit("Not a valid input")
     # Files with stations and connections.
 
 
+    critical = input("Make all stations critical: y/n? ")
     # Load the stations and connections in a graph.
     graph = Graph()
-    graph.load_data(stationsCsvFile, connectiesCsvFile)
-    graph.makeAllRoutes(120)
+    if critical == "y" or critical == "Y" or critical == "yes":
+        graph.load_data(stationsCsvFile, connectiesCsvFile, True)
+    elif critical == "n" or critical == "N" or critical == "no":
+        graph.load_data(stationsCsvFile, connectiesCsvFile)
+    else:
+        sys.exit("Not a valid input")
+    graph.makeAllRoutes(maxDuration)
 
     print("For depth first algorithm, type: 1")
     print("For Dijkstra's algorithm, type: 2")
@@ -39,11 +49,8 @@ def main():
 
     algorithm = input("Select: ")
 
-    if (int(algorithm) == 5):
-        drawTraject(graph, [[['Alkmaar', 'Hoorn', 'Zaandam', 'Beverwijk', 'Haarlem', 'Amsterdam Sloterdijk', 'Amsterdam Centraal', 'Amsterdam Amstel'], 116], [['Den Haag Centraal', 'Gouda', 'Rotterdam Alexander', 'Rotterdam Centraal', 'Dordrecht'], 53], [['Den Helder', 'Alkmaar', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk', 'Haarlem', 'Heemstede-Aerdenhout', 'Leiden Centraal'], 93], [['Gouda', 'Alphen a/d Rijn', 'Leiden Centraal', 'Den Haag Centraal', 'Delft', 'Schiedam Centrum', 'Rotterdam Centraal'], 70]])
-
     ##Depth first
-    elif (int(algorithm) == 1):
+    if (int(algorithm) == 1):
 
         print("For Svens algoritm, type: 1")
         print("For bestScore algoritm, type: 2")
@@ -57,7 +64,7 @@ def main():
 
         #BestScore
         elif (int(algoritmBestPaths) == 2):
-            bestPaths, bestScores = ScorePaths(graph, 20)
+            bestPaths, bestScores = ScorePaths(graph, maxDepth)
 
         #Errormelding
         else:
@@ -65,8 +72,11 @@ def main():
                 algorithm = input("Please select valid algorithm: ")
 
         #Run algorithm
-        for i in range(7):
-            sc, tr = getBestScore(bestPaths, graph.criticalConnections, i)
+        for i in range(maxDepth):
+            if (int(algoritmBestPaths) == 1):
+                sc, tr = getBestScore(1, bestPaths, graph.criticalConnections, i)
+            else:
+                sc, tr = getBestScore(2, bestPaths, graph.criticalConnections, i)
             print("beste score: ", sc)
             print("beste trajecten: ", tr)
         drawTraject(graph, tr)
@@ -85,6 +95,7 @@ def main():
             print("begin", traject[0][0])
             print(traject)
         drawTraject(graph, trajecten)
+
     #Hillclimber
     elif (int(algorithm) == 3):
         print("For Svens algoritm, type: 1")
@@ -95,12 +106,12 @@ def main():
         #Sven
         if (int(algoritmBestPaths) == 1):
             bestPaths = algoritm3(graph)
-            pathsSelected = bestPaths[0:7]
+            pathsSelected = bestPaths[0:maxDepth]
 
         #Bestscore
         elif (int(algoritmBestPaths) == 2):
-            bestPaths, bestScores = ScorePaths(graph, 25)
-            pathsSelected = bestPaths[0:7]
+            bestPaths, bestScores = ScorePaths(graph, maxDepth)
+            pathsSelected = bestPaths[0:maxDepth]
 
         #Errormelding
         else:
@@ -113,7 +124,7 @@ def main():
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
         drawTraject(graph, pathsSelected)
-        makeGraph(os.path.join('results', "HillClimberScore.csv"), os.path.join('results', "hillclimber_plot.png"))
+        makeGraph("HillClimberScore.csv", "hillclimber_plot.png")
 
     #Sim Ann
     elif (int(algorithm) == 4):
@@ -126,12 +137,12 @@ def main():
         #Sven
         if (int(algoritmBestPaths) == 1):
             bestPaths = algoritm3(graph)
-            pathsSelected = bestPaths[0:7]
+            pathsSelected = bestPaths[0:maxDepth]
 
         #Bestscore
         elif (int(algoritmBestPaths) == 2):
-            bestPaths, bestScores = ScorePaths(graph, 7)
-            pathsSelected = bestPaths[0:7]
+            bestPaths, bestScores = ScorePaths(graph, maxDepth)
+            pathsSelected = bestPaths[0:maxDepth]
 
         #Errormelding
         else:
@@ -144,7 +155,7 @@ def main():
         drawTraject(graph, pathsSelected)
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
-        makeGraph(os.path.join('results', "AnnealingScore.csv"), os.path.join('results', "annealing_plot.png"))
+        makeGraph("AnnealingScore.csv", "annealing_plot.png")
 
     # elif (int(algorith m) == 4):
     #     graph.draw()
@@ -152,8 +163,6 @@ def main():
     #Errormelding
     else:
         sys.exit("Not a valid algorithm")
-
-
 
 
 if __name__ == "__main__":

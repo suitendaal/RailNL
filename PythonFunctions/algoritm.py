@@ -16,9 +16,6 @@ def algoritm1(graph):
         if newBestScore > bestScore:
             bestScore = newBestScore
             bestTraject = newBestTraject
-    print("bestScore: ", bestScore)
-    print("lengte: ", bestTraject)
-
 
 
 def algoritm3Function(graph, start, end):
