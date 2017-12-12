@@ -8,5 +8,5 @@ def makeGraph(file_name, fig_name):
 
     x = np.arange(0, len(plot))
     plt.plot(x, plot)
-    plt.ylabel("Score")
+    # plt.ylabel("Score")
     plt.savefig(fig_name)
