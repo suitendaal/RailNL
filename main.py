@@ -19,9 +19,13 @@ def main():
     if stations == "H" or stations == "h":
         stationsCsvFile = os.path.join('csvFiles', "StationsHolland.csv")
         connectiesCsvFile = os.path.join('csvFiles', "ConnectiesHolland.csv")
+        maxDepth = 7
+        maxDuration = 120
     elif stations == "N" or stations == "n":
         stationsCsvFile = os.path.join('csvFiles', "StationsNationaal.csv")
         connectiesCsvFile = os.path.join('csvFiles', "ConnectiesNationaal.csv")
+        maxDepth = 22
+        maxDuration = 180
     else:
         sys.exit("Not a valid input")
     # Files with stations and connections.
@@ -36,7 +40,7 @@ def main():
         graph.load_data(stationsCsvFile, connectiesCsvFile)
     else:
         sys.exit("Not a valid input")
-    graph.makeAllRoutes(120)
+    graph.makeAllRoutes(maxDuration)
 
     print("For depth first algorithm, type: 1")
     print("For Dijkstra's algorithm, type: 2")
@@ -45,11 +49,8 @@ def main():
 
     algorithm = input("Select: ")
 
-    if (int(algorithm) == 5):
-        drawTraject(graph, [[['Alkmaar', 'Hoorn', 'Zaandam', 'Beverwijk', 'Haarlem', 'Amsterdam Sloterdijk', 'Amsterdam Centraal', 'Amsterdam Amstel'], 116], [['Den Haag Centraal', 'Gouda', 'Rotterdam Alexander', 'Rotterdam Centraal', 'Dordrecht'], 53], [['Den Helder', 'Alkmaar', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk', 'Haarlem', 'Heemstede-Aerdenhout', 'Leiden Centraal'], 93], [['Gouda', 'Alphen a/d Rijn', 'Leiden Centraal', 'Den Haag Centraal', 'Delft', 'Schiedam Centrum', 'Rotterdam Centraal'], 70]])
-
     ##Depth first
-    elif (int(algorithm) == 1):
+    if (int(algorithm) == 1):
 
         print("For Svens algoritm, type: 1")
         print("For bestScore algoritm, type: 2")
@@ -63,7 +64,7 @@ def main():
 
         #BestScore
         elif (int(algoritmBestPaths) == 2):
-            bestPaths, bestScores = ScorePaths(graph, 20)
+            bestPaths, bestScores = ScorePaths(graph, maxDepth)
 
         #Errormelding
         else:
@@ -71,7 +72,7 @@ def main():
                 algorithm = input("Please select valid algorithm: ")
 
         #Run algorithm
-        for i in range(5):
+        for i in range(maxDepth):
             if (int(algoritmBestPaths) == 1):
                 sc, tr = getBestScore(1, bestPaths, graph.criticalConnections, i)
             else:
@@ -105,12 +106,12 @@ def main():
         #Sven
         if (int(algoritmBestPaths) == 1):
             bestPaths = algoritm3(graph)
-            pathsSelected = bestPaths[0:7]
+            pathsSelected = bestPaths[0:maxDepth]
 
         #Bestscore
         elif (int(algoritmBestPaths) == 2):
-            bestPaths, bestScores = ScorePaths(graph, 25)
-            pathsSelected = bestPaths[0:7]
+            bestPaths, bestScores = ScorePaths(graph, maxDepth)
+            pathsSelected = bestPaths[0:maxDepth]
 
         #Errormelding
         else:
@@ -136,12 +137,12 @@ def main():
         #Sven
         if (int(algoritmBestPaths) == 1):
             bestPaths = algoritm3(graph)
-            pathsSelected = bestPaths[0:7]
+            pathsSelected = bestPaths[0:maxDepth]
 
         #Bestscore
         elif (int(algoritmBestPaths) == 2):
-            bestPaths, bestScores = ScorePaths(graph, 7)
-            pathsSelected = bestPaths[0:7]
+            bestPaths, bestScores = ScorePaths(graph, maxDepth)
+            pathsSelected = bestPaths[0:maxDepth]
 
         #Errormelding
         else:
@@ -162,8 +163,6 @@ def main():
     #Errormelding
     else:
         sys.exit("Not a valid algorithm")
-
-
 
 
 if __name__ == "__main__":
