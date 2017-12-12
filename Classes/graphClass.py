@@ -16,7 +16,7 @@ class Graph(object):
         self.stationNames = []
 
 
-    def load_data(self, stationsCsvFile, connectiesCsvFile):
+    def load_data(self, stationsCsvFile, connectiesCsvFile, allCritical = False):
         """Function to load stations and connections into the graph"""
 
         # File with railwaystations and coordinates
@@ -26,7 +26,10 @@ class Graph(object):
 
             # Add railwaystation to allStations
             self.stationNames.append(station[0])
-            newStation = Station(station[0], station[1], station[2], station[3])
+            if allCritical:
+                newStation = Station(station[0], station[1], station[2], 'Kritiek')
+            else:
+                newStation = Station(station[0], station[1], station[2], station[3])
             self.allStations[station[0]] = newStation
             self.graph[station[0]] = []
 
