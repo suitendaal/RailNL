@@ -139,7 +139,7 @@ def main():
 
         #Run algorithm
         bestScore = CalculateScore(pathsSelected, graph.criticalConnections)
-        for i in range(500):
+        for i in range(50):
             pathsSelected, bestScore = SimulatedAnnealing(graph, pathsSelected, [], bestScore)
         drawTraject(graph, pathsSelected)
         print("paths: ", pathsSelected)
