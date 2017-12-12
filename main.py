@@ -102,7 +102,7 @@ def main():
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
         drawTraject(graph, pathsSelected)
-        makeGraph("HillClimberScore.csv", "hillclimber_plot.png")
+        makeGraph(os.path.join('results', "HillClimberScore.csv"), os.path.join('results', "hillclimber_plot.png"))
 
     #Sim Ann
     elif (int(algorithm) == 4):
@@ -134,7 +134,7 @@ def main():
         drawTraject(graph, pathsSelected)
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
-        makeGraph("AnnealingScore.csv", "annealing_plot.png")
+        makeGraph(os.path.join('results', "AnnealingScore.csv"), os.path.join('results', "annealing_plot.png"))
 
     # elif (int(algorith m) == 4):
     #     graph.draw()

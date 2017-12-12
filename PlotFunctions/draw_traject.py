@@ -56,4 +56,4 @@ def drawTraject(graph, trajecten):
     plt.figure(1, figsize = (10,10))
     nx.draw(G, pos, node_color=node_color, edge_color = edge_color, node_size=70)
     nx.draw_networkx_labels(G, pos_higher, node_labels)
-    plt.savefig("plot_traject.png")
+    plt.savefig(os.path.join('results', "plot_traject.png"))
