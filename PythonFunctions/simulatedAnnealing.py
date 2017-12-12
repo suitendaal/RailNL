@@ -45,7 +45,7 @@ def SimulatedAnnealing(graph, pathsSelected, paths=[], bestScore=0, index=0):
             pathsSelected = newPathsSelected
             iteratie = 0
 
-        elif ScoreAnnealing(iteratie, i, newScore, bestScore) > random.uniform(0, 1):
+        elif ScoreAnnealing(iteratie, i, newScore, bestScore) > random.uniform(0.6, 1):
             # 0.8 kan ook vervangen worden door random tussen 0 en 1
             bestScore = newScore
             pathsSelected = newPathsSelected
