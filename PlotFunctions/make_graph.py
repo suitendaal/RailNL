@@ -9,7 +9,6 @@ def makeGraph(file_name, fig_name):
         spamreader = csv.reader(csvfile)
         for row in spamreader:
             plot.append(float(row[0]))
-    print(len(plot))
 
     x = np.arange(0, len(plot))
     plt.plot(x, plot)

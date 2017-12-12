@@ -48,7 +48,7 @@ class Graph(object):
 
             self.allStations[direction[0]].addDestination(direction[1])
             self.allStations[direction[1]].addDestination(direction[0])
-            
+
             if self.allStations[direction[0]].isCritical or self.allStations[direction[1]].isCritical:
                 self.criticalConnections.append([direction[0], direction[1]])
 
@@ -84,7 +84,7 @@ class Graph(object):
             if destination[0] not in route:
 
                 # Ensure the route doesn't take longer than the given timeframe.
-                duration = time + int(destination[1])
+                duration = time + int(float(destination[1]))
                 if duration < minutes:
 
                     # Make the new routes for the further stations.
