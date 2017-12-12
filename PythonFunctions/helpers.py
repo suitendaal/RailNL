@@ -28,36 +28,6 @@ def CalculateScore(trajecten, criticalConnections):
     return score
 
 
-
-def make_all_routes(graph, start, end, route=[], time=0):
-    """Function to get all routes between to stations, within 2 hours"""
-
-    # Add start to route.
-    route = route + [start]
-
-    # At the end, return the route.
-    if start == end:
-        return [[route, time]]
-
-    # If the route doesn't exist, return nothing.
-    elif not graph[start]:
-        return []
-    routes = []
-
-    # Check the route for every destination.
-    for destination in graph[start]:
-
-        # Do not pass the same station twice.
-        if destination[0] not in route:
-            # Ensure the route doesn't take longer than 2 hours.
-            duration = time + int(destination[1])
-            if duration < 120:
-                # Make the new routes for the further stations.
-                new_routes = make_all_routes(graph, destination[0], end, route, duration)
-                for new_route in new_routes:
-                    routes.append(new_route)
-    return routes
-
 def ScorePaths(graph, n):
     "Function to determine the best n trajectories based on the score"
     bestpaths = []
