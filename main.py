@@ -53,8 +53,11 @@ def main():
                 algorithm = input("Please select valid algorithm: ")
 
         #Run algorithm
-        for i in range(7):
-            sc, tr = getBestScore(bestPaths, graph.criticalConnections, i)
+        for i in range(5):
+            if (int(algoritmBestPaths) == 1):
+                sc, tr = getBestScore(1, bestPaths, graph.criticalConnections, i)
+            else:
+                sc, tr = getBestScore(2, bestPaths, graph.criticalConnections, i)
             print("beste score: ", sc)
             print("beste trajecten: ", tr)
         drawTraject(graph, tr)
@@ -73,6 +76,7 @@ def main():
             print("begin", traject[0][0])
             print(traject)
         drawTraject(graph, trajecten)
+
     #Hillclimber
     elif (int(algorithm) == 3):
         print("For Svens algoritm, type: 1")
@@ -102,7 +106,7 @@ def main():
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
         drawTraject(graph, pathsSelected)
-        makeGraph(os.path.join('results', "HillClimberScore.csv"), os.path.join('results', "hillclimber_plot.png"))
+        makeGraph("HillClimberScore.csv", "hillclimber_plot.png")
 
     #Sim Ann
     elif (int(algorithm) == 4):
@@ -134,7 +138,7 @@ def main():
         drawTraject(graph, pathsSelected)
         print("paths: ", pathsSelected)
         print("bestScore: ", bestScore)
-        makeGraph(os.path.join('results', "AnnealingScore.csv"), os.path.join('results', "annealing_plot.png"))
+        makeGraph("AnnealingScore.csv", "annealing_plot.png")
 
     # elif (int(algorith m) == 4):
     #     graph.draw()

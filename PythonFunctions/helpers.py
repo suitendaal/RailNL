@@ -1,5 +1,9 @@
 import csv
 import copy
+import os
+
+DepthFirst_sven = open(os.path.join('results', "DepthFirst_sven.csv"), "w")
+DepthFirst_bestscores = open(os.path.join('results', "DepthFirst_bestscores.csv"), "w")
 
 def CalculateScore(trajecten, criticalConnections):
     """Function to compute the score"""
@@ -99,8 +103,7 @@ def ScorePathsPruning(graph, n):
 
     return bestpaths, bestscores
 
-
-def getBestScore(paths, criticalConnections, maxDepth, newTraject=[], path=[], depth=0, bestScore=0, bestTraject=[], j=-1):
+def getBestScore(method, paths, criticalConnections, maxDepth, newTraject=[], path=[], depth=0, bestScore=0, bestTraject=[], j=-1):
     "Depth first algoritm to determine best combination of n trajectories"
     newTrajectCopy = copy.copy(newTraject)
 
@@ -119,10 +122,16 @@ def getBestScore(paths, criticalConnections, maxDepth, newTraject=[], path=[], d
 
     # Use recursion to determine next best score and traject
     for i in range(j + 1, len(paths)):
-        newBestScore, newBestTraject = getBestScore(paths, criticalConnections, maxDepth, newTrajectCopy, paths[i], depth+1, bestScore, bestTraject, i)
+        newBestScore, newBestTraject = getBestScore(method, paths, criticalConnections, maxDepth, newTrajectCopy, paths[i], depth+1, bestScore, bestTraject, i)
         if newBestScore > bestScore:
             bestScore = newBestScore
             bestTraject = newBestTraject
-            print(bestScore)
+            if method == 1:
+                DepthFirst_sven.write(repr(bestScore) + "\n")
+            if method == 2:
+                DepthFirst_bestscores.write(repr(bestScore) + "\n")
+
+        print("calculating...")
+
 
     return bestScore, bestTraject
