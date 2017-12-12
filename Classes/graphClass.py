@@ -16,7 +16,7 @@ class Graph(object):
         self.stationNames = []
 
 
-    def load_data(self, stationsCsvFile, connectiesCsvFile):
+    def load_data(self, stationsCsvFile, connectiesCsvFile, allCritical = False):
         """Function to load stations and connections into the graph"""
 
         # File with railwaystations and coordinates
@@ -26,7 +26,10 @@ class Graph(object):
 
             # Add railwaystation to allStations
             self.stationNames.append(station[0])
-            newStation = Station(station[0], station[1], station[2], station[3])
+            if allCritical:
+                newStation = Station(station[0], station[1], station[2], 'Kritiek')
+            else:
+                newStation = Station(station[0], station[1], station[2], station[3])
             self.allStations[station[0]] = newStation
             self.graph[station[0]] = []
 
@@ -48,7 +51,7 @@ class Graph(object):
 
             self.allStations[direction[0]].addDestination(direction[1])
             self.allStations[direction[1]].addDestination(direction[0])
-            
+
             if self.allStations[direction[0]].isCritical or self.allStations[direction[1]].isCritical:
                 self.criticalConnections.append([direction[0], direction[1]])
 
@@ -84,7 +87,7 @@ class Graph(object):
             if destination[0] not in route:
 
                 # Ensure the route doesn't take longer than the given timeframe.
-                duration = time + int(destination[1])
+                duration = time + int(float(destination[1]))
                 if duration < minutes:
 
                     # Make the new routes for the further stations.

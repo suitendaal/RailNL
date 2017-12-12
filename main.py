@@ -4,16 +4,28 @@ import csv
 from PythonFunctions.helpers import CalculateScore, ScorePaths, getBestScore
 from PythonFunctions.hillclimber import HillClimber
 import os
+import sys
 from PythonFunctions.simulatedAnnealing import SimulatedAnnealing
 from PlotFunctions.draw_traject import drawTraject
 from PlotFunctions.make_graph import makeGraph
 
 
 def main():
+    print("For Holland, type: H")
+    print("For the Netherlands, type: N")
 
+    stations = input("Select:")
+
+    if stations == "H" or stations == "h":
+        stationsCsvFile = os.path.join('csvFiles', "StationsHolland.csv")
+        connectiesCsvFile = os.path.join('csvFiles', "ConnectiesHolland.csv")
+    elif stations == "N" or stations == "n":
+        stationsCsvFile = os.path.join('csvFiles', "StationsNationaal.csv")
+        connectiesCsvFile = os.path.join('csvFiles', "ConnectiesNationaal.csv")
+    else:
+        sys.exit("Not a valid input")
     # Files with stations and connections.
-    stationsCsvFile = os.path.join('csvFiles', "StationsHolland.csv")
-    connectiesCsvFile = os.path.join('csvFiles', "ConnectiesHolland.csv")
+
 
     # Load the stations and connections in a graph.
     graph = Graph()
@@ -96,8 +108,7 @@ def main():
 
         #Errormelding
         else:
-            while (int(algoritmBestPaths) != 1 or int(algoritmBestPaths) != 2):
-                algorithm = input("Please select valid algorithm: ")
+            sys.exit("Not a valid algorithm")
 
         #Run algorithm
         bestScore = CalculateScore(pathsSelected, graph.criticalConnections)
@@ -128,12 +139,11 @@ def main():
 
         #Errormelding
         else:
-            while (int(algoritmBestPaths) != 1 or int(algoritmBestPaths) != 2):
-                algorithm = input("Please select valid algorithm: ")
+            sys.exit("Not a valid algorithm")
 
         #Run algorithm
         bestScore = CalculateScore(pathsSelected, graph.criticalConnections)
-        for i in range(500):
+        for i in range(50):
             pathsSelected, bestScore = SimulatedAnnealing(graph, pathsSelected, [], bestScore)
         drawTraject(graph, pathsSelected)
         print("paths: ", pathsSelected)
@@ -145,8 +155,7 @@ def main():
 
     #Errormelding
     else:
-        while (int(algorithm) != 1 or int(algorithm) != 2 or int(algorithm) != 3 or int(algorithm) != 4):
-             algorithm = input("Please select valid algorithm: ")
+        sys.exit("Not a valid algorithm")
 
 
 
