@@ -27,9 +27,15 @@ def main():
     # Files with stations and connections.
 
 
+    critical = input("Make all stations critical: y/n? ")
     # Load the stations and connections in a graph.
     graph = Graph()
-    graph.load_data(stationsCsvFile, connectiesCsvFile)
+    if critical == "y" or critical == "Y" or critical == "yes":
+        graph.load_data(stationsCsvFile, connectiesCsvFile, True)
+    elif critical == "n" or critical == "N" or critical == "no":
+        graph.load_data(stationsCsvFile, connectiesCsvFile)
+    else:
+        sys.exit("Not a valid input")
     graph.makeAllRoutes(120)
 
     print("For depth first algorithm, type: 1")
