@@ -3,8 +3,8 @@ import random
 import copy
 import csv
 
-HillClimberScores = open("HillClimberScore.csv", "w")
-HillClimberScoresNew = open("HillClimberScoreNew.csv", "w")
+HillClimberScores = open(os.path.join('results', "HillClimberScore.csv"), "w")
+HillClimberScoresNew = open(os.path.join('results',"HillClimberScoreNew.csv"), "w")
 
 def HillClimber(graph, pathsSelected, paths=[], bestScore=0, index=0):
     """Function that changes a traject piece by piece and calculates the new score.

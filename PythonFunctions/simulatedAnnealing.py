@@ -3,8 +3,8 @@ import random
 import copy
 import csv
 
-AnnealingScores = open("AnnealingScore.csv", "w")
-AnnealingScoresNew = open("AnnealingScoreNew.csv", "w")
+AnnealingScores = open(os.path.join('results', "AnnealingScore.csv"), "w")
+AnnealingScoresNew = open(os.path.join('results', "AnnealingScoreNew.csv"), "w")
 
 def SimulatedAnnealing(graph, pathsSelected, paths=[], bestScore=0, index=0):
     """Function that changes a traject piece by piece and calculates the new score.
