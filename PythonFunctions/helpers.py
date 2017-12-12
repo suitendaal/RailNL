@@ -131,7 +131,6 @@ def getBestScore(method, paths, criticalConnections, maxDepth, newTraject=[], pa
             if method == 2:
                 DepthFirst_bestscores.write(repr(bestScore) + "\n")
 
-        print("calculating...")
-
+            print(bestScore)
 
     return bestScore, bestTraject
