@@ -35,7 +35,7 @@ def SimulatedAnnealing(graph, pathsSelected, paths=[], bestScore=0, index=0):
         i += 1
         iteratie += 1
 
-        if iteratie > 50:
+        if iteratie > 500:
             break
         # Calculate the new score and check if it is the best score.
         newScore = CalculateScore(newPathsSelected, graph.criticalConnections)
@@ -45,7 +45,7 @@ def SimulatedAnnealing(graph, pathsSelected, paths=[], bestScore=0, index=0):
             pathsSelected = newPathsSelected
             iteratie = 0
 
-        elif ScoreAnnealing(iteratie, i, newScore, bestScore) > 0.98:
+        elif ScoreAnnealing(iteratie, i, newScore, bestScore) > random.uniform(0, 1):
             # 0.8 kan ook vervangen worden door random tussen 0 en 1
             bestScore = newScore
             pathsSelected = newPathsSelected
