@@ -11,8 +11,8 @@ from PlotFunctions.make_graph import makeGraph
 
 
 def main():
-    print("For Holland, type: H")
-    print("For the Netherlands, type: N")
+    print("For North - and South - Holland, type: H")
+    print("For the entire Netherlands, type: N")
 
     stations = input("Select:")
 
