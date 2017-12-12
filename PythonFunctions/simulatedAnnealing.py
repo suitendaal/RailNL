@@ -2,6 +2,7 @@ from PythonFunctions.helpers import CalculateScore
 import random
 import copy
 import csv
+import os
 
 AnnealingScores = open(os.path.join('results', "AnnealingScore.csv"), "w")
 AnnealingScoresNew = open(os.path.join('results', "AnnealingScoreNew.csv"), "w")

@@ -2,6 +2,7 @@ from PythonFunctions.helpers import CalculateScore
 import random
 import copy
 import csv
+import os
 
 HillClimberScores = open(os.path.join('results', "HillClimberScore.csv"), "w")
 HillClimberScoresNew = open(os.path.join('results',"HillClimberScoreNew.csv"), "w")

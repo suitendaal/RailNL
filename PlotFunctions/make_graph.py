@@ -1,6 +1,7 @@
 import csv
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 def makeGraph(file_name, fig_name):
     plot = []

@@ -5,8 +5,8 @@ from PythonFunctions.helpers import CalculateScore, ScorePaths, getBestScore
 from PythonFunctions.hillclimber import HillClimber
 import os
 from PythonFunctions.simulatedAnnealing import SimulatedAnnealing
-from Klad.draw_traject import drawTraject
-from Klad.make_graph import makeGraph
+from PlotFunctions.draw_traject import drawTraject
+from PlotFunctions.make_graph import makeGraph
 
 
 def main():
