@@ -1,12 +1,12 @@
 # RailNL
-Deze case gaat over de lijnvoering van intercitytreinen. Dat betekent dat je binnen een gegeven tijdsframe een aantal trajecten
-uitzet. Een traject is een route van sporen en stations waarover treinen heen en weer rijden. Een traject mag niet langer zijn
-dan het opgegeven tijdsframe.
+This case is about the line manegement of intercity trains. In other words, in a given time we have to give a number of trajectories, which is as efficient as possible. Een trajectory is a route of connections between stations. Trajectories can not be longer than 120 minutes for the North- and South-Holland case.
+For the entire Netherlands, this timeframe is 180 minutes.
 
-Voor het eerste deel gaan wij naar de 22 belangrijkste intercitystations in provincies Noord- en Zuid-Holland kijken.
-De verbindingen tussen die stations zijn in een bestand gegeven. Van deze 22 stations zijn er 7 door RailNL als kritiek bestempeld:
-Alkmaar, Amsterdam Centraal, Den Haag Centraal, Gouda,Haarlem, Rotterdam Centraal en Zaandam. De stations staan in een bestand met
-bijbehorende coordinaten. Ook staat hierin of een station kritiek (extra belangrijk) is.
+For the first part We are going to take a look at the 22 most important intercity stations in North- and South-Holland. 
+The second part will be the entire netherlands (the 61 most important intercity stations).
+The connections between stations are given in csv files.
+Some stations are critical. A critical connection is a connection between 2 stations of which at least one is a critical station.
+With our score function, the trajectories get more efficient with more critical connections.
 
 ## Getting Started
 The program can be run by using the command "python main.py".  The program will first ask you which part of the Netherlands to use (not yet).
@@ -40,21 +40,16 @@ entire Netherlands a.s.a.p.
 
 # Acknowledgment
 
-Tot nu toe zijn wij bezig geweest met een lijnvoering voor Noord-Holland met maximaal zeven trajecten binnen een tijdsframe van
-twee uur, waarbij zoveel mogelijk van de kritieke sporen bereden wordt. Hierbij houden wij rekening met de Scorefunctie om een zo
-goed mogelijke lijnvoering van trajecten te krijgen.
-
-Deze scorefunctie is als volgt:
+We have been working on a line management for both North- and South-Holland and the entire Netherlands.
+For the first case, we have a maximum of 7 trajectories within a time frame of 120 minutes, in which as many critical connections as possible are passed.
+For the second case, we have a maximum of 20 trajectories within a time frame of 180 minutes, in which as many critical connections as possible are passed.
+To measure the efficiency of a line manegement, we keep track of a certain score, calculated as follows:
 S = p\*10000 - (t\*20 + min/100000)
-waarin S de score is, p het percentage van de bereden kritieke verbindingen, t het aantal treinen en m het totaal door alle treinen
-samen gereden aantal minuten in de lijnvoering.
+Where S is the score, p the percentage of passed critical connections, t the number of trains and min the minutes it takes the line manegement to be used.
 
-Deze scorefunctie heeft een upper en een lower bound. De lower bound van deze scorefuntie is -140.00094, deze is gebaseerd op 7 (het
- maximum aantal)
-treinen, geen kritieke verbindingen (dus alleen de niet kritieke verbindingen) en een totaal van 94 gereden minuten. De upper bound
-van deze scorefunctie hebben wij
-gezet op 999939.99713, deze is gebaseerd op de veronderstelling dat elk kritiek spoor aan elkaar verbonden is en dat je met 3 treinen
-alle kritieke sporen kan bereiken in een (minimum) tijd van 287 minuten.
+This scorefunction has a upper and lower bound.
+For the first case the lower bound is -140.00094, based on 7 trajectories, no critical connections and so 94 minutes.
+The upper bound is 999939.99713, based on the idea that all ceritical stations are connected, the total of minutes equal to 287 and so 3 
 
 De statespace hebben wij berekend op ongeveer 5 \* 10\^19. Dit getal komt voort uit 2223 (het totaal aantal mogelijke trajecten)
 kies 7. Dat is iets teveel om alles brute-force te controleren, omdat het dan erg lang zou duren. Daarom experimenteren wij nu met
