@@ -1,11 +1,15 @@
-from Classes.graphClass import Graph
-from PythonFunctions.algoritm import algoritm1, algoritm3, Dijkstra
-import csv
-from PythonFunctions.helpers import CalculateScore, getBestScore
-from PythonFunctions.hillclimber import HillClimber
 import os
 import sys
+import csv
+
+from Classes.graphClass import Graph
+
+from PythonFunctions.Dijkstra import Dijkstra
+from PythonFunctions.SvensAlgorithm import algoritm3
+from PythonFunctions.helpers import CalculateScore, getBestScore
+from PythonFunctions.hillclimber import HillClimber
 from PythonFunctions.simulatedAnnealing import SimulatedAnnealing
+
 from PlotFunctions.draw_traject import drawTraject
 from PlotFunctions.make_graph import makeGraph
 
