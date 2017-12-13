@@ -51,8 +51,10 @@ This scorefunction has a upper and lower bound.
 For the first case the lower bound is -140.00094, based on 7 trajectories, no critical connections and so 94 minutes.
 The upper bound is 999939.99713, based on the idea that all ceritical stations are connected, the total of minutes equal to 287 and so 3 
 
-De statespace hebben wij berekend op ongeveer 5 \* 10\^19. Dit getal komt voort uit 2223 (het totaal aantal mogelijke trajecten)
-kies 7. Dat is iets teveel om alles brute-force te controleren, omdat het dan erg lang zou duren. Daarom experimenteren wij nu met
+We calculated the statespace equal to 5 \* 10\^19. This number comes from 2223 (the total possible trajectories choose 7). To implement these in brute force is unreal. It would take to much time, so we use some pruning. 
+
+
+Dat is iets teveel om alles brute-force te controleren, omdat het dan erg lang zou duren. Daarom experimenteren wij nu met
 pruning en algoritmes om daarmee de beste maximaal 7 trajecten te kiezen, die voor de hoogste score zorgen.
 
 Het eerste algoritme dat wij hebben gebruikt gaat als volgt; elk traject is apart in de scorefunctie gestopt en de 20 trajecten met
