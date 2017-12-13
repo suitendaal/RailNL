@@ -26,11 +26,8 @@ def main():
     print("For the entire Netherlands, type: N")
     stations = input("Select:")
 
-<<<<<<< HEAD
     # Open the correct file with stations and connections.
-=======
     print("Loading data...")
->>>>>>> c0773032c05f96854d6c7ed441ea74158c866f37
     if stations == "H" or stations == "h":
         stationsCsvFile = os.path.join('csvFiles', "StationsHolland.csv")
         connectiesCsvFile = os.path.join('csvFiles', "ConnectiesHolland.csv")
@@ -54,12 +51,8 @@ def main():
     else:
         sys.exit("Not a valid input")
 
-<<<<<<< HEAD
-    graph.draw()
-=======
     print("Calculating routes...")
     graph.makeAllRoutes(maxDuration)
->>>>>>> c0773032c05f96854d6c7ed441ea74158c866f37
 
     print("For depth first algorithm, type: 1")
     print("For Dijkstra's algorithm, type: 2")
@@ -91,14 +84,10 @@ def main():
         else:
             sys.exit("Not a valid algorithm")
 
-<<<<<<< HEAD
         csvFile = input("To which file do you want to save the results (must be a .csv file): ")
 
-        # Run algorithm.
-=======
         #Run algorithm
         print("Running algorithm...")
->>>>>>> c0773032c05f96854d6c7ed441ea74158c866f37
         for i in range(maxDepth):
             if (int(algoritmBestPaths) == 1):
                 sc, tr = depthFirst(bestPaths, graph.criticalConnections, i, csvFile)
@@ -111,12 +100,8 @@ def main():
     # Dijkstra's algorithm.
     elif (int(algorithm) == 2):
 
-<<<<<<< HEAD
-        # Run algorithm.
-=======
         #Run algorithm
         print("Running algorithm...")
->>>>>>> c0773032c05f96854d6c7ed441ea74158c866f37
         trajecten = []
         for station in graph.allStations:
             print(station.name)
@@ -194,19 +179,6 @@ def main():
         else:
             sys.exit("Not a valid algorithm")
 
-<<<<<<< HEAD
-        # Run algorithm.
-        bestScore = CalculateScore(pathsSelected, graph.criticalConnections)
-        for i in range(50):
-            pathsSelected, bestScore = SimulatedAnnealing(graph, pathsSelected, [], bestScore)
-        drawTraject(graph, pathsSelected)
-        print("paths: ", pathsSelected)
-        print("bestScore: ", bestScore)
-        makeGraph("AnnealingScore.csv", "annealing_plot.png")
-
-
-    # Error.
-=======
         #Run algorithm
         print("Running algorithm...")
         bestScore = 0
@@ -228,7 +200,6 @@ def main():
         makeGraph("AnnealingScore.csv", "annealing_plot.png")
 
     #Errormelding
->>>>>>> c0773032c05f96854d6c7ed441ea74158c866f37
     else:
         sys.exit("Not a valid algorithm")
 

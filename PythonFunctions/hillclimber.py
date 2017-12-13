@@ -24,7 +24,7 @@ def HillClimber(graph, pathsSelected, paths=[], bestScore=0, index=0):
     # pathsToChoose = copy.copy(paths)
     # pathsToChoose.remove(newPathsSelected[index])
 
-    n = 1000
+    n = 100
     if n > len(paths):
         n = len(paths)
 
