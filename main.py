@@ -1,7 +1,7 @@
 from Classes.graphClass import Graph
 from PythonFunctions.algoritm import algoritm1, algoritm3, Dijkstra
 import csv
-from PythonFunctions.helpers import CalculateScore, ScorePaths, getBestScore
+from PythonFunctions.helpers import CalculateScore, getBestScore
 from PythonFunctions.hillclimber import HillClimber
 import os
 import sys
@@ -65,7 +65,7 @@ def main():
 
         #BestScore
         elif (int(algoritmBestPaths) == 2):
-            bestPaths, bestScores = ScorePaths(graph, maxDepth)
+            bestPaths, bestScores = graph.ScorePathsPruning(maxDepth)
 
         #Errormelding
         else:

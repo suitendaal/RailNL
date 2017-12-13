@@ -1,4 +1,4 @@
-from PythonFunctions.helpers import CalculateScore, ScorePaths, getBestScore
+from PythonFunctions.helpers import CalculateScore, getBestScore
 import copy
 
 def algoritm1(graph):
