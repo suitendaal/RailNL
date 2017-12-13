@@ -27,52 +27,6 @@ def CalculateScore(trajecten, criticalConnections):
     score = percentage*10000 - (trains*20 + minutes/100000)
     return score
 
-
-def ScorePaths(graph, n):
-    "Function to determine the best n trajectories based on the score"
-    bestpaths = []
-    bestscores = []
-
-    # Add path, calculate score and keep track of the best score and trajectories
-    for path in graph.allRoutes:
-        score = CalculateScore([path], graph.criticalConnections)
-        if bestscores == [] or min(bestscores) < score:
-            if len(bestpaths) < n:
-                bestpaths.append(path)
-                bestscores.append(score)
-
-            else:
-                index = bestscores.index(min(bestscores))
-                bestpaths[index] = path
-                bestscores[index] = score
-
-    return bestpaths, bestscores
-
-
-def ScorePathsPruning(graph, n):
-    "Function to determine the best n trajectories based on the score"
-    bestpaths = []
-    bestscores = []
-    connections_made = []
-
-    # Add path, calculate score and keep track of the best score and trajectories
-    for path in graph.allRoutes:
-        score = CalculateScore([path], graph.criticalConnections)
-        if bestscores == [] or min(bestscores) < score:
-            if (len(bestpaths) < n) and (([path[0], path[1]]) not in connections_made) and (([path[-2], path[-1]]) not in connections_made):
-                    bestpaths.append(path)
-                    bestscores.append(score)
-                    for i in len(path)-1:
-                        if [path[i], path[i+1]] not in connections_made:
-                            connections_made.append([[path[i], path[i+1]]])
-
-            else:
-                index = bestscores.index(min(bestscores))
-                bestpaths[index] = path
-                bestscores[index] = score
-
-    return bestpaths, bestscores
-
 def getBestScore(method, paths, criticalConnections, maxDepth, newTraject=[], path=[], depth=0, bestScore=0, bestTraject=[], j=-1):
     "Depth first algoritm to determine best combination of maxDepth trajectories"
     newTrajectCopy = copy.copy(newTraject)
