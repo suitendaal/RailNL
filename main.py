@@ -1,6 +1,7 @@
 import os
 import sys
 import csv
+import random
 
 from Classes.graphClass import Graph
 
@@ -45,7 +46,19 @@ def main():
         graph.load_data(stationsCsvFile, connectiesCsvFile)
     else:
         sys.exit("Not a valid input")
+    print(len(graph.criticalConnections))
+    time = 0
+    for criticalConnection in graph.criticalConnections:
+        for connection in graph.allConnections:
+            if criticalConnection == connection[0]:
+                print(connection)
+                time += connection[1]
+    print(time)
     graph.makeAllRoutes(maxDuration)
+
+
+    # graph.draw()
+
 
     print("For depth first algorithm, type: 1")
     print("For Dijkstra's algorithm, type: 2")
@@ -111,12 +124,12 @@ def main():
         #Sven
         if (int(algoritmBestPaths) == 1):
             bestPaths = algoritm3(graph)
-            pathsSelected = bestPaths[0:maxDepth]
+            pathsSelected = random.sample(bestPaths, maxDepth)
 
         #Bestscore
         elif (int(algoritmBestPaths) == 2):
-            bestPaths, bestScores = ScorePaths(graph, maxDepth)
-            pathsSelected = bestPaths[0:maxDepth]
+            bestPaths, bestScores = graph.ScorePaths(5 * maxDepth)
+            pathsSelected = random.sample(bestPaths, maxDepth)
 
         #Errormelding
         else:
@@ -142,12 +155,12 @@ def main():
         #Sven
         if (int(algoritmBestPaths) == 1):
             bestPaths = algoritm3(graph)
-            pathsSelected = bestPaths[0:maxDepth]
+            pathsSelected = random.sample(bestPaths, maxDepth)
 
         #Bestscore
         elif (int(algoritmBestPaths) == 2):
-            bestPaths, bestScores = ScorePaths(graph, maxDepth)
-            pathsSelected = bestPaths[0:maxDepth]
+            bestPaths, bestScores = graph.ScorePaths(5 * maxDepth)
+            pathsSelected = random.sample(bestPaths, maxDepth)
 
         #Errormelding
         else:
