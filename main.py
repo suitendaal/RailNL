@@ -8,8 +8,8 @@ from Classes.graphClass import Graph
 from PythonFunctions.Dijkstra import Dijkstra
 from PythonFunctions.SvensAlgorithm import algoritm3
 from PythonFunctions.helpers import CalculateScore
-from PythonFunctions.DepthFirst import depthFirst
-from PythonFunctions.hillclimber import HillClimber
+from PythonFunctions.depthFirst import depthFirst
+from PythonFunctions.hillClimber import HillClimber
 from PythonFunctions.simulatedAnnealing import SimulatedAnnealing
 
 from PlotFunctions.draw_traject import drawTraject
@@ -193,11 +193,11 @@ def main():
                 if newBestScore > bestScore:
                     bestScore = newBestScore
                     bestPaths = localPathsSelected
-            drawTraject(graph, pathsSelected)
+        drawTraject(graph, pathsSelected)
         print("number of paths: ", len(bestPaths))
         print("paths: ", bestPaths)
         print("bestScore: ", bestScore)
-        makeGraph("AnnealingScore.csv", "annealing_plot.png")
+        makeGraph(os.path.join("Results", "AnnealingScore.csv"), os.path.join("Results","annealing_plot.png"))
 
     #Errormelding
     else:
