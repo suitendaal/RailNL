@@ -11,9 +11,10 @@ from PlotFunctions.make_graph import makeGraph
 
 
 def main():
+
+    # Ask user which stations to run.
     print("For North - and South - Holland, type: H")
     print("For the entire Netherlands, type: N")
-
     stations = input("Select:")
 
     if stations == "H" or stations == "h":

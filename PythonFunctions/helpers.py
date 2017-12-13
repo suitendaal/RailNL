@@ -8,6 +8,7 @@ DepthFirst_bestscores = open(os.path.join('results', "DepthFirst_bestscores.csv"
 def CalculateScore(trajecten, criticalConnections):
     """Function to compute the score"""
 
+    # Keep track of number of minutes, trains and critical connections.
     minutes = 0
     trains = len(trajecten)
     critical_connection = 0
@@ -31,11 +32,11 @@ def getBestScore(method, paths, criticalConnections, maxDepth, newTraject=[], pa
     "Depth first algoritm to determine best combination of maxDepth trajectories"
     newTrajectCopy = copy.copy(newTraject)
 
-    # Add new traject to trajectories
+    # Add new traject to trajectories.
     if path != []:
         newTrajectCopy.append(path)
 
-    # Calculate the score if maximum number of trajects was reached
+    # Calculate the score if maximum number of trajects was reached.
     if depth == maxDepth:
         newBestScore = CalculateScore(newTrajectCopy, criticalConnections)
         if newBestScore > bestScore:
@@ -44,7 +45,7 @@ def getBestScore(method, paths, criticalConnections, maxDepth, newTraject=[], pa
 
         return bestScore, bestTraject
 
-    # Use recursion to determine next best score and traject
+    # Use recursion to determine next best score and traject.
     for i in range(j + 1, len(paths)):
         newBestScore, newBestTraject = getBestScore(method, paths, criticalConnections, maxDepth, newTrajectCopy, paths[i], depth+1, bestScore, bestTraject, i)
         if newBestScore > bestScore:
