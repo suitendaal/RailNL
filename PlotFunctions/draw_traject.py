@@ -53,7 +53,8 @@ def drawTraject(graph, trajecten):
     for k, v in pos.items():
         pos_higher[""+k] = (v[0]+x_off, v[1]+y_off)
 
-    plt.figure(1, figsize = (10,10))
+    fig,ax = plt.subplots(1, figsize = (10,10))
+    # plt.figure(1, figsize = (10,10))
     nx.draw(G, pos, node_color=node_color, edge_color = edge_color, node_size=70)
     nx.draw_networkx_labels(G, pos_higher, node_labels)
     plt.savefig(os.path.join('results', "plot_traject.png"))

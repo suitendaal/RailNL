@@ -40,7 +40,7 @@ def ScorePaths(graph, n):
             if len(bestpaths) < n:
                 bestpaths.append(path)
                 bestscores.append(score)
-            
+
             else:
                 index = bestscores.index(min(bestscores))
                 bestpaths[index] = path
@@ -65,7 +65,7 @@ def ScorePathsPruning(graph, n):
                     for i in len(path)-1:
                         if [path[i], path[i+1]] not in connections_made:
                             connections_made.append([[path[i], path[i+1]]])
-            
+
             else:
                 index = bestscores.index(min(bestscores))
                 bestpaths[index] = path
@@ -74,7 +74,7 @@ def ScorePathsPruning(graph, n):
     return bestpaths, bestscores
 
 def getBestScore(method, paths, criticalConnections, maxDepth, newTraject=[], path=[], depth=0, bestScore=0, bestTraject=[], j=-1):
-    "Depth first algoritm to determine best combination of n trajectories"
+    "Depth first algoritm to determine best combination of maxDepth trajectories"
     newTrajectCopy = copy.copy(newTraject)
 
     # Add new traject to trajectories
