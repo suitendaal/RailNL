@@ -51,15 +51,15 @@ def main():
     else:
         sys.exit("Not a valid input")
 
-    print("Calculating routes...")
-    graph.makeAllRoutes(maxDuration)
-
     print("For depth first algorithm, type: 1")
     print("For Dijkstra's algorithm, type: 2")
     print("For the Hillclimber, type: 3")
     print("For Simulated Annealing, type: 4")
 
     algorithm = input("Select: ")
+    if int(algorithm != 2):
+        print("Calculating routes...")
+        graph.makeAllRoutes(maxDuration)
 
     # Depth first.
     if (int(algorithm) == 1):
@@ -102,15 +102,19 @@ def main():
 
         #Run algorithm
         print("Running algorithm...")
-        trajecten = []
-        for station in graph.allStations:
-            print(station.name)
-            newRoute, newTime = Dijkstra(graph, station.name, [])
-            trajecten.append([newRoute, newTime])
-        for traject in trajecten:
-            print("begin", traject[0][0])
-            print(traject)
-        drawTraject(graph, trajecten)
+        bestScore = None
+        bestPaths = None
+        for i in range(maxDepth):
+            newBestPaths = algorithmBritt(graph, i+1, maxDuration)
+            newBestScore = CalculateScore(newBestPaths, graph.criticalConnections)
+            if bestScore == None or newBestScore > bestScore:
+                bestScore = newBestScore
+                bestPaths = newBestPaths
+
+        print("number of paths: ", len(bestPaths))
+        print("best paths: ", bestPaths)
+        print("best score: ", bestScore)
+        drawTraject(graph, bestPaths)
 
     # Hillclimber Algorithm.
     elif (int(algorithm) == 3):
