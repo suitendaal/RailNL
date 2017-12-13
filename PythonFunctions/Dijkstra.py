@@ -45,7 +45,7 @@
 #
 #     return BestBeginStationsDijkstra(graph, amountOfStations-1, criticalConnectionsToChoose, bestBeginTrajectories)
 
-def Britt(graph, station, maxTime, route=[], time=0):
+def Britt(graph, station, maxTime, allConnections, route=[], time=0):
     critical = []
     nonCritical = []
 
@@ -56,11 +56,17 @@ def Britt(graph, station, maxTime, route=[], time=0):
 
     destinations = graph.graph[station]
     for destination in destinations:
-        if destination[0] not in route:
-            if [destination[0], station] in graph.criticalConnections or [station, destination[0]] in graph.criticalConnections:
-                critical.append(destination)
-            else:
-                nonCritical.append(destination)
+        goOn = True
+        for connection in allConnections:
+            if ([station, destination] or [destination, station]) == connection[0]:
+                goOn = False
+                break
+        if goOn:
+            if destination[0] not in route:
+                if [destination[0], station] in graph.criticalConnections or [station, destination[0]] in graph.criticalConnections:
+                    critical.append(destination)
+                else:
+                    nonCritical.append(destination)
 
     shortestTime = None
     shortestConnection = None
@@ -72,7 +78,7 @@ def Britt(graph, station, maxTime, route=[], time=0):
                     if time + shortestTime <= maxTime:
                         shortestConnection = traject[0]
         if shortestConnection != None:
-            return Britt(graph, shortestConnection, route, time + shortestTime)
+            return Britt(graph, shortestConnection, allConnections, route, time + shortestTime)
 
     if len(nonCritical) != 0:
         for traject in nonCritical:
@@ -82,7 +88,7 @@ def Britt(graph, station, maxTime, route=[], time=0):
                     if time + shortestTime <= maxTime:
                         shortestConnection = traject[0]
         if shortestConnection != None:
-            return Britt(graph, shortestConnection, route, time + shortestTime)
+            return Britt(graph, shortestConnection, allConnections, route, time + shortestTime)
 
     return route, time
 
@@ -148,7 +154,7 @@ def bestBeginStation(allConnections, allStations):
                     criticalDestinations = myCriticalDestinations
                     nonCriticalDestinations = myNonCriticalDestinations
 
-    return bestBeginStation
+    return bestBeginStation.name
 
 
 def algorithmBritt(graph, maxDepth, maxTime):
@@ -159,7 +165,7 @@ def algorithmBritt(graph, maxDepth, maxTime):
     for i in range(maxDepth):
         beginStation = bestBeginStation(allConnections, allStations)
         # Je moet een lege lijst meegeven anders doet hij het niet.
-        route, time = Britt(graph, beginStation, maxTime, [])
+        route, time = Britt(graph, beginStation, maxTime, allConnections, [])
         connectionsToRemove = []
         for i in range(len(route) - 1):
             for connection in allConnections:
