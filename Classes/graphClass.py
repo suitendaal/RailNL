@@ -28,9 +28,9 @@ class Graph(object):
             # Add railwaystation to allStations
             self.stationNames.append(station[0])
             if allCritical:
-                newStation = Station(station[0], station[1], station[2], 'Kritiek')
+                newStation = Station(station[0], float(station[1]), float(station[2]), 'Kritiek')
             else:
-                newStation = Station(station[0], station[1], station[2], station[3])
+                newStation = Station(station[0], float(station[1]), float(station[2]), station[3])
             self.allStations[station[0]] = newStation
             self.graph[station[0]] = []
 
@@ -143,49 +143,50 @@ class Graph(object):
 
         return bestpaths, bestscores
 
-    # def draw(self):
-    #
-    #     # Make new graph
-    #     G = nx.Graph()
-    #
-    #     # Initiate dictionaries and lists for labels and colors
-    #     labels = {}
-    #     node_labels = {}
-    #     node_color = []
-    #
-    #     for station in self.allStations:
-    #         if station.isCritical == True:
-    #             node_color.append("r")
-    #         else:
-    #             node_color.append("b")
-    #         G.add_node("" + station.name, pos = (station.latitude, station.longitude)
-    #
-    #         name = re.split('\s|-|/', station.name)
-    #         afk = ""
-    #         for word in name:
-    #             afk += word[0]
-    #         node_labels[station.name] = afk
-    #
-    #     for connection in self.allConnections:
-    #         if [connection[0][0], connection[0][1]] or [connection[0][0], connection[0][1]] in self.criticalConnections:
-    #             G.add_edge("" + connection[0][0], "" + connection[0][1], color = 'r')
-    #         else:
-    #             G.add_edge("" + connection[0][0], "" + connection[0][1], color = 'b')
-    #         labels.update({(connection[0][0], connection[0][1]): int(connection[1])})
-    #
-    #     edges = G.edges()
-    #     edge_color = [G[u][v]['color'] for u,v in edges]
-    #
-    #     pos = nx.get_node_attributes(G,'pos')
-    #     pos_higher = {}
-    #     y_off = 0.03  # offset on the y axis
-    #     x_off = 0.01
-    #
-    #     for k, v in pos.items():
-    #         pos_higher[k] = (v[0]+x_off, v[1]+y_off)
-    #
-    #     plt.figure(1, figsize = (10,10))
-    #     nx.draw(G, pos, node_color=node_color, edge_color = edge_color, node_size=70)
-    #     nx.draw_networkx_edge_labels(G, pos, labels)
-    #     nx.draw_networkx_labels(G, pos_higher, node_labels)
-    #     plt.savefig(os.path.join('Results', "Graph.png"))
+    def draw(self):
+
+        # Make new graph
+        G = nx.Graph()
+
+        # Initiate dictionaries and lists for labels and colors
+        labels = {}
+        node_labels = {}
+        node_color = []
+
+        for station in self.allStations:
+            thisStation = self.allStations[station]
+            if thisStation.isCritical == True:
+                node_color.append("r")
+            else:
+                node_color.append("b")
+            G.add_node("" + thisStation.name, pos = (thisStation.latitude, thisStation.longitude))
+
+            name = re.split('\s|-|/', thisStation.name)
+            afk = ""
+            for word in name:
+                afk += word[0]
+            node_labels[thisStation.name] = afk
+
+        for connection in self.allConnections:
+            if [connection[0][0], connection[0][1]] in self.criticalConnections or [connection[0][1], connection[0][0]] in self.criticalConnections:
+                G.add_edge("" + connection[0][0], "" + connection[0][1], color = 'r')
+            else:
+                G.add_edge("" + connection[0][0], "" + connection[0][1], color = 'b')
+            labels.update({(connection[0][0], connection[0][1]): int(connection[1])})
+
+        edges = G.edges()
+        edge_color = [G[u][v]['color'] for u,v in edges]
+
+        pos = nx.get_node_attributes(G,'pos')
+        pos_higher = {}
+        y_off = 0.03  # offset on the y axis
+        x_off = 0.01
+
+        for k, v in pos.items():
+            pos_higher[k] = (v[0]+x_off, v[1]+y_off)
+
+        plt.figure(1, figsize = (10,10))
+        nx.draw(G, pos, node_color=node_color, edge_color = edge_color, node_size=70)
+        nx.draw_networkx_edge_labels(G, pos, labels)
+        nx.draw_networkx_labels(G, pos_higher, node_labels)
+        plt.savefig(os.path.join('Results', "Graph.png"))
