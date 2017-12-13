@@ -22,6 +22,7 @@ def main():
     print("For the entire Netherlands, type: N")
     stations = input("Select:")
 
+    print("Loading data...")
     if stations == "H" or stations == "h":
         stationsCsvFile = os.path.join('csvFiles', "StationsHolland.csv")
         connectiesCsvFile = os.path.join('csvFiles', "ConnectiesHolland.csv")
@@ -46,19 +47,9 @@ def main():
         graph.load_data(stationsCsvFile, connectiesCsvFile)
     else:
         sys.exit("Not a valid input")
-    print(len(graph.criticalConnections))
-    time = 0
-    for criticalConnection in graph.criticalConnections:
-        for connection in graph.allConnections:
-            if criticalConnection == connection[0]:
-                print(connection)
-                time += connection[1]
-    print(time)
+
+    print("Calculating routes...")
     graph.makeAllRoutes(maxDuration)
-
-
-    # graph.draw()
-
 
     print("For depth first algorithm, type: 1")
     print("For Dijkstra's algorithm, type: 2")
@@ -77,11 +68,13 @@ def main():
 
         #Sven
         if (int(algoritmBestPaths) == 1):
+            print("Choosing routes...")
             bestPaths = algoritm3(graph)
             print(bestPaths[1])
 
         #BestScore
         elif (int(algoritmBestPaths) == 2):
+            print("Choosing routes...")
             bestPaths, bestScores = graph.ScorePathsPruning(maxDepth)
 
         #Errormelding
@@ -90,6 +83,7 @@ def main():
                 algorithm = input("Please select valid algorithm: ")
 
         #Run algorithm
+        print("Running algorithm...")
         for i in range(maxDepth):
             if (int(algoritmBestPaths) == 1):
                 sc, tr = getBestScore(1, bestPaths, graph.criticalConnections, i)
@@ -103,6 +97,7 @@ def main():
     elif (int(algorithm) == 2):
 
         #Run algorithm
+        print("Running algorithm...")
         trajecten = []
         for station in graph.allStations:
             print(station.name)
@@ -123,11 +118,13 @@ def main():
 
         #Sven
         if (int(algoritmBestPaths) == 1):
+            print("Choosing routes...")
             bestPaths = algoritm3(graph)
             pathsSelected = random.sample(bestPaths, maxDepth)
 
         #Bestscore
         elif (int(algoritmBestPaths) == 2):
+            print("Choosing routes...")
             bestPaths, bestScores = graph.ScorePaths(5 * maxDepth)
             pathsSelected = random.sample(bestPaths, maxDepth)
 
@@ -136,10 +133,21 @@ def main():
             sys.exit("Not a valid algorithm")
 
         #Run algorithm
-        bestScore = CalculateScore(pathsSelected, graph.criticalConnections)
-        for i in range(400):
-            pathsSelected, bestScore = HillClimber(graph, pathsSelected, bestPaths, bestScore)
-        print("paths: ", pathsSelected)
+        print("Running algorithm...")
+        bestScore = 0
+        for j in range(maxDepth):
+            localPathsSelected = pathsSelected[0:j]
+            newBestScore = CalculateScore(localPathsSelected, graph.criticalConnections)
+            if newBestScore > bestScore:
+                bestScore = newBestScore
+                bestPaths = localPathsSelected
+            for i in range(100):
+                localPathsSelected, newBestScore = HillClimber(graph, pathsSelected, bestPaths, bestScore)
+                if newBestScore > bestScore:
+                    bestScore = newBestScore
+                    bestPaths = localPathsSelected
+        print("number of paths: ", len(bestPaths))
+        print("paths: ", bestPaths)
         print("bestScore: ", bestScore)
         drawTraject(graph, pathsSelected)
         makeGraph("HillClimberScore.csv", "hillclimber_plot.png")
@@ -154,11 +162,13 @@ def main():
 
         #Sven
         if (int(algoritmBestPaths) == 1):
+            print("Choosing routes...")
             bestPaths = algoritm3(graph)
             pathsSelected = random.sample(bestPaths, maxDepth)
 
         #Bestscore
         elif (int(algoritmBestPaths) == 2):
+            print("Choosing routes...")
             bestPaths, bestScores = graph.ScorePaths(5 * maxDepth)
             pathsSelected = random.sample(bestPaths, maxDepth)
 
@@ -167,16 +177,24 @@ def main():
             sys.exit("Not a valid algorithm")
 
         #Run algorithm
-        bestScore = CalculateScore(pathsSelected, graph.criticalConnections)
-        for i in range(50):
-            pathsSelected, bestScore = SimulatedAnnealing(graph, pathsSelected, [], bestScore)
-        drawTraject(graph, pathsSelected)
-        print("paths: ", pathsSelected)
+        print("Running algorithm...")
+        bestScore = 0
+        for j in range(maxDepth):
+            localPathsSelected = pathsSelected[0:j]
+            newBestScore = CalculateScore(localPathsSelected, graph.criticalConnections)
+            if newBestScore > bestScore:
+                bestScore = newBestScore
+                bestPaths = localPathsSelected
+            for i in range(50):
+                localPathsSelected, newBestScore = SimulatedAnnealing(graph, localPathsSelected, [], bestScore)
+                if newBestScore > bestScore:
+                    bestScore = newBestScore
+                    bestPaths = localPathsSelected
+            drawTraject(graph, pathsSelected)
+        print("number of paths: ", len(bestPaths))
+        print("paths: ", bestPaths)
         print("bestScore: ", bestScore)
         makeGraph("AnnealingScore.csv", "annealing_plot.png")
-
-    # elif (int(algorith m) == 4):
-    #     graph.draw()
 
     #Errormelding
     else:
