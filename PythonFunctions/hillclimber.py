@@ -44,4 +44,4 @@ def HillClimber(graph, pathsSelected, csvFile, paths=[], bestScore=0, index=0):
         newPathsSelected[index] = newTraject
 
     # Do it again for the next traject.
-    return HillClimber(graph, pathsSelected, paths, bestScore, index+1)
+    return HillClimber(graph, pathsSelected, csvFile, paths, bestScore, index+1)

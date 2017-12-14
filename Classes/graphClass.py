@@ -47,8 +47,8 @@ class Graph(object):
             self.allConnections.append([[direction[0], direction[1]], int(float(direction[2]))])
 
             # Add direction to the graph
-            self.graph[direction[0]].append([direction[1], direction[2]])
-            self.graph[direction[1]].append([direction[0], direction[2]])
+            self.graph[direction[0]].append([direction[1], int(float(direction[2]))])
+            self.graph[direction[1]].append([direction[0], int(float(direction[2]))])
 
             self.allStations[direction[0]].addDestination(self.allStations[direction[1]])
             self.allStations[direction[1]].addDestination(self.allStations[direction[0]])

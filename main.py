@@ -5,11 +5,11 @@ import random
 
 from Classes.graphClass import Graph
 
-from PythonFunctions.Britt import algorithmBritt
-from PythonFunctions.SvensAlgorithm import algoritm3
+from PythonFunctions.Greedy import algorithmGreedy
+from PythonFunctions.DijkstraAlgorithm import algoritmDijkstra
 from PythonFunctions.helpers import CalculateScore
-from PythonFunctions.depthFirst import depthFirst
-from PythonFunctions.hillClimber import HillClimber
+from PythonFunctions.DepthFirst import depthFirst
+from PythonFunctions.hillclimber import HillClimber
 from PythonFunctions.simulatedAnnealing import SimulatedAnnealing
 
 from PlotFunctions.draw_traject import drawTraject
@@ -51,28 +51,28 @@ def main():
     else:
         sys.exit("Not a valid input")
 
-    print("For depth first algorithm, type: 1")
-    print("For Dijkstra's algorithm, type: 2")
+    print("For Depth first algorithm, type: 1")
+    print("For Greedy algorithm, type: 2")
     print("For the Hillclimber, type: 3")
     print("For Simulated Annealing, type: 4")
 
     algorithm = input("Select: ")
-    if int(algorithm) == 1 or int(algorithm) == 3 or int(algorithm) == 4:
+    if int(algorithm) != 2:
         print("Calculating routes...")
         graph.makeAllRoutes(maxDuration)
 
     # Depth first.
     if (int(algorithm) == 1):
 
-        print("For Svens algoritm, type: 1")
+        print("For Dijkstra algoritm, type: 1")
         print("For bestScore algoritm, type: 2")
 
         algoritmBestPaths = input("Select: ")
 
-        # Sven's algorithm to choose paths.
+        # Dijkstra algorithm to choose paths.
         if (int(algoritmBestPaths) == 1):
             print("Choosing routes...")
-            bestPaths = algoritm3(graph)
+            bestPaths = algoritmDijkstra(graph)
             print(bestPaths[1])
 
         # BestScore algorithm to choose paths.
@@ -84,63 +84,61 @@ def main():
         else:
             sys.exit("Not a valid algorithm")
 
-        csvFile = input("To which file do you want to save the results (must be a .csv file): ")
+        csvFileName = input("To which file do you want to save the results (must be a .csv file): ")
 
         #Run algorithm
         print("Running algorithm...")
+        csvFile = open(os.path.join("Results", csvFileName), 'w')
+
+        bestScore = None
+        bestPaths = None
         for i in range(maxDepth):
             if (int(algoritmBestPaths) == 1):
                 sc, tr = depthFirst(bestPaths, graph.criticalConnections, i, csvFile)
             else:
                 sc, tr = depthFirst(bestPaths, graph.criticalConnections, i, csvFile)
-            print("beste score: ", sc)
-            print("beste trajecten: ", tr)
+            if bestScore == None or sc > bestScore:
+                bestScore = sc
+                bestPaths = tr
+
+        print("number of trajectories: ", len(bestPaths))
+        print("beste score: ", bestScore)
+        print("beste trajecten: ", bestPaths)
         drawTraject(graph, tr)
 
-    # Britt's algorithm.
+    # Greedy algorithm.
     elif (int(algorithm) == 2):
 
-        #Run algorithm
+        # Run algorithm.
         print("Running algorithm...")
-
-        csvFile = input("To which file do you want to save the results (must be a .csv file): ")
-        pngFile = input("To which file do you want to save the plot (must be a .png file): ")
-
-        if csvFile == "" or pngFile == "":
-            sys.exit("Ivalid input")
-
-        csvFile = os.path.join("Results", csvFile)
-        pngFile = os.path.join("Results", pngFile)
-
         bestScore = None
         bestPaths = None
+        csvFileName = input("To which file do you want to save the results (must be a .csv file): ")
+        csvFile = open(os.path.join("Results", csvFileName), 'w')
         for i in range(maxDepth):
-            newBestPaths = algorithmBritt(graph, i+1, maxDuration)
+            newBestPaths = algorithmGreedy(graph, i+1, maxDuration)
             newBestScore = CalculateScore(newBestPaths, graph.criticalConnections)
-            csvFile.write(repr(newBestScore)+"\n")
             if bestScore == None or newBestScore > bestScore:
                 bestScore = newBestScore
                 bestPaths = newBestPaths
+            csvFile.write(repr(bestScore) + "\n")
 
         print("number of paths: ", len(bestPaths))
         print("best paths: ", bestPaths)
         print("best score: ", bestScore)
         drawTraject(graph, bestPaths)
-        makeGraph(csvFile, pngFile)
 
     # Hillclimber Algorithm.
     elif (int(algorithm) == 3):
-        print("For Svens algoritm, type: 1")
+        print("For Dijkstra algoritm, type: 1")
         print("For bestScore algoritm, type: 2")
 
         algoritmBestPaths = input("Select: ")
 
-        # Sven's algorithm.
+        # Dijkstra algorithm.
         if (int(algoritmBestPaths) == 1):
             print("Choosing routes...")
-            bestPaths = algoritm3(graph)
-            print(len(bestPaths))
-            print(maxDepth)
+            bestPaths = algoritmDijkstra(graph)
             pathsSelected = random.sample(bestPaths, maxDepth)
 
         # Bestscore algorithm.
@@ -153,14 +151,8 @@ def main():
         else:
             sys.exit("Not a valid algorithm")
 
-        csvFile = input("To which file do you want to save the results (must be a .csv file): ")
-        pngFile = input("To which file do you want to save the plot (must be a .png file): ")
-
-        if csvFile == "" or pngFile == "":
-            sys.exit("Ivalid input")
-
-        csvFile = os.path.join("Results", csvFile)
-        pngFile = os.path.join("Results", pngFile)
+        csvFileName = input("To which file do you want to save the results (must be a .csv file): ")
+        csvFile = open(os.path.join("Results", csvFileName), 'w')
 
         #Run algorithm
         print("Running algorithm...")
@@ -179,21 +171,21 @@ def main():
         print("number of paths: ", len(bestPaths))
         print("paths: ", bestPaths)
         print("bestScore: ", bestScore)
-        drawTraject(graph, pathsSelected)
-        makeGraph(csvFile, pngFile)
+        drawTraject(graph, bestPaths)
+        # makeGraph("HillClimberScore.csv", "hillclimber_plot.png")
 
     # Simulated Annealing.
     elif (int(algorithm) == 4):
 
-        print("For Svens algoritm, type: 1")
+        print("For Dijkstra algoritm, type: 1")
         print("For bestScore algoritm, type: 2")
 
         algoritmBestPaths = input("Select: ")
 
-        # Sven's algorithm to get paths.
+        # Dijkstra algorithm to get paths.
         if (int(algoritmBestPaths) == 1):
             print("Choosing routes...")
-            bestPaths = algoritm3(graph)
+            bestPaths = algoritmDijkstra(graph)
             pathsSelected = random.sample(bestPaths, maxDepth)
 
         # Bestscore algoritm to get paths.
@@ -206,14 +198,8 @@ def main():
         else:
             sys.exit("Not a valid algorithm")
 
-        csvFile = input("To which file do you want to save the results (must be a .csv file): ")
-        pngFile = input("To which file do you want to save the plot (must be a .png file): ")
-
-        if csvFile == "" or pngFile == "":
-            sys.exit("Ivalid input")
-
-        csvFile = os.path.join("Results", csvFile)
-        pngFile = os.path.join("Results", pngFile)
+        csvFileName = input("To which file do you want to save the results (must be a .csv file): ")
+        csvFile = open(os.path.join("Results", csvFileName), 'w')
 
         #Run algorithm
         print("Running algorithm...")
@@ -225,15 +211,15 @@ def main():
                 bestScore = newBestScore
                 bestPaths = localPathsSelected
             for i in range(50):
-                localPathsSelected, newBestScore = SimulatedAnnealing(graph, localPathsSelected, [], bestScore)
+                localPathsSelected, newBestScore = SimulatedAnnealing(graph, localPathsSelected, csvFile, [], bestScore)
                 if newBestScore > bestScore:
                     bestScore = newBestScore
                     bestPaths = localPathsSelected
-        drawTraject(graph, pathsSelected)
+        drawTraject(graph, bestPaths)
         print("number of paths: ", len(bestPaths))
         print("paths: ", bestPaths)
         print("bestScore: ", bestScore)
-        makeGraph(csvFile, pngFile)
+        #makeGraph(os.path.join("Results", "AnnealingScore.csv"), os.path.join("Results","annealing_plot.png"))
 
     #Errormelding
     else:

@@ -54,7 +54,7 @@ def SimulatedAnnealing(graph, pathsSelected, csvFile, paths=[], bestScore=0, ind
         newPathsSelected[index] = newTraject
 
     # Do it again for the next traject.
-    return SimulatedAnnealing(graph, pathsSelected, paths, bestScore, index+1)
+    return SimulatedAnnealing(graph, pathsSelected, csvFile, paths, bestScore, index+1)
 
 def ScoreAnnealing(iteratie, i, newScore, bestScore):
     # Scorefunctie kan worden aangepast, bijv (newScore / bestScore)^3 * iteratie / i
