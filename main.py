@@ -5,11 +5,11 @@ import random
 
 from Classes.graphClass import Graph
 
-from PythonFunctions.Dijkstra import Dijkstra
+from PythonFunctions.Britt import algorithmBritt
 from PythonFunctions.SvensAlgorithm import algoritm3
 from PythonFunctions.helpers import CalculateScore
-from PythonFunctions.depthFirst import depthFirst
-from PythonFunctions.hillClimber import HillClimber
+from PythonFunctions.DepthFirst import depthFirst
+from PythonFunctions.hillclimber import HillClimber
 from PythonFunctions.simulatedAnnealing import SimulatedAnnealing
 
 from PlotFunctions.draw_traject import drawTraject
@@ -97,7 +97,7 @@ def main():
             print("beste trajecten: ", tr)
         drawTraject(graph, tr)
 
-    # Dijkstra's algorithm.
+    # Britt's algorithm.
     elif (int(algorithm) == 2):
 
         #Run algorithm
