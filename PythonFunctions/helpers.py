@@ -36,7 +36,7 @@ def CalculateScore(trajectories, criticalConnections):
     percentage = critical_connection/len(criticalConnections) * 100
 
     # Calculate the total score.
-    score = percentage*10000 - (trains*20 + minutes/100000)
+    score = percentage*100 - (trains*20 + minutes/100000)
     return score
 
 def getBestScore(method, paths, criticalConnections, maxDepth, newTraject=[], path=[], depth=0, bestScore=0, bestTraject=[], j=-1):
