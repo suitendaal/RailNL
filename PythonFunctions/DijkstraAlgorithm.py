@@ -1,5 +1,5 @@
-def algoritmDijkstraFunction(graph, start, end):
-    """Algoritm to """
+def algorithmDijkstraFunction(graph, start, end):
+    """algorithm to """
     bestPath = []
     score = 0
     for path in graph.allRoutes:
@@ -18,12 +18,12 @@ def algoritmDijkstraFunction(graph, start, end):
 
 
 
-def algoritmDijkstra(graph):
-    """Also known as Sven's algoritm"""
+def algorithmDijkstra(graph):
+    """Also known as Sven's algorithm"""
     bestPaths = []
     for i in range(len(graph.allStations)):
         for j in range(i + 1, len(graph.stationNames)):
-            newPath = algoritmDijkstraFunction(graph, graph.stationNames[i], graph.stationNames[j])
+            newPath = algorithmDijkstraFunction(graph, graph.stationNames[i], graph.stationNames[j])
             if newPath != []:
                 bestPaths.append(newPath)
 

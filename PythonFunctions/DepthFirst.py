@@ -4,7 +4,7 @@ import copy
 from PythonFunctions.helpers import CalculateScore
 
 def depthFirst(paths, criticalConnections, maxDepth, csvFile, newTraject=[], path=[], depth=0, bestScore=0, bestTraject=[], j=-1):
-    """Depth first algoritm to determine best combination of maxDepth trajectories"""
+    """Depth first algorithm to determine best combination of maxDepth trajectories"""
     newTrajectCopy = copy.copy(newTraject)
     # Add new traject to trajectories.
     if path != []:

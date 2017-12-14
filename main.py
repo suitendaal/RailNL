@@ -6,7 +6,7 @@ import random
 from Classes.graphClass import Graph
 
 from PythonFunctions.Greedy import algorithmGreedy
-from PythonFunctions.DijkstraAlgorithm import algoritmDijkstra
+from PythonFunctions.DijkstraAlgorithm import algorithmDijkstra
 from PythonFunctions.helpers import CalculateScore
 from PythonFunctions.DepthFirst import depthFirst
 from PythonFunctions.hillclimber import HillClimber
@@ -64,19 +64,19 @@ def main():
     # Depth first.
     if (int(algorithm) == 1):
 
-        print("For Dijkstra algoritm, type: 1")
-        print("For bestScore algoritm, type: 2")
+        print("For Dijkstra algorithm, type: 1")
+        print("For bestScore algorithm, type: 2")
 
-        algoritmBestPaths = input("Select: ")
+        algorithmBestPaths = input("Select: ")
 
         # Dijkstra algorithm to choose paths.
-        if (int(algoritmBestPaths) == 1):
+        if (int(algorithmBestPaths) == 1):
             print("Choosing routes...")
-            bestPaths = algoritmDijkstra(graph)
+            bestPaths = algorithmDijkstra(graph)
             print(bestPaths[1])
 
         # BestScore algorithm to choose paths.
-        elif (int(algoritmBestPaths) == 2):
+        elif (int(algorithmBestPaths) == 2):
             print("Choosing routes...")
             bestPaths, bestScores = graph.ScorePathsPruning(maxDepth)
 
@@ -93,7 +93,7 @@ def main():
         bestScore = None
         bestPaths = None
         for i in range(maxDepth):
-            if (int(algoritmBestPaths) == 1):
+            if (int(algorithmBestPaths) == 1):
                 sc, tr = depthFirst(bestPaths, graph.criticalConnections, i, csvFile)
             else:
                 sc, tr = depthFirst(bestPaths, graph.criticalConnections, i, csvFile)
@@ -130,19 +130,19 @@ def main():
 
     # Hillclimber Algorithm.
     elif (int(algorithm) == 3):
-        print("For Dijkstra algoritm, type: 1")
-        print("For bestScore algoritm, type: 2")
+        print("For Dijkstra algorithm, type: 1")
+        print("For bestScore algorithm, type: 2")
 
-        algoritmBestPaths = input("Select: ")
+        algorithmBestPaths = input("Select: ")
 
         # Dijkstra algorithm.
-        if (int(algoritmBestPaths) == 1):
+        if (int(algorithmBestPaths) == 1):
             print("Choosing routes...")
-            bestPaths = algoritmDijkstra(graph)
+            bestPaths = algorithmDijkstra(graph)
             pathsSelected = random.sample(bestPaths, maxDepth)
 
         # Bestscore algorithm.
-        elif (int(algoritmBestPaths) == 2):
+        elif (int(algorithmBestPaths) == 2):
             print("Choosing routes...")
             bestPaths, bestScores = graph.ScorePaths(5 * maxDepth)
             pathsSelected = random.sample(bestPaths, maxDepth)
@@ -177,19 +177,19 @@ def main():
     # Simulated Annealing.
     elif (int(algorithm) == 4):
 
-        print("For Dijkstra algoritm, type: 1")
-        print("For bestScore algoritm, type: 2")
+        print("For Dijkstra algorithm, type: 1")
+        print("For bestScore algorithm, type: 2")
 
-        algoritmBestPaths = input("Select: ")
+        algorithmBestPaths = input("Select: ")
 
         # Dijkstra algorithm to get paths.
-        if (int(algoritmBestPaths) == 1):
+        if (int(algorithmBestPaths) == 1):
             print("Choosing routes...")
-            bestPaths = algoritmDijkstra(graph)
+            bestPaths = algorithmDijkstra(graph)
             pathsSelected = random.sample(bestPaths, maxDepth)
 
-        # Bestscore algoritm to get paths.
-        elif (int(algoritmBestPaths) == 2):
+        # Bestscore algorithm to get paths.
+        elif (int(algorithmBestPaths) == 2):
             print("Choosing routes...")
             bestPaths, bestScores = graph.ScorePaths(5 * maxDepth)
             pathsSelected = random.sample(bestPaths, maxDepth)
