@@ -1,5 +1,13 @@
 # Results of experimentation with algoritms
 
+We looked in to Dijkstra's algorithm, Simulated Annealing, Hillclimber and depth first.
+The Simualated Annealing algoritm can be iterated over a certain number of times. We tried a few different number of iterations.
+When we use 1 iteration, the score is relatively low (as example 899859.99574). While, when we use 500 or more iterations, we get a
+score almost always around 999859,9.
+
+The Hillclimber is being iterated over 200 times. Our best score so far is 999859,99593.
+We also made functions to draw the trajects we choose and the complete graph. We want to begin to work with the stations of the
+entire Netherlands a.s.a.p.
 We experimented in this case with different parameters.
 Changing the number of iterations and changing the scorefunction are examples of this.
 
