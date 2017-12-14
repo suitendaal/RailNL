@@ -4,10 +4,7 @@ import copy
 import csv
 import os
 
-AnnealingScores = open(os.path.join('results', "AnnealingScore.csv"), "w")
-AnnealingScoresNew = open(os.path.join('results', "AnnealingScoreNew.csv"), "w")
-
-def SimulatedAnnealing(graph, pathsSelected, paths=[], bestScore=0, index=0):
+def SimulatedAnnealing(graph, pathsSelected, csvFile, paths=[], bestScore=0, index=0):
     """Function that changes a traject piece by piece and calculates the new score.
         Saves the new score if it is the best score"""
 
@@ -39,7 +36,7 @@ def SimulatedAnnealing(graph, pathsSelected, paths=[], bestScore=0, index=0):
             break
         # Calculate the new score and check if it is the best score.
         newScore = CalculateScore(newPathsSelected, graph.criticalConnections)
-        AnnealingScoresNew.write(repr(newScore) + "\n")
+        csvFile.write(repr(newScore) + "\n")
         if newScore > bestScore:
             bestScore = newScore
             pathsSelected = newPathsSelected
@@ -50,8 +47,6 @@ def SimulatedAnnealing(graph, pathsSelected, paths=[], bestScore=0, index=0):
             bestScore = newScore
             pathsSelected = newPathsSelected
             iteratie = 0
-
-        AnnealingScores.write(repr(bestScore)+"\n")
 
         # Replace a traject with the new random traject.
         newTraject = random.choice(pathsToChoose)

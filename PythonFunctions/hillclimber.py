@@ -4,10 +4,7 @@ import copy
 import csv
 import os
 
-HillClimberScores = open(os.path.join('results', "HillClimberScore.csv"), "w")
-HillClimberScoresNew = open(os.path.join('results',"HillClimberScoreNew.csv"), "w")
-
-def HillClimber(graph, pathsSelected, paths=[], bestScore=0, index=0):
+def HillClimber(graph, pathsSelected, csvFile, paths=[], bestScore=0, index=0):
     """Function that changes a traject piece by piece and calculates the new score.
         Saves the new score if it is the best score"""
 
@@ -34,12 +31,11 @@ def HillClimber(graph, pathsSelected, paths=[], bestScore=0, index=0):
 
         # Calculate the new score and check if it is the best score.
         newScore = CalculateScore(newPathsSelected, graph.criticalConnections)
-        HillClimberScoresNew.write(repr(newScore)+"\n")
+        csvFile.write(repr(newScore)+"\n")
         if newScore > bestScore:
             bestScore = newScore
             pathsSelected = newPathsSelected
 
-        HillClimberScores.write(repr(bestScore)+ "\n")
 
         # Replace a traject with the new random traject.
         newTraject = random.choice(paths)

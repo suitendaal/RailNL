@@ -8,8 +8,8 @@ from Classes.graphClass import Graph
 from PythonFunctions.Britt import algorithmBritt
 from PythonFunctions.SvensAlgorithm import algoritm3
 from PythonFunctions.helpers import CalculateScore
-from PythonFunctions.DepthFirst import depthFirst
-from PythonFunctions.hillclimber import HillClimber
+from PythonFunctions.depthFirst import depthFirst
+from PythonFunctions.hillClimber import HillClimber
 from PythonFunctions.simulatedAnnealing import SimulatedAnnealing
 
 from PlotFunctions.draw_traject import drawTraject
@@ -57,7 +57,7 @@ def main():
     print("For Simulated Annealing, type: 4")
 
     algorithm = input("Select: ")
-    if int(algorithm != 2):
+    if int(algorithm) == 1 or int(algorithm) == 3 or int(algorithm) == 4:
         print("Calculating routes...")
         graph.makeAllRoutes(maxDuration)
 
@@ -102,11 +102,22 @@ def main():
 
         #Run algorithm
         print("Running algorithm...")
+
+        csvFile = input("To which file do you want to save the results (must be a .csv file): ")
+        pngFile = input("To which file do you want to save the plot (must be a .png file): ")
+
+        if csvFile == "" or pngFile == "":
+            sys.exit("Ivalid input")
+
+        csvFile = os.path.join("Results", csvFile)
+        pngFile = os.path.join("Results", pngFile)
+
         bestScore = None
         bestPaths = None
         for i in range(maxDepth):
             newBestPaths = algorithmBritt(graph, i+1, maxDuration)
             newBestScore = CalculateScore(newBestPaths, graph.criticalConnections)
+            csvFile.write(repr(newBestScore)+"\n")
             if bestScore == None or newBestScore > bestScore:
                 bestScore = newBestScore
                 bestPaths = newBestPaths
@@ -115,6 +126,7 @@ def main():
         print("best paths: ", bestPaths)
         print("best score: ", bestScore)
         drawTraject(graph, bestPaths)
+        makeGraph(csvFile, pngFile)
 
     # Hillclimber Algorithm.
     elif (int(algorithm) == 3):
@@ -127,6 +139,8 @@ def main():
         if (int(algoritmBestPaths) == 1):
             print("Choosing routes...")
             bestPaths = algoritm3(graph)
+            print(len(bestPaths))
+            print(maxDepth)
             pathsSelected = random.sample(bestPaths, maxDepth)
 
         # Bestscore algorithm.
@@ -139,6 +153,15 @@ def main():
         else:
             sys.exit("Not a valid algorithm")
 
+        csvFile = input("To which file do you want to save the results (must be a .csv file): ")
+        pngFile = input("To which file do you want to save the plot (must be a .png file): ")
+
+        if csvFile == "" or pngFile == "":
+            sys.exit("Ivalid input")
+
+        csvFile = os.path.join("Results", csvFile)
+        pngFile = os.path.join("Results", pngFile)
+
         #Run algorithm
         print("Running algorithm...")
         bestScore = 0
@@ -149,7 +172,7 @@ def main():
                 bestScore = newBestScore
                 bestPaths = localPathsSelected
             for i in range(100):
-                localPathsSelected, newBestScore = HillClimber(graph, pathsSelected, bestPaths, bestScore)
+                localPathsSelected, newBestScore = HillClimber(graph, pathsSelected, csvFile, bestPaths, bestScore)
                 if newBestScore > bestScore:
                     bestScore = newBestScore
                     bestPaths = localPathsSelected
@@ -157,7 +180,7 @@ def main():
         print("paths: ", bestPaths)
         print("bestScore: ", bestScore)
         drawTraject(graph, pathsSelected)
-        makeGraph("HillClimberScore.csv", "hillclimber_plot.png")
+        makeGraph(csvFile, pngFile)
 
     # Simulated Annealing.
     elif (int(algorithm) == 4):
@@ -183,6 +206,15 @@ def main():
         else:
             sys.exit("Not a valid algorithm")
 
+        csvFile = input("To which file do you want to save the results (must be a .csv file): ")
+        pngFile = input("To which file do you want to save the plot (must be a .png file): ")
+
+        if csvFile == "" or pngFile == "":
+            sys.exit("Ivalid input")
+
+        csvFile = os.path.join("Results", csvFile)
+        pngFile = os.path.join("Results", pngFile)
+
         #Run algorithm
         print("Running algorithm...")
         bestScore = 0
@@ -201,7 +233,7 @@ def main():
         print("number of paths: ", len(bestPaths))
         print("paths: ", bestPaths)
         print("bestScore: ", bestScore)
-        makeGraph(os.path.join("Results", "AnnealingScore.csv"), os.path.join("Results","annealing_plot.png"))
+        makeGraph(csvFile, pngFile)
 
     #Errormelding
     else:

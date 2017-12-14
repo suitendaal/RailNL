@@ -3,7 +3,6 @@ def algoritm3Function(graph, start, end):
     bestPath = []
     score = 0
     for path in graph.allRoutes:
-
         if path[0][0] == start and path[0][-1] == end:
             criticalPathCounter = 0
             for i in range(len(path[0]) - 1):
