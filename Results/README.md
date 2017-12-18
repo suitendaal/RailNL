@@ -26,7 +26,7 @@ Also, we used pruning with the depthfirst algorithm. This made the function a lo
 # Experiment results
 
 ![alt text](https://github.com/suitendaal/RailNL/blob/master/Results/results.png)
-The results can be found in Scores_RailNL.csv
+The results can be found in Scores_RailNL.xlsx
 
 # Best combination of trajectories in our experimentations
 [[['Alkmaar', 'Hoorn', 'Zaandam', 'Beverwijk', 'Haarlem', 'Amsterdam Sloterdijk', 'Amsterdam Centraal', 'Amsterdam Amstel'], 116], [['Den Haag Centraal', 'Gouda', 'Rotterdam Alexander', 'Rotterdam Centraal', 'Dordrecht'], 53], [['Den Helder', 'Alkmaar', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk', 'Haarlem', 'Heemstede-Aerdenhout', 'Leiden Centraal'], 93], [['Gouda', 'Alphen a/d Rijn', 'Leiden Centraal', 'Den Haag Centraal', 'Delft', 'Schiedam Centrum', 'Rotterdam Centraal'], 70]]
