@@ -50,7 +50,7 @@ def main():
         graph.load_data(stationsCsvFile, connectiesCsvFile)
     else:
         sys.exit("Not a valid input")
-    
+
     print("For Depth first algorithm, type: 1")
     print("For Greedy algorithm, type: 2")
     print("For the Hillclimber, type: 3")
