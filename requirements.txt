@@ -1,10 +1,11 @@
-matplotlib
-networkx
+# requirements for running the programm.
+# usage: pip install -r requirements.txt
+
 matplotlib==2.1.0
-os 16.1
-* **sys 29.1**
-* **csv 14.1**
-* **random 9.6**
-* **networkx 2.0**
-* **re 6.2**
-* **numpy 1.14.1**
+os==16.1
+sys==29.1
+csv==14.1
+random==9.6
+networkx==2.0
+re==6.2
+numpy==1.14.1

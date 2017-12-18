@@ -1,3 +1,4 @@
-# exclude every pyc
+# exclude every pyc and csv file
 __pycache__\
 *.pyc
+*.csv
