@@ -17,10 +17,10 @@ def Greedy(graph, station, maxTime, allConnections, route=[], time=0):
     for destination in destinations:
 
         # Ensure connection is not passed already.
-        goOn = False
+        goOn = True
         for connection in allConnections:
             if [station, destination] == connection[0] or [destination, station] == connection[0]:
-                goOn = True
+                goOn = False
                 break
         if goOn:
             if destination[0] not in route:

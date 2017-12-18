@@ -40,14 +40,14 @@ def SimulatedAnnealing(graph, pathsSelected, csvFile, paths=[], bestScore=0, ind
             # Set number of times at the same score back to 0.
             iteration = 0
 
+        # If new score is lower, check if score has to be replaced.
+        elif ScoreAnnealing(iteration, i, newScore, bestScore) > random.uniform(0.7, 1):
+                bestScore = newScore
+                pathsSelected = newPathsSelected
+                iteration = 0
+
         # Write to csv.
         csvFile.write(repr(newScore) + "\n")
-
-    # If new score is lower, check if score has to be replaced.
-    elif ScoreAnnealing(iteration, i, newScore, bestScore) > random.uniform(0.7, 1):
-            bestScore = newScore
-            pathsSelected = newPathsSelected
-            iteration = 0
 
         # Replace a traject with the new random traject.
         newTraject = random.choice(pathsToChoose)
