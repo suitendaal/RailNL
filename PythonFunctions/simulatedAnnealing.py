@@ -21,7 +21,7 @@ def SimulatedAnnealing(graph, pathsSelected, csvFile, paths=[], bestScore=0, ind
     pathsToChoose = copy.copy(paths)
     # pathsToChoose.remove(newPathsSelected[index])
 
-    n = 1000
+    n = 500
     if n > len(paths):
         n = len(paths)
 
@@ -32,7 +32,7 @@ def SimulatedAnnealing(graph, pathsSelected, csvFile, paths=[], bestScore=0, ind
         i += 1
         iteratie += 1
 
-        if iteratie > 500:
+        if iteratie > 80:
             break
         # Calculate the new score and check if it is the best score.
         newScore = CalculateScore(newPathsSelected, graph.criticalConnections)
