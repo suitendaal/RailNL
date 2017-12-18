@@ -27,8 +27,8 @@ def SimulatedAnnealing(graph, pathsSelected, csvFile, paths=[], bestScore=0, ind
         i += 1
         iteration += 1
 
-        # If more than 500 times at the same score, break.
-        if iteration > 500:
+        # If more than 100 times at the same score, break.
+        if iteration > 100:
             break
 
         # Calculate the new score and check if it is the best score.

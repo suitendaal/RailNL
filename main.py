@@ -222,7 +222,7 @@ def main():
             if newBestScore > bestScore:
                 bestScore = newBestScore
                 bestPaths = localPathsSelected
-            for i in range(50):
+            for i in range(100):
                 localPathsSelected, newBestScore = SimulatedAnnealing(graph, localPathsSelected, csvFile, [], bestScore)
                 if newBestScore > bestScore:
                     bestScore = newBestScore
@@ -236,6 +236,11 @@ def main():
     else:
         sys.exit("Not a valid algorithm")
 
+    print("stations: ", stations)
+    print("critical: ", critical)
+    print("algorithm: ", algorithm)
+    if int(algorithm) != 2:
+        print("algorith best paths: ", algorithmBestPaths)
 
 if __name__ == "__main__":
     main()
