@@ -34,7 +34,7 @@ def main():
     elif stations == "N" or stations == "n":
         stationsCsvFile = os.path.join('csvFiles', "StationsNationaal.csv")
         connectiesCsvFile = os.path.join('csvFiles', "ConnectiesNationaal.csv")
-        maxDepth = 22
+        maxDepth = 20
         maxDuration = 180
     else:
         sys.exit("Not a valid input")
