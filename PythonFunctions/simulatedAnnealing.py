@@ -6,7 +6,7 @@ import os
 
 def SimulatedAnnealing(graph, pathsSelected, csvFile, paths=[], bestScore=0, index=0):
     """Function that changes a traject piece by piece and calculates the new score.
-        Saves the new score if it is the best score"""
+        Saves the new score if it is the best score."""
 
     # Stop at the final index.
     if index == len(pathsSelected):
@@ -15,47 +15,47 @@ def SimulatedAnnealing(graph, pathsSelected, csvFile, paths=[], bestScore=0, ind
     if paths == []:
         paths = graph.allRoutes
 
-    newPathsSelected = pathsSelected
+    newPathsSelected = copy.copy(pathsSelected)
 
-    # Archive
-    pathsToChoose = copy.copy(paths)
-    # pathsToChoose.remove(newPathsSelected[index])
+    # Number of times at the same score.
+    iteration = 0
 
-    n = 500
-    if n > len(paths):
-        n = len(paths)
-
-    iteratie = 0
+    # Number of times stuck in the while true loop.
     i = 0
-    # Change a traject 1000 times and check if it is the best score.
+
     while True:
         i += 1
-        iteratie += 1
+        iteration += 1
 
-        if iteratie > 80:
+        # If more than 500 times at the same score, break.
+        if iteration > 500:
             break
+
         # Calculate the new score and check if it is the best score.
         newScore = CalculateScore(newPathsSelected, graph.criticalConnections)
-        csvFile.write(repr(newScore) + "\n")
         if newScore > bestScore:
             bestScore = newScore
             pathsSelected = newPathsSelected
-            iteratie = 0
 
-        elif ScoreAnnealing(iteratie, i, newScore, bestScore) > random.uniform(0.6, 1):
-            # 0.8 kan ook vervangen worden door random tussen 0 en 1
+            # Set number of times at the same score back to 0.
+            iteration = 0
+
+        # Write to csv.
+        csvFile.write(repr(newScore) + "\n")
+
+    # If new score is lower, check if score has to be replaced.
+    elif ScoreAnnealing(iteration, i, newScore, bestScore) > random.uniform(0.7, 1):
             bestScore = newScore
             pathsSelected = newPathsSelected
-            iteratie = 0
+            iteration = 0
 
         # Replace a traject with the new random traject.
         newTraject = random.choice(pathsToChoose)
-        # pathsToChoose.remove(newTraject)
         newPathsSelected[index] = newTraject
 
     # Do it again for the next traject.
     return SimulatedAnnealing(graph, pathsSelected, csvFile, paths, bestScore, index+1)
 
-def ScoreAnnealing(iteratie, i, newScore, bestScore):
-    # Scorefunctie kan worden aangepast, bijv (newScore / bestScore)^3 * iteratie / i
-    return newScore / bestScore * iteratie / i
+def ScoreAnnealing(iteration, i, newScore, bestScore):
+    # Returns a number between 0 and 1.
+    return newScore / bestScore * iteration / i
