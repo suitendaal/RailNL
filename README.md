@@ -35,7 +35,7 @@ The program will then ask you which algorithm you want to use. There are four op
 First and Dijkstra's Algorithm. The algorithms Simulated Annealing and Hillclimber can be run with either a combination of the best
 scored trajects or a combination from Sven's algorithm. The depth first algorithm can be run with a combination of the best scored trajects or with Dijkstra's algorithm. Each algorithm produces a picture of the choosen paths.
 
-### Prerequisites
+### Requirements
 * **matplotlib 2.1.0**
 * **os 16.1**
 * **sys 29.1**
