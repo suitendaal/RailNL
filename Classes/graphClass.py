@@ -7,7 +7,7 @@ import re
 import os
 
 class Graph(object):
-    """Graph with station with locations, destinations and some functions"""
+    """Graph with station with locations, destinations and some functions."""
     def __init__(self):
         self.graph = {}
         self.allRoutes = []
@@ -18,14 +18,14 @@ class Graph(object):
 
 
     def load_data(self, stationsCsvFile, connectiesCsvFile, allCritical = False):
-        """Function to load stations and connections into the graph"""
+        """Function to load stations and connections into the graph."""
 
-        # File with railwaystations and coordinates
+        # File with railwaystations and coordinates.
         stationsfile = open(stationsCsvFile, 'rt')
         stations = csv.reader(stationsfile)
         for station in stations:
 
-            # Add railwaystation to allStations
+            # Add railwaystation to allStations.
             self.stationNames.append(station[0])
             if allCritical:
                 newStation = Station(station[0], float(station[1]), float(station[2]), 'Kritiek')
@@ -36,17 +36,17 @@ class Graph(object):
 
         stationsfile.close()
 
-        # File with connections between stations
+        # File with connections between stations.
         connecties = open(connectiesCsvFile, 'rt')
         directions = csv.reader(connecties)
 
-        # Add connections to the object
+        # Add connections to the object.
         for direction in directions:
 
-            # Add connection to allConnections
+            # Add connection to allConnections.
             self.allConnections.append([[direction[0], direction[1]], int(float(direction[2]))])
 
-            # Add direction to the graph
+            # Add direction to the graph.
             self.graph[direction[0]].append([direction[1], int(float(direction[2]))])
             self.graph[direction[1]].append([direction[0], int(float(direction[2]))])
 
@@ -58,16 +58,20 @@ class Graph(object):
 
         connecties.close()
 
+
     def makeAllRoutes(self, minutes):
-        """Function to make all posible routes in a timescheme"""
+        """Function to make all posible routes in a timescheme."""
         allNewRoutes = []
         for i in range(len(self.allStations)):
             for j in range(i + 1, len(self.stationNames)):
+
+                # Put all routes in a list with corresponding time.
                 allNewRoutes.extend(self.addPaths(self.stationNames[i], self.stationNames[j], minutes))
         self.allRoutes = allNewRoutes
 
+
     def addPaths(self, start, end, minutes, route=[], time=0):
-        """Function to get all routes between to stations, within 2 hours"""
+        """Function to get all routes between two stations, within 2 hours."""
 
         # Add start to route.
         route = route + [start]
@@ -98,37 +102,18 @@ class Graph(object):
         return routes
 
 
-    def ScorePaths(self, n):
-        "Function to determine the best n trajectories based on the score"
-        bestpaths = []
-        bestscores = []
-
-        # Add path, calculate score and keep track of the best score and trajectories
-        for path in self.allRoutes:
-            score = CalculateScore([path], self.criticalConnections)
-            if bestscores == [] or min(bestscores) < score:
-                if len(bestpaths) < n:
-                    bestpaths.append(path)
-                    bestscores.append(score)
-
-                else:
-                    index = bestscores.index(min(bestscores))
-                    bestpaths[index] = path
-                    bestscores[index] = score
-
-        return bestpaths, bestscores
-
-
     def ScorePathsPruning(self, n):
-        "Function to determine the best n trajectories based on the score"
+        """Function to determine the best n trajectories based on the score."""
         bestpaths = []
         bestscores = []
         connections_made = []
 
-        # Add path, calculate score and keep track of the best score and trajectories
+        # Add path, calculate score and keep track of the best score and trajectories.
         for path in self.allRoutes:
             score = CalculateScore([path], self.criticalConnections)
             if bestscores == [] or min(bestscores) < score:
+
+                # If the begin or the end of a path is already chosen in another trajectory, do not choose that path.
                 if (len(bestpaths) < n) and (([path[0], path[1]]) not in connections_made) and (([path[-2], path[-1]]) not in connections_made):
                         bestpaths.append(path)
                         bestscores.append(score)
@@ -144,11 +129,12 @@ class Graph(object):
         return bestpaths, bestscores
 
     def draw(self):
+        """Function to draw the graph"""
 
-        # Make new graph
+        # Make new graph.
         G = nx.Graph()
 
-        # Initiate dictionaries and lists for labels and colors
+        # Initiate dictionaries and lists for labels and colors.
         labels = {}
         node_labels = {}
         node_color = []

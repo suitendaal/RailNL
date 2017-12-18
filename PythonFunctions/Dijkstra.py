@@ -1,51 +1,4 @@
-# def BestBeginStationsDijkstra(graph, amountOfStations, criticalConnectionsToChoose=[], bestBeginTrajectories=[]):
-#     if amountOfStations == 0:
-#         return bestBeginTrajectories
-#
-#     if criticalConnectionsToChoose == []:
-#         criticalConnectionsToChoose = copy.copy(graph.criticalConnections)
-#
-#     bestCriticalConnections = None
-#     bestCriticalDestinations = None
-#     bestBeginStation = None
-#
-#     for station in graph.allStations:
-#         criticalConnections = 0
-#         criticalDestinations = []
-#         for destination in station.destinations:
-#             if ([station.name, destination] or [destination, station.name]) in criticalConnectionsToChoose:
-#                 criticalConnections += 1
-#                 criticalDestinations.append(destination)
-#
-#         if bestCriticalConnections == None:
-#             bestCriticalConnections = criticalConnections
-#             bestCriticalDestinations = criticalDestinations
-#             bestBeginStation = station
-#
-#         elif criticalConnections % 2 == 1:
-#             if bestCriticalConnections % 2 == 1:
-#                 if criticalConnections < bestCriticalConnections:
-#                     bestCriticalConnections = criticalConnections
-#                     bestCriticalDestinations = criticalDestinations
-#                     bestBeginStation = station
-#             else:
-#                 bestCriticalConnections = criticalConnections
-#                 bestCriticalDestinations = criticalDestinations
-#                 bestBeginStation = station
-#
-#         else:
-#             if bestCriticalConnections % 2 == 0 and criticalConnections < bestCriticalConnections:
-#                 bestCriticalConnections = criticalConnections
-#                 bestCriticalDestinations = criticalDestinations
-#                 bestBeginStation = station
-#
-#     bestBeginTrajectory = [bestBeginStation, random.choice(bestCriticalDestinations)]
-#     criticalConnectionsToChoose.remove(bestBeginTrajectory)
-#     bestBeginTrajectories.append(bestBeginTrajectory)
-#
-#     return BestBeginStationsDijkstra(graph, amountOfStations-1, criticalConnectionsToChoose, bestBeginTrajectories)
-
-def Britt(graph, station, maxTime, allConnections, route=[], time=0):
+def Dijkstra(graph, station, maxTime, allConnections, route=[], time=0):
     critical = []
     nonCritical = []
 
@@ -78,7 +31,7 @@ def Britt(graph, station, maxTime, allConnections, route=[], time=0):
                     if time + shortestTime <= maxTime:
                         shortestConnection = traject[0]
         if shortestConnection != None:
-            return Britt(graph, shortestConnection, allConnections, route, time + shortestTime)
+            return Dijstra(graph, shortestConnection, allConnections, route, time + shortestTime)
 
     if len(nonCritical) != 0:
         for traject in nonCritical:
@@ -88,7 +41,7 @@ def Britt(graph, station, maxTime, allConnections, route=[], time=0):
                     if time + shortestTime <= maxTime:
                         shortestConnection = traject[0]
         if shortestConnection != None:
-            return Britt(graph, shortestConnection, allConnections, route, time + shortestTime)
+            return Dijkstra(graph, shortestConnection, allConnections, route, time + shortestTime)
 
     return route, time
 
@@ -157,7 +110,7 @@ def bestBeginStation(allConnections, allStations):
     return bestBeginStation.name
 
 
-def algorithmBritt(graph, maxDepth, maxTime):
+def algorithmDijkstra(graph, maxDepth, maxTime):
     allConnections = copy.copy(graph.allConnections)
     allStations = copy.copy(graph.allStations)
 
@@ -165,7 +118,7 @@ def algorithmBritt(graph, maxDepth, maxTime):
     for i in range(maxDepth):
         beginStation = bestBeginStation(allConnections, allStations)
         # Je moet een lege lijst meegeven anders doet hij het niet.
-        route, time = Britt(graph, beginStation, maxTime, allConnections, [])
+        route, time = Dijstra(graph, beginStation, maxTime, allConnections, [])
         connectionsToRemove = []
         for i in range(len(route) - 1):
             for connection in allConnections:

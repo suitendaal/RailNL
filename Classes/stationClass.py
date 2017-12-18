@@ -5,6 +5,8 @@ class Station(object):
         self.longitude = aLongitude
         self.latitude = aLatitude
         self.destinations = []
+
+        # Determine if a station is critical.
         if critically == "Kritiek":
             self.isCritical = True
         else:
