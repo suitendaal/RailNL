@@ -4,7 +4,7 @@ import csv
 import re
 import os
 
-def drawTraject(graph, trajecten):
+def drawTraject(graph, trajecten, figName):
     # Make new graph
     G = nx.Graph()
 
@@ -57,4 +57,4 @@ def drawTraject(graph, trajecten):
     # plt.figure(1, figsize = (10,10))
     nx.draw(G, pos, node_color=node_color, edge_color = edge_color, node_size=70)
     nx.draw_networkx_labels(G, pos_higher, node_labels)
-    plt.savefig(os.path.join('results', "plot_traject.png"))
+    plt.savefig(os.path.join('Results', figName))

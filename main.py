@@ -12,8 +12,8 @@ from PythonFunctions.DepthFirst import depthFirst
 from PythonFunctions.hillclimber import HillClimber
 from PythonFunctions.simulatedAnnealing import SimulatedAnnealing
 
-from PlotFunctions.draw_traject import drawTraject
-from PlotFunctions.make_graph import makeGraph
+from PlotFunctions.drawTraject import drawTraject
+from PlotFunctions.makeGraph import makeGraph
 
 
 def main():
@@ -79,14 +79,14 @@ def main():
         elif (int(algorithmBestPaths) == 2):
             print("Choosing routes...")
             bestPaths, bestScores = graph.ScorePathsPruning(maxDepth)
-
         # Error for invalid input.
         else:
             sys.exit("Not a valid algorithm")
 
         csvFileName = input("To which file do you want to save the results (must be a .csv file): ")
+        figFileName = input("To which file do you want to save the plot (must be a .png file): ")
 
-        #Run algorithm
+        # Run algorithm
         print("Running algorithm...")
         csvFile = open(os.path.join("Results", csvFileName), 'w')
 
@@ -101,20 +101,25 @@ def main():
                 bestScore = sc
                 bestPaths = tr
 
+        # Print the outcome of the algorithm
         print("number of trajectories: ", len(bestPaths))
         print("beste score: ", bestScore)
         print("beste trajecten: ", bestPaths)
-        drawTraject(graph, tr)
+        drawTraject(graph, tr, os.path.join("Results", figFileName))
 
     # Greedy algorithm.
     elif (int(algorithm) == 2):
+
+        csvFileName = input("To which file do you want to save the results (must be a .csv file): ")
+        figFileName = input("To which file do you want to save the plot (must be a .png file): ")
+
+        csvFile = open(os.path.join("Results", csvFileName), 'w')
 
         # Run algorithm.
         print("Running algorithm...")
         bestScore = None
         bestPaths = None
-        csvFileName = input("To which file do you want to save the results (must be a .csv file): ")
-        csvFile = open(os.path.join("Results", csvFileName), 'w')
+
         for i in range(maxDepth):
             newBestPaths = algorithmGreedy(graph, i+1, maxDuration)
             newBestScore = CalculateScore(newBestPaths, graph.criticalConnections)
@@ -126,7 +131,7 @@ def main():
         print("number of paths: ", len(bestPaths))
         print("best paths: ", bestPaths)
         print("best score: ", bestScore)
-        drawTraject(graph, bestPaths)
+        drawTraject(graph, bestPaths, os.path.join("Results", figFileName))
 
     # Hillclimber Algorithm.
     elif (int(algorithm) == 3):
@@ -144,17 +149,19 @@ def main():
         # Bestscore algorithm.
         elif (int(algorithmBestPaths) == 2):
             print("Choosing routes...")
-            bestPaths, bestScores = graph.ScorePaths(5 * maxDepth)
+            bestPaths, bestScores = graph.ScorePathsPruning(5 * maxDepth)
             pathsSelected = random.sample(bestPaths, maxDepth)
 
-        #Errormelding
+        # Error
         else:
             sys.exit("Not a valid algorithm")
 
         csvFileName = input("To which file do you want to save the results (must be a .csv file): ")
+        figFileName = input("To which file do you want to save the plot of the trajects (must be a .png file): ")
+
         csvFile = open(os.path.join("Results", csvFileName), 'w')
 
-        #Run algorithm
+        # Run algorithm
         print("Running algorithm...")
         bestScore = 0
         for j in range(maxDepth):
@@ -171,8 +178,7 @@ def main():
         print("number of paths: ", len(bestPaths))
         print("paths: ", bestPaths)
         print("bestScore: ", bestScore)
-        drawTraject(graph, bestPaths)
-        # makeGraph("HillClimberScore.csv", "hillclimber_plot.png")
+        drawTraject(graph, bestPaths, figFileName)
 
     # Simulated Annealing.
     elif (int(algorithm) == 4):
@@ -191,7 +197,7 @@ def main():
         # Bestscore algorithm to get paths.
         elif (int(algorithmBestPaths) == 2):
             print("Choosing routes...")
-            bestPaths, bestScores = graph.ScorePaths(5 * maxDepth)
+            bestPaths, bestScores = graph.ScorePathsPruning(5 * maxDepth)
             pathsSelected = random.sample(bestPaths, maxDepth)
 
         # Error
@@ -199,11 +205,15 @@ def main():
             sys.exit("Not a valid algorithm")
 
         csvFileName = input("To which file do you want to save the results (must be a .csv file): ")
+        figFileName = input("To which file do you want to save the plot of the trajects (must be a .png file): ")
+
         csvFile = open(os.path.join("Results", csvFileName), 'w')
 
-        #Run algorithm
+        # Run algorithm
         print("Running algorithm...")
         bestScore = 0
+
+        # Try for 0 till maxDepth number of trajectories
         for j in range(maxDepth):
             localPathsSelected = pathsSelected[0:j]
             newBestScore = CalculateScore(localPathsSelected, graph.criticalConnections)
@@ -215,13 +225,12 @@ def main():
                 if newBestScore > bestScore:
                     bestScore = newBestScore
                     bestPaths = localPathsSelected
-        drawTraject(graph, bestPaths)
+        drawTraject(graph, bestPaths, os.path.join("Results", figFileName))
         print("number of paths: ", len(bestPaths))
         print("paths: ", bestPaths)
         print("bestScore: ", bestScore)
-        #makeGraph(os.path.join("Results", "AnnealingScore.csv"), os.path.join("Results","annealing_plot.png"))
 
-    #Errormelding
+    # Error
     else:
         sys.exit("Not a valid algorithm")
 
