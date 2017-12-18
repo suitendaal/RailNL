@@ -67,4 +67,4 @@ def drawTraject(graph, trajecten, figName):
     fig,ax = plt.subplots(1, figsize = (10,10))
     nx.draw(G, pos, node_color=node_color, edge_color = edge_color, node_size=70)
     nx.draw_networkx_labels(G, pos_higher, node_labels)
-    plt.savefig(os.path.join('Results', figName))
+    plt.savefig(figName)
