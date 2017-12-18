@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-def makeGraph():
+def main():
 
     file_name = input("Please enter the file you want to plot: ")
     fig_name = input("Please enter to which png file you want to save you plot: ")
@@ -20,3 +20,6 @@ def makeGraph():
     ax.set_xlabel('Iterations')
     plt.savefig(os.path.join('Results', fig_name))
     plt.show()
+
+if __name__ == '__main__':
+    main()
