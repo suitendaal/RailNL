@@ -220,7 +220,7 @@ def main():
             if newBestScore > bestScore:
                 bestScore = newBestScore
                 bestPaths = localPathsSelected
-            for i in range(50):
+            for i in range(100):
                 localPathsSelected, newBestScore = SimulatedAnnealing(graph, localPathsSelected, csvFile, [], bestScore)
                 if newBestScore > bestScore:
                     bestScore = newBestScore
