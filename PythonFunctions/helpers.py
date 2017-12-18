@@ -2,7 +2,7 @@ import copy
 import os
 
 def CalculateScore(trajectories, criticalConnections):
-    """Function to compute the score"""
+    """Function to compute the score."""
 
     # Keep track of number of minutes, trains and critical connections.
     minutes = 0

@@ -27,7 +27,7 @@ We calculated the statespace equal to 5 \* 10\^19. This number comes from 2223 (
 
 For the second case the lower bound is -400.0054, based on 20 trajectories, no critical connections and so 540 minutes.
 The upper bound is 9879.9946, based on the idea that all ceritical stations are connected, the total of minutes equal to 1011 and so on 6 trains.
-We calculated the statespace equal to 5 \* 10\^19. This number comes from 2223 (the total possible trajectories choose 7). To implement these in brute force is unreal. It would take to much time, so we use some pruning. For instance, we pruned to prevent to get unnessecary overlapping trajectories.
+We calculated the statespace equal to 1.16 \* 10\^97. This number comes from 592258 (the total possible trajectories) choose 22. To implement these in brute force is unreal. It would take to much time, so we use some pruning. For instance, we pruned to prevent to get unnessecary overlapping trajectories.
 
 ## Getting Started
 The program can be run by using the command "python main.py".  The program will first ask you which part of the Netherlands to use.
