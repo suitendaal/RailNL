@@ -234,6 +234,10 @@ def main():
     else:
         sys.exit("Not a valid algorithm")
 
+    print("stations: ", stations)
+    print("critical: ", critical)
+    print("algorithm: ", algorithm)
+    print("algorith best paths: ", algorithmBestPaths)
 
 if __name__ == "__main__":
     main()
