@@ -60,7 +60,7 @@ class Graph(object):
 
 
     def makeAllRoutes(self, minutes):
-        """Function to make all posible routes in a timescheme."""
+        """Function to make all possible routes in a timescheme."""
         allNewRoutes = []
         for i in range(len(self.allStations)):
             for j in range(i + 1, len(self.stationNames)):
@@ -139,6 +139,8 @@ class Graph(object):
         node_labels = {}
         node_color = []
 
+        # Add node, make node blue if station is non critical and red if station
+        # is critical.
         for station in self.allStations:
             thisStation = self.allStations[station]
             if thisStation.isCritical == True:
@@ -147,12 +149,16 @@ class Graph(object):
                 node_color.append("b")
             G.add_node("" + thisStation.name, pos = (thisStation.latitude, thisStation.longitude))
 
+            # Add abbreviation of station name as label for node.
             name = re.split('\s|-|/', thisStation.name)
             afk = ""
             for word in name:
                 afk += word[0]
             node_labels[thisStation.name] = afk
 
+        # Add edge for every connection, make edge blue if neither of the stations
+        # is critical and red if at least one of them is critical.
+        # Add the time between the stations as a label for the edge.
         for connection in self.allConnections:
             if [connection[0][0], connection[0][1]] in self.criticalConnections or [connection[0][1], connection[0][0]] in self.criticalConnections:
                 G.add_edge("" + connection[0][0], "" + connection[0][1], color = 'r')
@@ -163,14 +169,16 @@ class Graph(object):
         edges = G.edges()
         edge_color = [G[u][v]['color'] for u,v in edges]
 
+        # Change position of node label.
         pos = nx.get_node_attributes(G,'pos')
         pos_higher = {}
-        y_off = 0.03  # offset on the y axis
+        y_off = 0.03
         x_off = 0.01
 
         for k, v in pos.items():
             pos_higher[k] = (v[0]+x_off, v[1]+y_off)
 
+        # Plot the figure and save it in Results.
         plt.figure(1, figsize = (10,10))
         nx.draw(G, pos, node_color=node_color, edge_color = edge_color, node_size=70)
         nx.draw_networkx_edge_labels(G, pos, labels)
