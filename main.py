@@ -237,7 +237,8 @@ def main():
     print("stations: ", stations)
     print("critical: ", critical)
     print("algorithm: ", algorithm)
-    print("algorith best paths: ", algorithmBestPaths)
+    if int(algorithm) != 2:
+        print("algorith best paths: ", algorithmBestPaths)
 
 if __name__ == "__main__":
     main()
