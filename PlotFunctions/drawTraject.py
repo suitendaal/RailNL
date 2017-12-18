@@ -45,10 +45,10 @@ def drawTraject(graph, trajecten, figName):
     for i in range(len(trajecten)):
         colour = colors[i]
         stations = trajecten[i][0]
-        this_station = trajecten[i][0][j]
-        next_station = trajecten[i][0][j+1]
 
         for j in range(len(stations)-1):
+            this_station = trajecten[i][0][j]
+            next_station = trajecten[i][0][j+1]
             if (""+this_station, "" + next_station) and (""+next_station, "" + this_station) not in G.edges():
                 G.add_edge(""+this_station, "" + next_station, color = colour)
 
