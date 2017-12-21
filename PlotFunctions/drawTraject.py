@@ -39,12 +39,12 @@ def drawTraject(graph, trajecten, figName):
                 node_labels[station] = afk
 
 
-    colors = ["k", "b", "g", "y", "m", "r", "#ff69b4", "#fa8072", "#00ee76", "#7d26cd", "#8b0000", "#cd96cd", "#187867", "#78186a", "#777818", "#337818", "#172131", "#c14d4d", "#376037", "#375f60"]
+    colors = ["k", "b", "g", "y", "m", "r", "#ff69b4", "#fa8072", "#00ee76", "#7d26cd", "#8b0000", "#cd96cd", "#187867", "#78186a", "#777818", "#337818", "#172131", "#c14d4d", "#376037", "#375f60", "#5d6300", "#176300"]
     # Add the edge for every connection if edge not yet added.
     # Give an edge a new color for every new traject, choose from colors.
     for i in range(len(trajecten)):
         stations = trajecten[i][0]
-
+        colour = colors[i]
         for j in range(len(stations)-1):
             this_station = trajecten[i][0][j]
             next_station = trajecten[i][0][j+1]
